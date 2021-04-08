@@ -7,3 +7,27 @@
 
 
 ## 第１章　Rの基本  
+
+~~~
+# 役に立つデータセット
+install.packages("gcookbook")
+~~~
+
+~~~
+# パッケージのアップデイト
+update.packages()
+update.packages(ask=FALSE) #一括
+~~~
+
+* データのサマリー
+~~~
+# 単変量
+morley %>%
+  filter(Expt==1) %>%
+  summary()
+
+# 共変量
+morley %>%
+  filter(Expt==1) %>%
+  pairs()
+~~~
