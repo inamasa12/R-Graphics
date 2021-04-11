@@ -77,8 +77,106 @@ morley %>%
 baseグラフィックスとの比較  
 基本的にggplotはいかなるグラフでも統一的な処理が可能  
 
+* 散布図  
+~~~
+# base
+plot(mtcars$wt, mtcars$mpg)
 
+# ggplot
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point()
+~~~
+
+* 折れ線グラフ  
+~~~
+# base
+plot(pressure$temperature, pressure$pressure, type="l")
+points(pressure$temperature, pressure$pressure)
+lines(pressure$temperature, pressure$pressure/2, col="red")
+points(pressure$temperature, pressure$pressure/2, col="red")
+
+# ggplot
+ggplot(pressure) +
+  geom_line(aes(temperature, pressure)) +
+  geom_point(aes(temperature, pressure)) +
+  geom_line(aes(temperature, pressure/2), colour="red") +
+  geom_point(aes(temperature, pressure/2), colour="red")
+~~~
+
+* 棒グラフ  
+~~~
+# base
+# 生値
+barplot(BOD$demand, names.arg=BOD$Time)
+# 集計値
+barplot(table(mtcars$cyl))
+
+# ggplot
+# 生値  
+# 連続値
+ggplot(BOD, aes(Time, demand)) +
+  geom_col()
+# 離散値
+ggplot(BOD, aes(factor(Time), demand)) +
+  geom_col()
+# 集計値
+# 連続値
+ggplot(mtcars, aes(cyl)) +
+  geom_bar()
+# 離散値
+ggplot(mtcars, aes(factor(cyl))) +
+  geom_bar()
+aes(temperature, pressure/2), colour="red") +
+  geom_point(aes(temperature, pressure/2), colour="red")
+~~~
+
+* ヒストグラム  
+~~~
+# base
+# ビンの数を指定
+hist(mtcars$mpg, breaks=10)
+
+# ggplot
+# ビンの幅を指定
+ggplot(mtcars, aes(mpg)) +
+  geom_histogram(binwidth=4)
+~~~
+
+* 箱ひげ図  
+~~~
+# base
+plot(ToothGrowth$supp, ToothGrowth$len)
+boxplot(len~supp+dose, data=ToothGrowth)
+
+# ggplot
+ggplot(ToothGrowth, aes(interaction(supp, dose), len)) +
+  geom_boxplot()
+~~~
+
+* 関数曲線  
+~~~
+# 関数定義
+myfun1 <- function(xvar) {
+  1 / (1 + exp(- xvar + 10))
+}
+myfun2 <- function(xvar) {
+  1 - 1 / (1 + exp(- xvar + 10))
+}
+
+# base
+curve(myfun1(x), from=0, to=20)
+curve(1-myfun1(x), add=TRUE, col="red")
+
+# ggplot
+ggplot(tibble(x=c(0, 20)), aes(x)) +
+  stat_function(fun=myfun1, geom="line") +
+  stat_function(fun=myfun2, geom="line", color="red")
+~~~
+
+* Tips  
 search(): ロード済みのパッケージを確認  
+interaction(col1, col2): 合成ファクターの生成  
+
 
 
 
