@@ -192,6 +192,7 @@ ggplot(pg_mean, aes(group, weight)) +
 * グループ化  
 ~~~
 # 塗りつぶしでグループ化、塗りつぶしの色設定変更
+# positionはデフォルトが積み上げ、"dodge"はグラフを重ねない
 ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
   geom_col(position="dodge", colour="black") +
   scale_fill_brewer(palette="Pastel1")
