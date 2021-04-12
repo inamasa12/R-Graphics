@@ -169,7 +169,7 @@ curve(1-myfun1(x), add=TRUE, col="red")
 
 # ggplot
 ggplot(tibble(x=c(0, 20)), aes(x)) +
-  stat_function(fun=myfun1, geom="line") +
+  stat_function(fun=myfun1, geom="line") + 
   stat_function(fun=myfun2, geom="line", color="red")
 ~~~
 
@@ -178,5 +178,26 @@ search(): ロード済みのパッケージを確認
 interaction(col1, col2): 合成ファクターの生成  
 
 
+## 第３章　棒グラフ    
 
+ある区分に対応する値を示す  
+
+* 基本  
+~~~
+# fill: 塗りつぶしの色、colour: 枠線の色
+ggplot(pg_mean, aes(group, weight)) +
+  geom_col(fill="lightblue", colour="black")
+~~~
+
+* グループ化  
+~~~
+# 塗りつぶしでグループ化、塗りつぶしの色設定変更
+ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
+  geom_col(position="dodge", colour="black") +
+  scale_fill_brewer(palette="Pastel1")
+~~~
+
+
+* Tips  
+RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
 
