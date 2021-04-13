@@ -198,7 +198,23 @@ ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
   scale_fill_brewer(palette="Pastel1")
 ~~~
 
+* 要約量  
+~~~
+# geom_barを用いる
+ggplot(diamonds, aes(cut)) +
+  geom_bar()
+~~~
+
+* 色付きのグラフ  
+~~~
+# reorderでファクターの順序を変更、塗りつぶしの色設定を個別に変更
+ggplot(upc, aes(reorder(Abb, Change), Change)) +
+  geom_col(aes(fill=Region), colour="black") +
+  scale_fill_manual(values=c("#669933", "#FFCC66")) +
+  xlab("State")
+~~~
 
 * Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
-
+top_n(n, col): 上位n個のデータを抽出  
+reorder(col, col2): col1の順序をcol2の順序に設定
