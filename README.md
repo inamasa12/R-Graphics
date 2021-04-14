@@ -191,7 +191,7 @@ ggplot(pg_mean, aes(group, weight)) +
 
 * グループ化  
 ~~~
-# 塗りつぶしでグループ化、塗りつぶしの色設定変更
+# 塗りつぶしでグループ化、塗りつぶしの色設定変更（brwerのパレットを使用）
 # positionはデフォルトが積み上げ、"dodge"はグラフを重ねない
 ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
   geom_col(position="dodge", colour="black") +
@@ -213,6 +213,28 @@ ggplot(upc, aes(reorder(Abb, Change), Change)) +
   scale_fill_manual(values=c("#669933", "#FFCC66")) +
   xlab("State")
 ~~~
+
+* グラフの色分け  
+~~~
+# sizeは枠線の幅、guide=Fで凡例を非表示
+ggplot(climate_sub, aes(Year, Anomaly10y)) +
+  geom_col(aes(fill=pos), colour="black", size=0.25) +
+  scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F)
+~~~
+
+* 棒の幅  
+~~~
+# width=0.9がデフォルト、position_dodge(x)で棒グラフ中心間の幅を設定
+ggplot(cabbage_exp, aes(Date, Weight)) +
+  geom_col(aes(fill=Cultivar), width=0.5, position=position_dodge(0.7))
+~~~
+
+
+
+
+
+
+
 
 * Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
