@@ -229,6 +229,30 @@ ggplot(cabbage_exp, aes(Date, Weight)) +
   geom_col(aes(fill=Cultivar), width=0.5, position=position_dodge(0.7))
 ~~~
 
+* 積み上げ棒グラフ  
+~~~
+# デフォルト
+ggplot(cabbage_exp, aes(Date, Weight)) +
+  geom_col(aes(fill=Cultivar))
+
+# 逆順
+ggplot(cabbage_exp, aes(Date, Weight)) +
+  geom_col(aes(fill=Cultivar), position=position_stack(reverse=T), colour="black") +
+  scale_fill_brewer(palette="Pastel1") +
+  guides(fill=guide_legend(reverse=T))
+~~~
+
+* 100%積み上げ棒グラフ  
+~~~
+# スケールの設定でラベルを
+パーセント表示
+ggplot(cabbage_exp, aes(Date, Weight)) +
+  geom_col(aes(fill=Cultivar), position="fill", colour="black") +
+  scale_y_continuous(labels=scales::percent) +
+  scale_fill_brewer(palette="Pastel1")
+~~~
+
+
 
 
 
