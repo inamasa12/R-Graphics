@@ -252,7 +252,34 @@ ggplot(cabbage_exp, aes(Date, Weight)) +
   scale_fill_brewer(palette="Pastel1")
 ~~~
 
+* ラベル  
+~~~
+# vjustで位置の上下を微調整、ラベルを加味して表示範囲を調整
+ggplot(cabbage_exp, aes(interaction(Date, Cultivar), Weight)) +
+  geom_col() +
+  geom_text(aes(label=Weight), vjust=-0.2) +
+  ylim(0, max(cabbage_exp$Weight)*1.05)
 
+# 位置を直接指定、表示範囲は自動調整
+ggplot(cabbage_exp, aes(interaction(Date, Cultivar), Weight)) +
+  geom_col() +
+  geom_text(aes(y=Weight+0.1, label=Weight))
+
+# 要約量
+# geom_barを用い、statとlabelをcountに指定
+ggplot(mtcars, aes(factor(cyl))) +
+  geom_bar() +
+  geom_text(aes(label=..count..), stat="count", vjust=1.5, colour="white")
+
+# グループ化
+ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
+  geom_col(position="dodge") +
+  geom_text(aes(label=Weight),
+            vjust=1.5,
+            colour="white", size=4, 
+            position=position_dodge(0.9))
+
+~~~
 
 
 
@@ -264,3 +291,5 @@ ggplot(cabbage_exp, aes(Date, Weight)) +
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
 top_n(n, col): 上位n個のデータを抽出  
 reorder(col, col2): col1の順序をcol2の順序に設定
+rev(col):
+
