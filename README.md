@@ -244,8 +244,7 @@ ggplot(cabbage_exp, aes(Date, Weight)) +
 
 * 100%積み上げ棒グラフ  
 ~~~
-# スケールの設定でラベルを
-パーセント表示
+# スケールの設定でラベルをパーセント表示
 ggplot(cabbage_exp, aes(Date, Weight)) +
   geom_col(aes(fill=Cultivar), position="fill", colour="black") +
   scale_y_continuous(labels=scales::percent) +
@@ -272,6 +271,7 @@ ggplot(mtcars, aes(factor(cyl))) +
   geom_text(aes(label=..count..), stat="count", vjust=1.5, colour="white")
 
 # グループ化
+# geom_textではpositionの簡易表示"dodge"は使用できない
 ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
   geom_col(position="dodge") +
   geom_text(aes(label=Weight),
@@ -279,6 +279,23 @@ ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
             colour="white", size=4, 
             position=position_dodge(0.9))
 
+# 積み上げ棒グラフ
+
+# 表示順序にデータを並べる
+ce <- cabbage_exp %>%
+  arrange(Date, rev(Cultivar))
+
+# ラベルの表示位置を定める列を作成
+ce <- ce %>%
+  group_by(Date) %>%
+  mutate(label_y=cumsum(Weight)-0.5*Weight)
+
+# ラベルの表示形式を追加的に設定
+ggplot(ce, aes(Date, Weight, fill=Cultivar)) +
+  geom_col(colour="black") +
+  geom_text(aes(label=paste(format(Weight, nsmall=2), "kg"), y=label_y), 
+            size=4) +
+  scale_fill_brewer(palette="Pastel1")
 ~~~
 
 
@@ -291,5 +308,9 @@ ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
 top_n(n, col): 上位n個のデータを抽出  
 reorder(col, col2): col1の順序をcol2の順序に設定
-rev(col):
+rev(col): ベクトルを逆順にする  
+desc(col): 符号を反転させる  
+format(x, nsmall=2): 少数第二位まで表示  
+
+
 
