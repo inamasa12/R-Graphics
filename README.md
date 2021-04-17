@@ -298,7 +298,33 @@ ggplot(ce, aes(Date, Weight, fill=Cultivar)) +
   scale_fill_brewer(palette="Pastel1")
 ~~~
 
+* ドットプロット  
+~~~
+# テーマの設定
+# x軸の目盛り線を消す、y軸目盛りの書式を設定
+ggplot(tophit, aes(avg, reorder(name, avg))) +
+  geom_point(size=3) +
+  theme_bw() +
+  theme(
+    panel.grid.major.x=element_blank(),
+    panel.grid.minor.x=element_blank(),
+    panel.grid.major.y=element_line(colour="grey60", linetype="dashed")
+  ) 
 
+# 軸の入替、目盛りラベルの書式設定
+ggplot(tophit, aes(avg, reorder(name, avg))) +
+  geom_point(size=3) +
+  theme_bw() +
+  theme(
+    panel.grid.major.x=element_blank(),
+    panel.grid.minor.x=element_blank(),
+    panel.grid.major.y=element_line(colour="grey60", linetype="dashed"),
+    axis.text.x = element_text(angle=60, hjust=1)
+  ) +
+  coord_flip()
+
+
+~~~
 
 
 
@@ -307,7 +333,7 @@ ggplot(ce, aes(Date, Weight, fill=Cultivar)) +
 * Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
 top_n(n, col): 上位n個のデータを抽出  
-reorder(col, col2): col1の順序をcol2の順序に設定
+reorder(col, col2): col1をファクターに変換し、col2の順序で整列
 rev(col): ベクトルを逆順にする  
 desc(col): 符号を反転させる  
 format(x, nsmall=2): 少数第二位まで表示  
