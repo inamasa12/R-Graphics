@@ -323,6 +323,27 @@ ggplot(tophit, aes(avg, reorder(name, avg))) +
   ) +
   coord_flip()
 
+# グループ分け１
+# 先に指定順のファクター変数を用意
+# geom_segmentでデータから線分を引く
+# 色の範囲を指定
+# 目盛りと凡例の書式設定
+tophit %>%
+  mutate(nameorder=tophit$name[order(tophit$lg, tophit$avg)]) %>%
+  mutate(name2=factor(name, levels=nameorder)) %>%
+  select(name2, lg, avg, nameorder) %>%
+  ggplot(aes(avg, name2)) +
+    geom_point(aes(colour=lg), size=3) +
+    geom_segment(aes(yend=name2), xend=0, colour="grey50") +
+    scale_colour_brewer(palette="Set1", limits=c("NL", "AL")) +
+    theme_bw() +
+    theme(
+      panel.grid.major.y=element_blank(),
+      legend.position=c(1, 0.5),
+      legend.justification=c(1, 0.5)
+    )
+
+# グループ分け２
 
 ~~~
 
