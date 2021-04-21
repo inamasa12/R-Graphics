@@ -326,7 +326,7 @@ ggplot(tophit, aes(avg, reorder(name, avg))) +
 # グループ分け１
 # 先に指定順のファクター変数を用意
 # geom_segmentでデータから線分を引く
-# 色の範囲を指定
+# データの表示順に合わせてlimitsで色の割当順を設定
 # 目盛りと凡例の書式設定
 tophit %>%
   mutate(nameorder=tophit$name[order(tophit$lg, tophit$avg)]) %>%
