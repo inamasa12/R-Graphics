@@ -344,12 +344,17 @@ tophit %>%
     )
 
 # グループ分け２
-
+# 凡例なし、guide=FALSE
+# ファセット毎にスケールを変える（scales）
+# ファセット毎に大きさを変える（space）
+ggplot(tophit, aes(avg, reorder(name, avg))) +
+  geom_point(size=3, aes(colour=lg)) +
+  geom_segment(aes(yend=name), xend=0, colour="grey50") +
+  scale_colour_brewer(palette="Set1", guide=FALSE, limits=c("NL", "AL")) +
+  facet_grid(lg~., scales="free_y", space="free_y") +
+  theme_bw() +
+  theme(panel.grid.major.y=element_blank())
 ~~~
-
-
-
-
 
 * Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
@@ -360,4 +365,21 @@ desc(col): 符号を反転させる
 format(x, nsmall=2): 少数第二位まで表示  
 
 
+## 第４章　折れ線グラフ    
+
+連続変数もしくはカテゴリ変数に対して、連続値がどのように推移するかを表示  
+
+* 基本  
+~~~
+# 連続値
+ggplot(BOD, aes(Time, demand)) +
+  geom_line()
+
+# 離散値
+# 変数がファクターの場合は全てが同じグループであることを明示する必要がある
+ggplot(BOD1, aes(Time, demand, group=1)) +
+  geom_line()
+
+
+~~~
 
