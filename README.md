@@ -372,14 +372,33 @@ format(x, nsmall=2): 少数第二位まで表示
 * 基本  
 ~~~
 # 連続値
+# 縦軸の範囲を設定
 ggplot(BOD, aes(Time, demand)) +
-  geom_line()
+  geom_line() +
+  ylim(0, max(BOD$demand))
 
 # 離散値
-# 変数がファクターの場合は全てが同じグループであることを明示する必要がある
+# 変数がファクターの場合は各値のグループを明示的に設定する必要がある
+# 　⇒ 設定がない場合、全ての値が独立した値と見做され、折れ線グラフでは表示できなくなる
+# 縦軸の範囲を設定
 ggplot(BOD1, aes(Time, demand, group=1)) +
-  geom_line()
-
-
+  geom_line() +
+  expand_limits(y=0)
 ~~~
+
+* 点線グラフ  
+~~~
+# geom_pointを重ねる、縦軸を対数目盛に変換
+ggplot(worldpop, aes(Year, Population)) +
+  geom_line() +
+  geom_point() +
+  scale_y_log10()
+~~~
+
+
+
+* Tips  
+as.integer(as.character(factor)): ファクター変数を表示の値で数値に変換する場合は、一旦文字列に変換する必要がある  
+　⇒ 直接数値に変換するとファクターのレベルに割り当てられた数値に変換されるため  
+ 
 
