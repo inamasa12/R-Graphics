@@ -393,12 +393,35 @@ ggplot(worldpop, aes(Year, Population)) +
   geom_line() +
   geom_point() +
   scale_y_log10()
+
+# 点の重なりを無くす、shapeは点の形状を指定
+ggplot(tg, aes(dose, length, shape=supp)) +
+  geom_line(position=position_dodge(0.2)) +
+  geom_point(size=4, position=position_dodge(0.2))
+
+# fillは点の塗りつぶしを指定
+ggplot(tg, aes(dose, length, fill=supp)) +
+  geom_line() +
+  geom_point(size=4, shape=21)
 ~~~
 
+* 線の形状  
+~~~
+# linetypeで指定
+ggplot(BOD, aes(Time, demand)) +
+  geom_line(size=1, colour="blue", linetype="dashed")
+
+# 色を指定
+ggplot(tg, aes(dose, length, colour=supp)) +
+  geom_line(size=0.5) +
+  scale_colour_brewer(palette="Set1")
+
+
+~~~
 
 
 * Tips  
 as.integer(as.character(factor)): ファクター変数を表示の値で数値に変換する場合は、一旦文字列に変換する必要がある  
 　⇒ 直接数値に変換するとファクターのレベルに割り当てられた数値に変換されるため  
- 
+group: 系列をグルーピング、指定が無ければエステティック属性で使用した列が自動的に割り当てられる 
 
