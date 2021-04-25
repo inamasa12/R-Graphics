@@ -399,10 +399,10 @@ ggplot(tg, aes(dose, length, shape=supp)) +
   geom_line(position=position_dodge(0.2)) +
   geom_point(size=4, position=position_dodge(0.2))
 
-# fillは点の塗りつぶしを指定
+# fillは点の塗りつぶしを指定、colourは点の外形の色を指定、fillは塗りつぶしの色を指定
 ggplot(tg, aes(dose, length, fill=supp)) +
   geom_line() +
-  geom_point(size=4, shape=21)
+  geom_point(size=4, shape=21, colour="darkred", fill="pink")
 ~~~
 
 * 線の形状  
@@ -415,13 +415,25 @@ ggplot(BOD, aes(Time, demand)) +
 ggplot(tg, aes(dose, length, colour=supp)) +
   geom_line(size=0.5) +
   scale_colour_brewer(palette="Set1")
-
-
 ~~~
+
+* 面グラフ
+~~~
+# 点同様の設定方法
+ggplot(sunspotyear, aes(Year, Sunspots)) +
+  geom_area(fill="blue", alpha=0.2, colour="black")
+
+# デフォルトは棒グラフ同様積み上げ
+ggplot(uspopage, aes(Year, Thousands, fill=AgeGroup)) +
+  geom_area(alpha=0.4, colour="black", size=0.2) +
+  scale_fill_brewer(palette="Blues")
+~~~
+
 
 
 * Tips  
 as.integer(as.character(factor)): ファクター変数を表示の値で数値に変換する場合は、一旦文字列に変換する必要がある  
 　⇒ 直接数値に変換するとファクターのレベルに割り当てられた数値に変換されるため  
-group: 系列をグルーピング、指定が無ければエステティック属性で使用した列が自動的に割り当てられる 
+group: 系列をグルーピング、指定が無ければエステティック属性で使用した列が自動的にグルーピングに使用される  
+
 
