@@ -427,9 +427,23 @@ ggplot(sunspotyear, aes(Year, Sunspots)) +
 ggplot(uspopage, aes(Year, Thousands, fill=AgeGroup)) +
   geom_area(alpha=0.4, colour="black", size=0.2) +
   scale_fill_brewer(palette="Blues")
+
+# 100%積み上げはposition="fill"（棒グラフ同様）
+ggplot(uspopage, aes(Year, Thousands, fill=AgeGroup)) +
+  geom_area(position="fill", alpha=0.4, colour="black", size=0.2) +
+  scale_fill_brewer(palette="Blues") +
+  scale_y_continuous(labels=scales::percent)
 ~~~
 
-
+* 信頼区間の表示  
+~~~
+# geom_ribbonを用いる
+ggplot(climate_mod, aes(Year, Anomaly10y)) +
+  geom_line() +
+  geom_ribbon(aes(ymin=Anomaly10y-Unc10y,
+                  ymax=Anomaly10y+Unc10y,
+                  alpha=0.2))
+~~~
 
 * Tips  
 as.integer(as.character(factor)): ファクター変数を表示の値で数値に変換する場合は、一旦文字列に変換する必要がある  
