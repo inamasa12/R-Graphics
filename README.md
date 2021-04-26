@@ -424,7 +424,7 @@ ggplot(sunspotyear, aes(Year, Sunspots)) +
   geom_area(fill="blue", alpha=0.2, colour="black")
 
 # デフォルトは棒グラフ同様積み上げ
-ggplot(uspopage, aes(Year, Thousands, fill=AgeGroup)) +
+ggplot(uspopage, aes(Year, Thousands, fill=Ageroup)) +
   geom_area(alpha=0.4, colour="black", size=0.2) +
   scale_fill_brewer(palette="Blues")
 
@@ -449,5 +449,22 @@ ggplot(climate_mod, aes(Year, Anomaly10y)) +
 as.integer(as.character(factor)): ファクター変数を表示の値で数値に変換する場合は、一旦文字列に変換する必要がある  
 　⇒ 直接数値に変換するとファクターのレベルに割り当てられた数値に変換されるため  
 group: 系列をグルーピング、指定が無ければエステティック属性で使用した列が自動的にグルーピングに使用される  
+
+
+## 第５章　散布図    
+
+* 基本  
+~~~
+ggplot(heightweight, aes(ageYear, heightIn)) +
+  geom_point(aes(shape=sex, colour=sex))
+~~~
+
+
+
+
+
+* Tips  
+グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
+
 
 
