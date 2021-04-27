@@ -456,7 +456,9 @@ group: 系列をグルーピング、指定が無ければエステティック�
 * 基本  
 ~~~
 ggplot(heightweight, aes(ageYear, heightIn)) +
-  geom_point(aes(shape=sex, colour=sex))
+  geom_point(aes(shape=sex, colour=sex)) +
+  scale_shape_manual(values=c(1, 2)) +
+  scale_colour_brewer(palette="Set1")
 ~~~
 
 
@@ -465,6 +467,6 @@ ggplot(heightweight, aes(ageYear, heightIn)) +
 
 * Tips  
 グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
-
+shape: 0～20はcolourだけ指定、21～25はfillも指定  
 
 
