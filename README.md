@@ -484,5 +484,5 @@ ggplot(heightweight, aes(ageYear, heightIn, size=weightLb)) +
 * Tips  
 グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
 shape: 0～20はcolourだけ指定、21～25はfillも指定  
-
+range: 最大値と最小値  
 
