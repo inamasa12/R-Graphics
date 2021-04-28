@@ -461,9 +461,25 @@ ggplot(heightweight, aes(ageYear, heightIn)) +
   scale_colour_brewer(palette="Set1")
 ~~~
 
+* 形と塗りつぶしで組み合わせを表現
+~~~
+# 凡例の形状していの意図は不明？
+ggplot(hw, aes(ageYear, heightIn, shape=sex, fill=weightgroup)) +
+  geom_point(size=2.5) +
+  scale_shape_manual(values=c(21, 24)) +
+  scale_fill_manual(values=c(NA, "black"),
+                    guide=guide_legend(override.aes=list(shape=21)))
+~~~
 
-
-
+* 連続変数  
+~~~
+# 色
+ggplot(heightweight, aes(ageYear, heightIn, colour=weightLb)) +
+  geom_point()
+# 大きさ
+ggplot(heightweight, aes(ageYear, heightIn, size=weightLb)) +
+  geom_point()
+~~~
 
 * Tips  
 グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
