@@ -476,9 +476,24 @@ ggplot(hw, aes(ageYear, heightIn, shape=sex, fill=weightgroup)) +
 # 色
 ggplot(heightweight, aes(ageYear, heightIn, colour=weightLb)) +
   geom_point()
-# 大きさ
+# 大きさ（点の半径）  
 ggplot(heightweight, aes(ageYear, heightIn, size=weightLb)) +
   geom_point()
+# 大きさ（点の面積）
+ggplot(heightweight, aes(ageYear, heightIn, size=weightLb)) +
+  geom_point() +
+  scale_size_area()
+# グラデーションの指定、凡例の表示
+ggplot(heightweight, aes(ageYear, heightIn, fill=weightLb)) +
+  geom_point(shape=21, size=2.5) +
+  scale_fill_gradient(low="white", high="black",
+                      breaks=seq(70, 170, by=20),
+                      guide=guide_legend())
+# 組み合わせ
+ggplot(heightweight, aes(ageYear, heightIn, colour=sex, size=weightLb)) +
+  geom_point(alpha=0.5) +
+  scale_colour_brewer(palette="Set1") +
+  scale_size_area()
 ~~~
 
 * Tips  
