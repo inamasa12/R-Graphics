@@ -496,6 +496,31 @@ ggplot(heightweight, aes(ageYear, heightIn, colour=sex, size=weightLb)) +
   scale_size_area()
 ~~~
 
+* オーバープロット  
+多くの点が重なるケース  
+~~~
+# 透明度を上げる
+diamonds_sp +
+  geom_point(alpha=0.01)
+
+# 色で分布を表現する、グラデーションのメリハリを付ける
+diamonds_sp +
+  stat_bin2d(bins=50) +
+  scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
+
+# ジッター
+cw_sp +
+  geom_point(position=position_jitter(width=.5, height=0))
+
+# 箱ひげ図
+cw_sp +
+  geom_boxplot(aes(group=Time))
+~~~
+
+
+
+
+
 * Tips  
 グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
 shape: 0～20はcolourだけ指定、21～25はfillも指定  
