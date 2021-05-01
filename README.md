@@ -451,6 +451,7 @@ as.integer(as.character(factor)): ファクター変数を表示の値で数値�
 group: 系列をグルーピング、指定が無ければエステティック属性で使用した列が自動的にグルーピングに使用される  
 
 
+
 ## 第５章　散布図    
 
 * 基本  
@@ -517,6 +518,41 @@ cw_sp +
   geom_boxplot(aes(group=Time))
 ~~~
 
+* 回帰線  
+
+~~~
+# 信頼区間の設定
+hw_sp +
+  geom_point() +
+  stat_smooth(method=lm, level=0.99)
+
+# 色の調整、信頼区間の無効化
+hw_sp +
+  geom_point(colour="grey60") +
+  stat_smooth(method=lm, se=F, colour="black")
+
+# デフォルトの局所加重多項式でパラメータを設定
+hw_sp +
+  geom_point() +
+  stat_smooth(method=loess, method.args=list(degree=1))
+
+# ロジスティック回帰でフィッティング
+ggplot(biopsy_mod, aes(V1, classn)) +
+  geom_point(
+    position=position_jitter(width=0.3, height=0.06),
+    size=1.5,
+    alpha=0.4,
+    shape=21
+  ) +
+  stat_smooth(method=glm, method.args=list(family=binomial))
+
+# グループ化している場合はグループ毎に曲線が引かれる
+# 外挿して曲線を両端まで表示
+ggplot(heightweight, aes(ageYear, heightIn, colour=sex)) +
+  geom_smooth(method=lm, fullrange=T)
+~~~
+
+
 
 
 
@@ -525,4 +561,5 @@ cw_sp +
 グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
 shape: 0～20はcolourだけ指定、21～25はfillも指定  
 range: 最大値と最小値  
+recode(col, x1=y1, x2=y2): col列のxをyに置き換える  
 
