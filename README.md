@@ -550,6 +550,12 @@ ggplot(biopsy_mod, aes(V1, classn)) +
 # 外挿して曲線を両端まで表示
 ggplot(heightweight, aes(ageYear, heightIn, colour=sex)) +
   geom_smooth(method=lm, fullrange=T)
+
+# 曲線のデータを作成して追加
+# 変数名を揃えておく必要がある
+hw_sp +
+  geom_line(data=lm_predicted, colour="red", size=0.8) +
+  geom_line(data=loess_predicted, colour="blue", size=0.8)
 ~~~
 
 
