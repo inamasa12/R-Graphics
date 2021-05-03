@@ -568,4 +568,6 @@ hw_sp +
 shape: 0～20はcolourだけ指定、21～25はfillも指定  
 range: 最大値と最小値  
 recode(col, x1=y1, x2=y2): col列のxをyに置き換える  
+ungroup: group_byの解除  
+
 
