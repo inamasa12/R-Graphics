@@ -558,6 +558,25 @@ hw_sp +
   geom_line(data=loess_predicted, colour="blue", size=0.8)
 ~~~
 
+* アノテーション  
+~~~
+# Rの数式表現を使用する場合
+hw_sp +
+  annotate("text", x=16.5, y=52, label="r^2==0.42", parse=T)
+~~~
+
+* ラグ（一次元の分布を軸上に表示）  
+~~~
+ggplot(faithful, aes(eruptions, waiting)) +
+  geom_point() +
+  geom_rug(position="jitter", size=0.2)
+~~~
+
+
+
+
+~~~
+
 
 
 
@@ -569,5 +588,19 @@ shape: 0～20はcolourだけ指定、21～25はfillも指定
 range: 最大値と最小値  
 recode(col, x1=y1, x2=y2): col列のxをyに置き換える  
 ungroup: group_byの解除  
+特定のデータグループに関数を適用する方法  
+~~~
+# 入れ子データの列を作成し、当該要素にmapで関数を適用する
+heightweight %>%
+  group_by(sex) %>%
+  nest() %>%
+  mutate(model=map(data, ~lm(heightIn~ageYear, data=.))) %>%
+  ungroup()
 
+#doでグループ化したデータフレーム毎に関数を適用する
+heightweight %>%
+  group_by(sex) %>%
+  do(model=lm(heightIn~ageYear, .)) %>%
+  ungroup()
+~~~
 
