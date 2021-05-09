@@ -571,6 +571,7 @@ ggplot(faithful, aes(eruptions, waiting)) +
   geom_point() +
   geom_rug(position="jitter", size=0.2)
 ~~~
+* ラベル  
 
 
 
@@ -579,7 +580,7 @@ ggplot(faithful, aes(eruptions, waiting)) +
 
 
 
-
+~~~
 
 
 * Tips  
