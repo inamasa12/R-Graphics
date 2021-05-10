@@ -571,13 +571,13 @@ ggplot(faithful, aes(eruptions, waiting)) +
   geom_point() +
   geom_rug(position="jitter", size=0.2)
 ~~~
+
 * ラベル  
-
-
-
-
 ~~~
-
+# justは点を中心にした位置調整、(0.5, 0.5)が点の中心で0が左（下）揃え、1が右（上）揃え
+countries_sp +
+  geom_text(aes(x=healthexp + 100, label=Name), size=3, hjust=0,
+            position=position_nudge(x=100, y=0))
 
 
 ~~~
