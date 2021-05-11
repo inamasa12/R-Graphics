@@ -575,11 +575,18 @@ ggplot(faithful, aes(eruptions, waiting)) +
 * ラベル  
 ~~~
 # justは点を中心にした位置調整、(0.5, 0.5)が点の中心で0が左（下）揃え、1が右（上）揃え
+# aesでプロット位置をオーバーライド、更にposition_nudgeで調整
 countries_sp +
   geom_text(aes(x=healthexp + 100, label=Name), size=3, hjust=0,
             position=position_nudge(x=100, y=0))
 
+# ラベルの重複を無くす（ggrepel）
+countries_sp +
+  geom_text_repel(aes(label=Name), size=3)
 
+# ラベルに囲みを追加（ggrepel）
+countries_sp +
+  geom_label_repel(aes(label=Name), size=3)
 ~~~
 
 
