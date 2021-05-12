@@ -589,6 +589,21 @@ countries_sp +
   geom_label_repel(aes(label=Name), size=3)
 ~~~
 
+* バルーンプロット  
+
+~~~
+# scale_size_areaで値を面積に比例させる
+# 半径の大きさに応じてラベルの位置を調整
+ggplot(hec, aes(Eye, Hair)) +
+  geom_point(aes(size=count), shape=21, colour="black", fill="cornsilk") +
+  scale_size_area(max_size=20, guide=F) +
+  geom_text(aes(label=count, y=as.numeric(as.factor(Hair))-sqrt(count)/34),
+            colour="grey60",
+            vjust=1.3,
+            size=4)
+~~~
+
+
 
 * Tips  
 グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
