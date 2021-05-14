@@ -590,7 +590,6 @@ countries_sp +
 ~~~
 
 * バルーンプロット  
-
 ~~~
 # scale_size_areaで値を面積に比例させる
 # 半径の大きさに応じてラベルの位置を調整
@@ -603,7 +602,14 @@ ggplot(hec, aes(Eye, Hair)) +
             size=4)
 ~~~
 
-
+* 散布図行列  
+~~~
+# pairsをそのまま用いるのが楽
+c2009 <- countries %>%
+  filter(Year==2009) %>%
+  select(Name, GDP, laborrate, healthexp, infmortality) %>%
+  pairs()
+~~~
 
 * Tips  
 グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
@@ -625,5 +631,16 @@ heightweight %>%
   group_by(sex) %>%
   do(model=lm(heightIn~ageYear, .)) %>%
   ungroup()
+~~~
+
+
+## 第６章　データ分布の要約  
+
+* ヒストグラム  
+~~~
+# binwidthはビンの幅、binsはビンの数、boundaryは集計の起点
+# ビンは下限値には閉じていて、上限値には開いている  
+ggplot(faithful, aes(waiting)) +
+  geom_histogram(binwidth=8, fill="white", colour="black", boundary=35)
 ~~~
 
