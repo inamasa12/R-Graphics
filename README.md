@@ -644,3 +644,15 @@ ggplot(faithful, aes(waiting)) +
   geom_histogram(binwidth=8, fill="white", colour="black", boundary=35)
 ~~~
 
+* 複数のヒストグラム  
+~~~
+# facetを用いる
+ggplot(birthwt_mod, aes(bwt)) +
+  geom_histogram(fill="white", colour="black") +
+  facet_grid(smoke~.) #上下に並べる
+  #facet_grid(~smoke) #左右に並べる
+
+# グルーピングを用いる、identityを指定しないと積み上げグラフになる
+ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
+  geom_histogram(alpha=0.4, position="identity") 
+~~~
