@@ -177,7 +177,7 @@ ggplot(tibble(x=c(0, 20)), aes(x)) +
 search(): ロード済みのパッケージを確認  
 interaction(col1, col2): 合成ファクターの生成  
 
-
+<br>
 ## 第３章　棒グラフ    
 
 ある区分に対応する値を示す  
