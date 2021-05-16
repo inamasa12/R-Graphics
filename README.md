@@ -649,6 +649,10 @@ heightweight %>%
 # ビンは下限値には閉じていて、上限値には開いている  
 ggplot(faithful, aes(waiting)) +
   geom_histogram(binwidth=8, fill="white", colour="black", boundary=35)
+ 
+ # データフレームではなくベクトルから作成
+ ggplot(NULL, aes(vec)) +
+  geom_histogram()
 ~~~
 
 * 複数のヒストグラム  
@@ -663,3 +667,20 @@ ggplot(birthwt_mod, aes(bwt)) +
 ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
   geom_histogram(alpha=0.4, position="identity") 
 ~~~
+
+* 密度曲線
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
