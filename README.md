@@ -670,7 +670,33 @@ ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
 
 * 密度曲線
 
+~~~
+# geom_density
+ggplot(faithful, aes(waiting)) +
+  geom_density(colour="red") +
+  geom_density(adjust=.25, colour="red") +
+  geom_density(adjust=2, colour="blue")
 
+# geom_line
+ggplot(faithful, aes(waiting)) +
+  geom_line(stat="density") +
+  geom_line(stat="density", adjust=.25, colour="red") +
+  geom_line(stat="density", adjust=2, colour="blue")
+
+# 色掛けはgeom_densityのみで可能
+ggplot(faithful, aes(waiting)) +
+  geom_density(alpha=.2, fill="blue") +
+  xlim(35, 105)
+  #expand_limits(x=c(35, 105))
+
+# 実際の分布と重ねる
+# 実際の分布はy=..density..で百分比に揃える必要がある
+ggplot(faithful, aes(waiting, y=..density..)) +
+  geom_histogram(fill="cornsilk", colour="grey60", size=.2) +
+  geom_density() +
+  xlim(35, 105)
+
+~~~
 
 
 
