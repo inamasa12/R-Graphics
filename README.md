@@ -660,8 +660,8 @@ ggplot(faithful, aes(waiting)) +
 # facetを用いる
 ggplot(birthwt_mod, aes(bwt)) +
   geom_histogram(fill="white", colour="black") +
-  facet_grid(smoke~.) #上下に並べる
-  #facet_grid(~smoke) #左右に並べる
+  facet_grid(smoke~.) #上下に並べる（行指定）
+  #facet_grid(~smoke) #左右に並べる（列指定）
 
 # グルーピングを用いる、identityを指定しないと積み上げグラフになる
 ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
@@ -669,6 +669,7 @@ ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
 ~~~
 
 * 密度曲線
+推定量である点に注意  
 
 ~~~
 # geom_density
@@ -696,10 +697,29 @@ ggplot(faithful, aes(waiting, y=..density..)) +
   geom_density() +
   xlim(35, 105)
 
+# 複数の密度曲線  
+# facetで複数のグラフに分けるのが見やすく最善
+ggplot(birthwt_mod, aes(bwt, ..density..)) +
+  geom_histogram(binwidth=200, fill="cornsilk", colour="grey60", size=.2) +
+  geom_density() +
+  facet_grid(smoke ~ .)
+~~~
+
+* 頻度の折れ線グラフ  
+~~~
+ggplot(faithful, aes(waiting)) +
+  geom_freqpoly(binwidth=15)
+~~~
+
+* 箱ひげ図  
+~~~
+
 ~~~
 
 
-
+* Tips  
+levels: カテゴリ変数のレベルを表示  
+recode_factor: カテゴリ変数の変換  
 
 
 
