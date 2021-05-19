@@ -713,6 +713,26 @@ ggplot(faithful, aes(waiting)) +
 
 * 箱ひげ図  
 ~~~
+# 箱の横幅、外れ値の形と大きさを指定
+ggplot(birthwt, aes(factor(race), bwt)) +
+  geom_boxplot(width=.5, outlier.size=1.5, outlier.shape=21)
+
+# 一変数のみのケース、xに1を指定
+# x軸の補助線とタイトルを消す
+ggplot(birthwt, aes(1, bwt)) +
+  geom_boxplot() +
+  scale_x_continuous(breaks=NULL) +
+  theme(axis.title.x=element_blank())
+
+# ノッチ、中央値の信頼区間を表す
+ggplot(birthwt, aes(factor(race), bwt)) +
+  geom_boxplot(notch=T)
+
+# 平均値、stat_summaryで要約量を算出して表示
+ggplot(birthwt, aes(factor(race), bwt)) +
+  geom_boxplot() +
+  stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")
+
 
 ~~~
 
