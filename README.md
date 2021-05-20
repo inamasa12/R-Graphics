@@ -732,9 +732,27 @@ ggplot(birthwt, aes(factor(race), bwt)) +
 ggplot(birthwt, aes(factor(race), bwt)) +
   geom_boxplot() +
   stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")
-
-
 ~~~
+
+* バイオリンプロット  
+~~~
+# プロット内に箱ひげ図を表示、中央値を別途表示
+# バイオリンプロットの範囲を推定値の端点まで表示（trim=F、デフォルトは最大値と最小値の範囲を表示）
+hw_p +
+  geom_violin(trim=F) +
+  geom_boxplot(width=.1, fill="black", outlier.colour=NA) +
+  stat_summary(fun.y=median, geom="point", fill="white", shape=21, size=2.5)
+
+# 分布の面積を観測数に比例させる（デフォルトは全ての面積を等しくする）
+hw_p +
+  geom_violin(scale="count")
+
+# 分布の平滑度合を設定
+hw_p +
+  geom_violin(adjust=2)
+~~~
+
+
 
 
 * Tips  
