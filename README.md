@@ -752,6 +752,40 @@ hw_p +
   geom_violin(adjust=2)
 ~~~
 
+* ドットプロット
+~~~
+
+# デフォルト
+# 下端基準、ビンはデフォルトで設定（dot-density）
+c2009_p +
+  geom_dotplot(binwidth=.25) +
+  geom_rug() +
+  scale_y_continuous(breaks=NULL) +
+  theme(axis.title.y=element_blank())
+
+# ビンを等間隔に設定
+c2009_p +
+  geom_dotplot(method="histodot", binwidth=.25) +
+  geom_rug() +
+  scale_y_continuous(breaks=NULL) +
+  theme(axis.title.y=element_blank())
+
+# 中央基準
+c2009_p +
+  geom_dotplot(binwidth=.25, stackdir="center") +
+  geom_rug() +
+  scale_y_continuous(breaks=NULL) +
+  theme(axis.title.y=element_blank())
+
+# ドットの縦位置を揃える
+c2009_p +
+  geom_dotplot(binwidth=.25, stackdir="centerwhole") +
+  geom_rug() +
+  scale_y_continuous(breaks=NULL) +
+  theme(axis.title.y=element_blank())
+
+
+~~~
 
 
 
