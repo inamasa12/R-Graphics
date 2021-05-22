@@ -754,7 +754,6 @@ hw_p +
 
 * ドットプロット
 ~~~
-
 # デフォルト
 # 下端基準、ビンはデフォルトで設定（dot-density）
 c2009_p +
@@ -784,9 +783,49 @@ c2009_p +
   scale_y_continuous(breaks=NULL) +
   theme(axis.title.y=element_blank())
 
+# 箱ひげ図と重ねて表示
+ggplot(heightweight, aes(sex, heightIn)) +
+  geom_boxplot(outlier.colour=NA, width=.4) +
+  geom_dotplot(binaxis="y", binwidth=.5, stackdir="center", fill=NA)
 
+# 箱ひげ図と並べて表示
+# 横軸の位置をずらす、横軸で使用する列を変換して使用すると改めてグルーピングを指定する必要がある
+ggplot(heightweight, aes(sex, heightIn)) +
+  geom_boxplot(aes(as.numeric(sex) + .2, group=sex), width=.25) +
+  geom_dotplot(aes(as.numeric(sex) - .2, group=sex),
+    binaxis="y", binwidth=.5, stackdir="center") +
+  scale_x_continuous(
+    breaks=1:nlevels(heightweight$sex),
+    labels=levels(heightweight$sex))
 ~~~
 
+* 密度プロット  
+~~~
+# 等高線
+faithful_p +
+  geom_point() +
+  stat_density2d()
+
+# 色付き
+faithful_p +
+  stat_density2d(aes(colour=..level..))
+
+# 塗りつぶし、色に反映させる
+faithful_p +
+  stat_density2d(aes(fill=..density..), geom="raster", contour=F)
+
+# 塗りつぶし、透過率に反映させる
+faithful_p +
+  geom_point() +
+  stat_density2d(aes(alpha=..density..), geom="tile", contour=F)
+
+#カーネル推定の範囲を調節、x軸とy軸の両方のパラメータを指定
+faithful_p +
+  stat_density2d(aes(fill=..density..), 
+                 geom="raster", 
+                 contour=F,
+                 h=c(.5, 5))
+~~~
 
 
 * Tips  
