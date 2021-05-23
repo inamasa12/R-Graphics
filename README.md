@@ -827,13 +827,44 @@ faithful_p +
                  h=c(.5, 5))
 ~~~
 
-
 * Tips  
 levels: カテゴリ変数のレベルを表示  
 recode_factor: カテゴリ変数の変換  
 
 
+## 第７章　注釈  
 
+* 基本  
+~~~
+# 書式等を指定
+p +
+  annotate("text", x=3, y=48, label="Group 1",
+           family="serif", fontface="italic", colour="darkred", size=3) +
+  annotate("text", x=4.5, y=66, label="Group 2",
+           family="serif", fontface="italic", colour="darkred", size=3)
+
+# geom_textはデータの数だけ指定のテキストを表示するので注意
+p +
+  annotate("text", x=3, y=48, label="Group 1", alpha=.1) +
+  geom_text(x=4.5, y=66, label="Group 2", alpha=.1)
+
+# テキストは指定の点を中心に設定されるので、hjust、vjustで微調整する
+p +
+  annotate("text", x=-Inf, y=Inf, label="Upper left", 
+           hjust=-.2, vjust=2) +
+  annotate("text", x=mean(range(faithful$eruptions)), y=-Inf, label="Bottom middle",
+           vjust=-0.4)
+
+
+~~~
+
+
+
+* 基本  
+~~~
+
+
+~~~
 
 
 
