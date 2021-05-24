@@ -855,7 +855,9 @@ p +
   annotate("text", x=mean(range(faithful$eruptions)), y=-Inf, label="Bottom middle",
            vjust=-0.4)
 
-
+# 数式
+p + annotate("text", x=2, y=0.3, parse=T,
+             label="'Function: '*frac(1, sqrt(2*pi))*e~{-x^2/x}")
 ~~~
 
 
@@ -866,7 +868,22 @@ p +
 
 ~~~
 
+* 基本  
+~~~
 
+
+~~~
+
+* 基本  
+~~~
+
+
+~~~
+
+
+
+* Tips  
+?plotmath: 数式表現のヘルプ  
 
 
 
