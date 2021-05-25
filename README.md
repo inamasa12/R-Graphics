@@ -834,7 +834,7 @@ recode_factor: カテゴリ変数の変換
 
 ## 第７章　注釈  
 
-* 基本  
+* 注釈  
 ~~~
 # 書式等を指定
 p +
@@ -861,17 +861,39 @@ p + annotate("text", x=2, y=0.3, parse=T,
 ~~~
 
 
+* 補助線    
+~~~
+# 軸に平行な線
+hw_plot +
+  geom_hline(yintercept=60) +
+  geom_vline(xintercept=14)
+
+# 傾きのある線
+hw_plot +
+  geom_abline(intercept=37.4, slope=1.75)
+
+# 複数の線  
+hw_plot +
+  geom_hline(
+    data=hw_means,
+    aes(yintercept=heightIn, colour=sex),
+    linetype="dashed",
+    size=1
+  )
+
+# ファクター値を切片とする場合
+pg_plot +
+  geom_vline(xintercept=which(levels(PlantGrowth$group)=="ctrl"))
+~~~
 
 * 基本  
 ~~~
-
-
-~~~
-
-* 基本  
-~~~
-
-
+# endに向かって矢印が出る
+p +
+  annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25,
+           arrow=arrow(ends="both", angle=90, length=unit(.2,"cm"))) +
+  annotate("segment", x=1850, xend=1820, y=-.8, yend=-.95,
+           colour="blue", size=2, arrow=arrow())
 ~~~
 
 * 基本  
@@ -884,6 +906,7 @@ p + annotate("text", x=2, y=0.3, parse=T,
 
 * Tips  
 ?plotmath: 数式表現のヘルプ  
+library(grid): 矢印を記載する場合に必要  
 
 
 
