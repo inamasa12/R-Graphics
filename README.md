@@ -886,14 +886,29 @@ pg_plot +
   geom_vline(xintercept=which(levels(PlantGrowth$group)=="ctrl"))
 ~~~
 
-* 基本  
+* その他  
 ~~~
-# endに向かって矢印が出る
+# 線分、endに向かって矢印が出る
 p +
   annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25,
            arrow=arrow(ends="both", angle=90, length=unit(.2,"cm"))) +
   annotate("segment", x=1850, xend=1820, y=-.8, yend=-.95,
            colour="blue", size=2, arrow=arrow())
+
+# 長方形の網掛
+p +
+  annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1,
+           alpha=.1, fill="blue")
+
+# 要素の強調１、列を準備
+ggplot(pg_mod, aes(group, y=weight, fill=hl)) +
+  geom_boxplot() +
+  scale_fill_manual(values=c("grey85", "#FFDDCC"), guide=F)
+
+# 要素の強調２、要素ごとに設定
+ggplot(PlantGrowth, aes(group, y=weight, fill=group)) +
+  geom_boxplot() +
+  scale_fill_manual(values=c("grey85", "grey85", "#FFDDCC"), guide=F)
 ~~~
 
 * 基本  
