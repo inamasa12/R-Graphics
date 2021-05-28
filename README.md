@@ -909,7 +909,36 @@ ggplot(pg_mod, aes(group, y=weight, fill=hl)) +
 ggplot(PlantGrowth, aes(group, y=weight, fill=group)) +
   geom_boxplot() +
   scale_fill_manual(values=c("grey85", "grey85", "#FFDDCC"), guide=F)
+  
+# 折れ線グラフのエラーバー
+ggplot(ce_mod, aes(Date, Weight)) +
+  geom_line(aes(group=1)) +
+  geom_point(size=4) +
+  geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se), width=.2)
+
+# 棒グラフのエラーバー
+# グループ表示する場合は棒グラフと同じ幅だけドッジする必要がある
+ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
+  geom_col(position="dodge") +
+  geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se),
+                width=.2, position=position_dodge(0.9))
 ~~~
+
+* ファセット    
+~~~
+# ファセットに対応した表示データを用意
+f_labels <- data.frame(drv=c("4", "f", "r"), label=c("4wd", "Front", "Rear"))
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  facet_grid(.~drv) +
+  geom_text(x=6, y=40, aes(label=label), data=f_labels)
+
+#annotateはデータ、対応関係を問わずに同じ値を表示
+facet_plot +
+  annotate("text", x=6, y=42, label="label text")
+~~~
+
+
 
 * 基本  
 ~~~
