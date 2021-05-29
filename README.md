@@ -939,18 +939,24 @@ facet_plot +
 ~~~
 
 
+* Tips  
+?plotmath: 数式表現のヘルプ  
+library(grid): 矢印を記載する場合に必要  
+
+
+## 第８章　軸  
+
+
+
+
+
+
 
 * 基本  
 ~~~
 
 
 ~~~
-
-
-
-* Tips  
-?plotmath: 数式表現のヘルプ  
-library(grid): 矢印を記載する場合に必要  
 
 
 
