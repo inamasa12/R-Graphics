@@ -946,7 +946,32 @@ library(grid): 矢印を記載する場合に必要
 
 ## 第８章　軸  
 
+* 基本  
+~~~
+# 軸の入替、カテゴリ変数の表示順序を逆にする
+ggplot(PlantGrowth, aes(group, weight)) +
+  geom_boxplot() +
+  coord_flip() +
+  scale_x_discrete(limits=rev(levels(PlantGrowth$group)))
+~~~
 
+
+* 範囲の変更と目盛りの非表示  
+~~~
+# 複数の変更を行う場合はscaleで同時に設定する
+pg_plot +
+  scale_y_continuous(limits=c(0, 10), breaks=NULL)
+
+# 悪い例１、最後の設定だけが有効となり範囲の変更は無視される
+pg_plot +
+  ylim(0, 10) +
+  scale_y_continuous(breaks=NULL)
+  
+# 悪い例１、最後の設定だけが有効となり目盛りの非表示は無視される
+hhpg_plot +
+  scale_y_continuous(breaks=NULL) +
+  ylim(0, 10)
+~~~
 
 
 
