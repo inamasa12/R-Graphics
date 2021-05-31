@@ -971,7 +971,39 @@ pg_plot +
 hhpg_plot +
   scale_y_continuous(breaks=NULL) +
   ylim(0, 10)
+
+# 範囲の拡大
+pg_plot +
+  expand_limits(y=0)
+
+#座標変換
+pg_plot +
+  coord_cartesian(ylim=c(5, 6.5))
 ~~~
+
+* 軸の順序  
+~~~
+# 軸の順序を反転
+し、範囲も変更
+ggplot(PlantGrowth, aes(group, weight)) +
+  geom_boxplot() +
+  scale_y_reverse(limits=c(8, 0))
+
+# ylimでも変更が可能
+ggplot(PlantGrowth, aes(group, weight)) +
+  geom_boxplot() +
+  ylim(6.5, 3.5)
+
+# カテゴリカル変数の順序指定
+pg_plot +
+  scale_x_discrete(limits=c("trt1", "ctrl", "trt2"))
+
+# カテゴリカル変数の順序反転
+pg_plot +
+  scale_x_discrete(limits=rev(levels(PlantGrowth$group)))
+
+~~~
+
 
 
 
