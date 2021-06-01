@@ -1001,8 +1001,40 @@ pg_plot +
 # カテゴリカル変数の順序反転
 pg_plot +
   scale_x_discrete(limits=rev(levels(PlantGrowth$group)))
+~~~
+
+* レイアウト  
+~~~
+# 縦横比を揃えて、同じ幅の区切りを設定
+m_plot +
+  #coord_fixed() +
+  scale_y_continuous(breaks=seq(0, 420, 30)) +
+  scale_x_continuous(breaks=seq(0, 420, 30))
+
+# 縦横比を1:2にして、同じ幅の区切りを設定
+m_plot +
+  coord_fixed(ratio=1/2) +
+  scale_y_continuous(breaks=seq(0, 420, 30)) +
+  scale_x_continuous(breaks=seq(0, 420, 30))
+~~~
+
+* 目盛り  
 
 ~~~
+# 主目盛りを指定（補助目盛は主目盛りの半分になる）
+ggplot(PlantGrowth, aes(group, weight)) +
+  geom_boxplot() +
+  scale_y_continuous(breaks=c(4, 4.25, 4.5, 5, 6, 8))
+
+# 目盛り線の消去、目盛り記号の消去、目盛りラベルの消去
+pg_plot +
+  scale_y_continuous(breaks=NULL) +
+  theme(axis.ticks=element_blank(), axis.text.y=element_blank())
+~~~
+
+
+* Tips  
+seq(f, t, b): fromからtoまでをb区切りで数列化  
 
 
 
