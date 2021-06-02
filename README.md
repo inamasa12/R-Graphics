@@ -1030,12 +1030,14 @@ ggplot(PlantGrowth, aes(group, weight)) +
 pg_plot +
   scale_y_continuous(breaks=NULL) +
   theme(axis.ticks=element_blank(), axis.text.y=element_blank())
+
 ~~~
 
 
 * Tips  
 seq(f, t, b): fromからtoまでをb区切りで数列化  
-
+floor(x): xを越えない最大の整数
+round(x): 独自の基準で少数以下を丸める
 
 
 
