@@ -1031,6 +1031,21 @@ pg_plot +
   scale_y_continuous(breaks=NULL) +
   theme(axis.ticks=element_blank(), axis.text.y=element_blank())
 
+# ラベルの変更１
+hw_plot +
+  scale_y_continuous(breaks=c(50, 56, 60, 66, 72),
+                     labels=c("Tiny", "Really\nshort", "Short", "Medium", "Tallish"))
+
+# ラベルの変更２，独自変換関数を使用
+hw_plot +
+  scale_y_continuous(breaks=seq(48, 72, 4), labels=footinch_formatter)
+
+# ラベルの変更３，既存変換関数を使用（scalesパッケージ）
+# comma: 桁区切り、dollar: ドル表示、percent: パーセント表示
+hw_plot +
+  scale_y_continuous(breaks=seq(48, 72, 4), labels=comma)
+
+
 ~~~
 
 
