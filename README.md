@@ -1045,7 +1045,16 @@ hw_plot +
 hw_plot +
   scale_y_continuous(breaks=seq(48, 72, 4), labels=comma)
 
+# ラベルの角度、justは文字揃え（0, 0.5, 1で指定）
+pg_plot +
+  theme(axis.text.x=element_text(angle=30, hjust=1, vjust=1))
 
+# ラベルの詳細設定
+pg_plot +
+  theme(axis.text.x=element_text(family="Arial", 
+                                 face="italic", 
+                                 colour="darkred",
+                                 size=rel(0.9)))
 ~~~
 
 
