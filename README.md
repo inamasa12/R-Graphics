@@ -1057,17 +1057,52 @@ pg_plot +
                                  size=rel(0.9)))
 ~~~
 
+* 軸  
+~~~
+# 軸タイトルの指定１
+hw_plot +
+  xlab("Age in years") +
+  ylab("Height in inches")
+
+# 軸タイトルの指定２
+hw_plot +
+  labs(x="Age in years", y="Height in inches")
+
+# 軸タイトルの指定３
+hw_plot +
+  scale_x_continuous(name="Age\n(years)")
+
+# 軸タイトルの非表示１、タイトル表示部分を完全になくす
+pg_plot +
+  xlab(NULL)
+
+# 軸タイトルの非表示２、１と同じ
+pg_plot +
+  theme(axis.title.x=element_blank())
+
+# 軸タイトルの非表３、タイトル部分をブランク
+pg_plot +
+  xlab("")
+
+# 軸タイトルを回転させない
+hw_plot +
+  ylab("Height\n(inches)") +
+  theme(axis.title.y=element_text(face="italic", size=14, angle=0))
+
+~~~
+
+
+
 
 * Tips  
 seq(f, t, b): fromからtoまでをb区切りで数列化  
-floor(x): xを越えない最大の整数
-round(x): 独自の基準で少数以下を丸める
-
-
+floor(x): xを越えない最大の整数ound(x): 独自の基準で少数以下を丸める
 
 
 
 * 基本  
+
+
 ~~~
 
 
