@@ -1084,10 +1084,20 @@ pg_plot +
 pg_plot +
   xlab("")
 
-# 軸タイトルを回転させない
+# 軸タイトルを回転させない（デフォルトは90度左に回転）
 hw_plot +
   ylab("Height\n(inches)") +
   theme(axis.title.y=element_text(face="italic", size=14, angle=0))
+
+# 軸を明示
+hw_plot +
+  theme(axis.line=element_line(colour="black"))
+
+# 太軸、交点を揃える
+hw_plot +
+  theme_bw() +
+  theme(panel.border=element_blank(),
+        axis.line=element_line(colour="black", size=4, lineend="square"))
 
 ~~~
 
@@ -1097,7 +1107,8 @@ hw_plot +
 * Tips  
 seq(f, t, b): fromからtoまでをb区切りで数列化  
 floor(x): xを越えない最大の整数ound(x): 独自の基準で少数以下を丸める
-
+rownames(tbl): 行名のベクトルを出力  
+colnames(tbl): 列名のベクトルを出力  
 
 
 * 基本  
