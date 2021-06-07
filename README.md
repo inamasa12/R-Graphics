@@ -1019,7 +1019,6 @@ m_plot +
 ~~~
 
 * 目盛り  
-
 ~~~
 # 主目盛りを指定（補助目盛は主目盛りの半分になる）
 ggplot(PlantGrowth, aes(group, weight)) +
@@ -1056,6 +1055,7 @@ pg_plot +
                                  colour="darkred",
                                  size=rel(0.9)))
 ~~~
+
 
 * 軸  
 ~~~
@@ -1099,6 +1099,39 @@ hw_plot +
   theme(panel.border=element_blank(),
         axis.line=element_line(colour="black", size=4, lineend="square"))
 
+
+animals_plot +
+  scale_x_log10(breaks=10^(-1:5),
+                labels=trans_format("log10", math_format(10^.x))) +
+  scale_y_log10(breaks=10^(0:3),
+                labels=trans_format("log10", math_format(10^.x)))
+
+
+#データ自体を変換
+ggplot(Animals, aes(log10(body), log10(brain),
+                    label=rownames(Animals))) +
+         geom_text(size=3)
+
+animals_plot +
+  scale_x_continuous(
+    trans=log_trans(), #軸を自然対数変換
+    breaks=trans_breaks("log", function(x) exp(x)),#目盛りの位置を変換
+    labels=trans_format("log", math_format(e^.x)) #表記の指定
+  ) +
+  scale_y_continuous(
+    trans=log2_trans(), #軸を自然対数変換
+    breaks=trans_breaks("log2", function(x) 2^x),#目盛りの位置を変換
+    labels=trans_format("log2", math_format(2^.x)) #表記の指定
+)
+
+
+#片方だけ対数軸
+ggplot(aapl, aes(date, adj_price)) +
+  geom_line()
+
+ggplot(aapl, aes(date, adj_price)) +
+  geom_line() +
+  scale_y_log10(breaks=c(2, 10, 50, 250))
 ~~~
 
 
