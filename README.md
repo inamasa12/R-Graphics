@@ -1124,10 +1124,26 @@ animals_plot +
     labels=trans_format("log2", math_format(2^.x))   # 表記の指定
 )
 
-#片方だけ対数軸
+# 片方だけ対数軸
 ggplot(aapl, aes(date, adj_price)) +
   geom_line() +
   scale_y_log10(breaks=c(2, 10, 50, 250))
+
+# 目盛り幅を関数で指定
+# 目盛りをグラフ内で表示（annotation_logticks）
+breaks_log10 <- function(x) {
+  low <- floor(log10(min(x)))
+  high <- ceiling(log10(max(x)))
+  10^(seq.int(low, high))
+}
+
+ggplot(Animals, aes(body, brain, label=rownames(Animals))) +
+  geom_text(size=3) +
+  scale_x_log10(breaks=breaks_log10, 
+                labels=trans_format(log10, math_format(10^.x))) +
+  scale_y_log10(breaks=breaks_log10, 
+                labels=trans_format(log10, math_format(10^.x))) +
+  annotation_logticks() # 対数目盛り
 ~~~
 
 
