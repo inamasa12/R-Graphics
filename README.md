@@ -976,7 +976,7 @@ hhpg_plot +
 pg_plot +
   expand_limits(y=0)
 
-#座標変換
+#座標変換（ズームイン、ズームアウト）
 pg_plot +
   coord_cartesian(ylim=c(5, 6.5))
 ~~~
