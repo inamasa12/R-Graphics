@@ -1148,6 +1148,9 @@ ggplot(Animals, aes(body, brain, label=rownames(Animals))) +
 
 
 * 円形グラフ  
+デフォルトではデータの最小値が座標の中心になる  
+デフォルトでは回転軸の始点と終点が同じになる  
+データは一周しかできない  
 ~~~
 # -7.5から幅15でbinをスタートし、0、15、30、、、にセンタリング
 # 凡例は逆順に表示、スタートは45度反時計回りにずらす
@@ -1161,13 +1164,21 @@ ggplot(wind, aes(DirCat, fill=SpeedCat)) +
   scale_fill_brewer()
 ~~~
 
+* 日付  
+~~~
+# date_formatを使用するにはscalesのロードが必要
+econ_plot +
+  scale_x_date(breaks=datebreaks, labels=date_format("%Y %b")) +
+  theme(axis.text.x=element_text(angle=30, hjust=1))
+~~~
+
 
 * Tips  
 seq(f, t, b): fromからtoまでをb区切りで数列化  
 floor(x): xを越えない最大の整数ound(x): 独自の基準で少数以下を丸める
 rownames(tbl): 行名のベクトルを出力  
 colnames(tbl): 列名のベクトルを出力  
-
+%+%: グラフオブジェクト %+% df で既存のグラフのデータを新しいものに置き換えることができる  
 
 * 基本  
 
