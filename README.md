@@ -1167,6 +1167,7 @@ ggplot(wind, aes(DirCat, fill=SpeedCat)) +
 * 日付  
 ~~~
 # date_formatを使用するにはscalesのロードが必要
+datebreaks <- seq(as.Date("1992-06-01"), as.Date("1993-06-01"), by="2 month")
 econ_plot +
   scale_x_date(breaks=datebreaks, labels=date_format("%Y %b")) +
   theme(axis.text.x=element_text(angle=30, hjust=1))
@@ -1179,15 +1180,8 @@ floor(x): xを越えない最大の整数ound(x): 独自の基準で少数以下
 rownames(tbl): 行名のベクトルを出力  
 colnames(tbl): 列名のベクトルを出力  
 %+%: グラフオブジェクト %+% df で既存のグラフのデータを新しいものに置き換えることができる  
-
-* 基本  
-
-
-~~~
-
-
-~~~
-
+?strptime: 日付フォーマットオプション  
+time(ts): タイムシリーズオブジェクトの時間のベクトルを出力する  
 
 
 
