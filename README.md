@@ -1198,7 +1198,6 @@ ggplot(www, aes(minute, users)) +
   )
 ~~~
 
-
 * Tips  
 seq(f, t, b): fromからtoまでをb区切りで数列化  
 floor(x): xを越えない最大の整数ound(x): 独自の基準で少数以下を丸める
@@ -1208,6 +1207,8 @@ colnames(tbl): 列名のベクトルを出力
 ?strptime: 日付フォーマットオプション  
 time(ts): タイムシリーズオブジェクトの時間のベクトルを出力する  
 
+
+## 第９章　グラフの全体的な体裁    
 
 
 
