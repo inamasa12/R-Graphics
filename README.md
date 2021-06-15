@@ -1171,6 +1171,31 @@ datebreaks <- seq(as.Date("1992-06-01"), as.Date("1993-06-01"), by="2 month")
 econ_plot +
   scale_x_date(breaks=datebreaks, labels=date_format("%Y %b")) +
   theme(axis.text.x=element_text(angle=30, hjust=1))
+
+# 表示形式を独自関数で設定
+timeHM_formatter <- function(x) {
+  h <- floor(x/60)
+  m <- floor(x %% 60)
+  lab <- sprintf("%d:%02d", h, m)
+  return(lab)
+}
+
+ggplot(www, aes(minute, users)) +
+  geom_line() +
+  scale_x_continuous(
+    name="time",
+    breaks=seq(0, 100, by=10),
+    labels=timeHM_formatter
+  )
+
+# 目盛りラベルを直接指定
+ggplot(www, aes(minute, users)) +
+  geom_line() +
+  scale_x_continuous(
+    name="time",
+    breaks=seq(0, 100, by=20),
+    labels=c("0:00", "0:20", "0:40", "1:00", "1:20", "1:40")
+  )
 ~~~
 
 
