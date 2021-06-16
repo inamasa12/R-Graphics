@@ -1208,7 +1208,26 @@ colnames(tbl): 列名のベクトルを出力
 time(ts): タイムシリーズオブジェクトの時間のベクトルを出力する  
 
 
-## 第９章　グラフの全体的な体裁    
+## 第９章　グラフの全体的な体裁  
+
+* グラフタイトル  
+~~~
+# 上部余白
+hw_plot +
+  ggtitle("Age and Height of Schoolchildren", "11.5 to 17.5 years old")
+
+# プロット内、vjust
+hw_plot +
+  ggtitle("Age and Height of Schoolchildren") +
+  theme(plot.title=element_text(vjust=-8))
+
+# プロット内、annotate
+hw_plot +
+  annotate("text", x=mean(range(heightweight$ageYear)), y=Inf,
+           label="Age and Height of Schoolchildren", size=4.5, vjust=1.5)
+~~~
+
+
 
 
 
