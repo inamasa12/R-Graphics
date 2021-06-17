@@ -1227,7 +1227,41 @@ hw_plot +
            label="Age and Height of Schoolchildren", size=4.5, vjust=1.5)
 ~~~
 
+* 書式設定  
+タイトル、ラベル、凡例、ファセットラベルの書式を設定する
+~~~
+# 拡張書式の設定
+library(extrafont)
+font_import()
+loadfonts(device="win")
+windowsFonts()　# 出力される表記でfamilyを設定する
 
+# 軸タイトル
+hw_plot +
+  theme(axis.title.x=element_text(size=16,
+                                  lineheight=.9,
+                                  family="serif",
+                                  face="bold.italic",
+                                  colour="red"))
+
+# 表タイトル
+hw_plot +
+  ggtitle("Age and Height\nof Schoolchildren") +
+  theme(plot.title=element_text(size=rel(1.5),
+                                lineheight=.9,
+                                family="serif",
+                                face="bold.italic",
+                                colour="red"))
+
+# アノテーション
+hw_plot +
+  annotate("text", x=15, y=53, label="Some text",
+           size=7, family="serif", fontface="bold.italic", colour="red")
+
+# データ毎
+hw_plot +
+  geom_text(aes(label=weightLb), size=4, family="serif", colour="red")
+~~~
 
 
 
