@@ -1210,6 +1210,8 @@ time(ts): タイムシリーズオブジェクトの時間のベクトルを出�
 
 ## 第９章　グラフの全体的な体裁  
 
+軸ラベル、凡例、各タイトル、ファセットの書式設定  
+
 * グラフタイトル  
 ~~~
 # 上部余白
@@ -1237,6 +1239,7 @@ loadfonts(device="win")
 windowsFonts()　# 出力される表記でfamilyを設定する
 
 # 軸タイトル
+# lineheightは行の間隔
 hw_plot +
   theme(axis.title.x=element_text(size=16,
                                   lineheight=.9,
@@ -1263,5 +1266,12 @@ hw_plot +
   geom_text(aes(label=weightLb), size=4, family="serif", colour="red")
 ~~~
 
+* テーマ設定  
+デフォルトはtheme_grey
+theme_bw()、theme_minimal()、theme_classic()、theme_void()
+~~~
 
+
+
+~~~
 
