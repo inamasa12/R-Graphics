@@ -1156,7 +1156,7 @@ ggplot(Animals, aes(body, brain, label=rownames(Animals))) +
 # 凡例は逆順に表示、スタートは45度反時計回りにずらす
 ggplot(wind, aes(DirCat, fill=SpeedCat)) +
   geom_histogram(binwidth=15, boundary=-7.5, colour="black", size=0.25) +
-  guides(fill=guide_legend(reverse=T)) +
+  guides(fill=guide_legend(reverse=T)) + # 凡例の表示順を逆にする
   coord_polar(start=-45*pi/180) +
   scale_x_continuous(limits=c(0, 360),
                      breaks=seq(0, 360, by=45),
