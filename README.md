@@ -1267,11 +1267,62 @@ hw_plot +
 ~~~
 
 * テーマ設定  
+
 デフォルトはtheme_grey
-theme_bw()、theme_minimal()、theme_classic()、theme_void()
+theme_bw()、theme_minimal()、theme_classic()、theme_void()等  
+
 ~~~
+各オブジェクトのテーマ設定
 
+#プロット領域
+hw_plot +
+  theme(panel.grid.major=element_line(colour="red"),
+        panel.grid.minor=element_line(colour="red", linetype="dashed", size=0.2),
+        panel.background=element_rect(fill="lightblue"),
+        panel.border=element_rect(colour="blue", fill=NA, size=2))
 
+# 凡例
+hw_plot +
+  theme(legend.background=element_rect(fill="grey85", colour="red", size=1),
+        legend.title=element_text(colour="blue", face="bold", size=14),
+        legend.text=element_text(colour="red"),
+        legend.key=element_rect(colour="blue", size=0.25)
+        )
 
+#タイトル、ラベル
+hw_plot +
+  ggtitle("Plot title here") +
+  theme(
+    axis.title.x=element_text(colour="red", size=14),
+    axis.text.x=element_text(colour="blue"),
+    axis.title.y=element_text(colour="red", size=14, angle=90),
+    axis.text.y=element_text(colour="blue"),
+    plot.title=element_text(colour="red", size=20, face="bold")
+  )
+
+# ファセット
+hw_plot +
+  facet_grid(sex~.) +
+  theme(
+    strip.background=element_rect(fill="pink"),
+    strip.text.y=element_text(size=14, angle=-90, face="bold")
+  )
+
+# 独自の書式設定を関数化
+mytheme <- theme_bw() +
+  theme(
+    text=element_text(colour="red"),
+    axis.title=element_text(size=rel(1.25))
+  )
+)
+
+hw_plot + mytheme
+
+# 目盛線の非表示
+hw_plot +
+  theme(
+    panel.grid.major=element_blank(),
+    panel.grid.minor=element_blank()
+  )
 ~~~
 
