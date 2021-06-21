@@ -1326,3 +1326,34 @@ hw_plot +
   )
 ~~~
 
+
+## 第１０章　凡例  
+
+~~~
+# 非表示
+pg_plot +
+  guides(fill=F)
+
+pg_plot +
+  scale_fill_discrete(guide=F)
+
+pg_plot +
+  theme(legend.position="none")
+  
+# グラフ領域の右下に凡例の右下を合わせる
+pg_plot + 
+  theme(legend.position=c(1, 0), legend.justificatio=c(1, 0))
+
+# 凡例の背景を操作
+pg_plot + 
+  theme(legend.position=c(0.85, 0.2)) +
+  theme(legend.background=element_rect(fill="white", colour="black"))
+
+# 凡例の背景と項目の背景を非表示
+pg_plot + 
+  theme(legend.position=c(0.85, 0.2)) +
+  theme(legend.key=element_blank()) +
+  theme(legend.background=element_blank())
+
+
+~~~
