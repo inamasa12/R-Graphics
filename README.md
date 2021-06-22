@@ -1354,6 +1354,27 @@ pg_plot +
   theme(legend.position=c(0.85, 0.2)) +
   theme(legend.key=element_blank()) +
   theme(legend.background=element_blank())
-
-
 ~~~
+
+* 表示順の変更
+~~~
+# limitsで順番に指定
+pg_plot +
+  scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"))
+
+pg_plot +
+  scale_fill_grey(start=.5, end=1, limits=c("trt1", "trt2", "ctrl"))
+
+pg_plot +
+  scale_fill_brewer(palette="Pastel2", limits=c("trt1", "trt2", "ctrl"))
+
+# 逆順
+pg_plot +
+  guides(fill=guide_legend(reverse=T))
+
+pg_plot +
+  scale_fill_discrete(guide=guide_legend(reverse=T))
+~~~
+
+
+
