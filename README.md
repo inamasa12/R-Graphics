@@ -1376,5 +1376,40 @@ pg_plot +
   scale_fill_discrete(guide=guide_legend(reverse=T))
 ~~~
 
+* タイトル  
+~~~
+# labs
+pg_plot +
+  labs(fill="Condition")
+
+# scale
+pg_plot +
+  scale_fill_discrete(name="Condition")
+
+# guide
+pg_plot +
+  guides(fill=guide_legend(title="Condition"))
+
+# ２つある場合
+hw_plot +
+  labs(colour="Male/Female", size="Weight\n(pounds)")
+
+# 書式設定
+pg_plot +
+  theme(legend.title=element_text(face="italic",
+                                  family="serif",
+                                  colour="red",
+                                  size=14))
+# 非表示
+pg_plot +
+  guides(fill=guide_legend(title=NULL))
+
+pg_plot +
+  scale_fill_discrete(name=NULL)
+~~~
+
+* ラベル  
+~~~
 
 
+~~~
