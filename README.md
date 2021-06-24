@@ -1410,6 +1410,36 @@ pg_plot +
 
 * ラベル  
 ~~~
+# 指定順に上から表示
+pg_plot +
+  scale_fill_discrete(labels=c("Control", "Treatment 1", "Treatment 2"))
 
+# 図に表示する順も合わせて表示する
+pg_plot +
+  scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"),
+    labels=c("Treatment 1", "Treatment 2", "Control"))
 
+# 複数の属性にマッピングされている場合は両方変更する
+ggplot(heightweight, aes(ageYear, heightIn, shape=sex, colour=sex)) +
+  geom_point() +
+  scale_shape_discrete(labels=c("Female", "Male")) +
+  scale_colour_discrete(labels=c("Female", "Male"))
+
+# 体裁、theme
+pg_plot +
+  theme(legend.text=element_text(
+    face="italic",
+    family="Times New Roman",
+    colour="red",
+    size=14
+  ))
+
+# 体裁、guides
+pg_plot +
+  guides(fill=guide_legend(label.theme=element_text(
+    face="italic",
+    family="Times New Roman",
+    colour="red",
+    size=14
+  )))
 ~~~
