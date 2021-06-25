@@ -1442,4 +1442,11 @@ pg_plot +
     colour="red",
     size=14
   )))
+
+# 凡例要素の高さを変更、key
+pg_plot +
+  scale_fill_discrete(labels=c("Control", "Type1\ntreatment", 
+                      "Type2\ntreatment")) +
+  theme(legend.text=element_text(lineheight=.8),
+        legend.key.height=unit(1, "cm"))
 ~~~
