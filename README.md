@@ -1450,3 +1450,28 @@ pg_plot +
   theme(legend.text=element_text(lineheight=.8),
         legend.key.height=unit(1, "cm"))
 ~~~
+
+## 第１１章　ファセット  
+
+サブプロット  
+
+* 基本  
+~~~
+# 行、列の順に指定
+mpg_plot +
+  facet_grid(drv~cyl)
+
+# 行もしくは列の数を指定
+mpg_plot +
+  facet_wrap(~class, nrow=2)
+
+# y軸の範囲を行もしくは列ごとに変える
+mpg_plot +
+  facet_grid(drv~cyl, scales="free_y")
+
+# 軸の範囲を行もしくは列ごとに変える
+mpg_plot +
+  facet_grid(drv~cyl, scales="free")
+~~~
+
+
