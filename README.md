@@ -1472,6 +1472,41 @@ mpg_plot +
 # 軸の範囲を行もしくは列ごとに変える
 mpg_plot +
   facet_grid(drv~cyl, scales="free")
+
+# ラベルに変数名を入れる
+mpg_mod <- mpg %>%
+  mutate(drv=recode(drv, "4"="4wd", "f"="Front", "r"="Rear"))
+
+ggplot(mpg_mod, aes(displ, hwy)) +
+  geom_point() +
+  facet_grid(drv~., labeller=label_both)
+
+# ラベルに数式を用いる
+mpg_mod <- mpg %>%
+  mutate(drv=recode(drv, 
+                    "4"="4^{wd}", 
+                    "f"="- Front %.% e^{pi*i}", 
+                    "r"="4^{wd}-Front"))
+
+ggplot(mpg_mod, aes(displ, hwy)) +
+  geom_point() +
+  facet_grid(drv~., labeller=label_parsed)
+
+# ラベルの書式設定  
+ggplot(cabbage_exp, aes(Cultivar, Weight)) +
+  geom_col() +
+  facet_grid(.~Date) +
+  theme(
+    strip.text=element_text(face="bold", size=rel(1.5)),
+    strip.background=element_rect(fill="lightblue", colour="black",
+                                  size=1)
+  )
+
 ~~~
+
+* Tips  
+ファセットのラベル名変更はできない（変数名を変更するしかない）  
+
+## 第１２章　色を使う  
 
 
