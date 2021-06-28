@@ -1507,6 +1507,13 @@ ggplot(cabbage_exp, aes(Cultivar, Weight)) +
 * Tips  
 ファセットのラベル名変更はできない（変数名を変更するしかない）  
 
+
 ## 第１２章　色を使う  
+
+* viridisパレット  
+~~~
+uspopage_plot +
+  scale_fill_viridis_d()
+~~~
 
 
