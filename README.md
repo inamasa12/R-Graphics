@@ -1512,8 +1512,34 @@ ggplot(cabbage_exp, aes(Cultivar, Weight)) +
 
 * viridisパレット  
 ~~~
+# 離散値の場合
 uspopage_plot +
   scale_fill_viridis_d()
+
+uspopage_plot +
+  scale_fill_viridis(discrete=T)
+~~~
+
+* その他  
+
+~~~
+# brewer
+uspopage_plot +
+  scale_fill_brewer()
+
+# grey
+hw_splot +
+  scale_colour_grey(start=0.7, end=0)
+
+# 輝度の操作
+hw_splot +
+  scale_colour_discrete(l=45)
+  
+# マニュアル設定
 ~~~
 
 
+
+* Tips  
+colors(): 色名一覧  
+demo("colors"): 色デモ  
