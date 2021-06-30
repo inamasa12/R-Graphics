@@ -1512,12 +1512,17 @@ ggplot(cabbage_exp, aes(Cultivar, Weight)) +
 
 * viridisパレット  
 ~~~
-# 離散値の場合
+# 離散値の場合１
 uspopage_plot +
   scale_fill_viridis_d()
 
+# 離散値の場合２
 uspopage_plot +
   scale_fill_viridis(discrete=T)
+
+# magma, plasma, inferno, cividis等
+uspopage_plot +
+  scale_fill_viridis_d(option="cividis")
 ~~~
 
 * その他  
@@ -1536,6 +1541,20 @@ hw_splot +
   scale_colour_discrete(l=45)
   
 # マニュアル設定
+
+# 色指定
+hw_plot +
+  scale_colour_manual(values=c("red", "blue"))
+
+# RGB値
+# R、G、Bをそれぞれ二桁の16進数（0～F）で表現
+# 二桁目はほとんど影響しないため、同じ数値にすることが多い
+hw_plot +
+  scale_colour_manual(values=c("#CC6666", "#7777DD"))
+
+# 変数指定
+hw_plot +
+  scale_colour_manual(values=c(m="blue", f="red"))
 ~~~
 
 
@@ -1543,3 +1562,4 @@ hw_splot +
 * Tips  
 colors(): 色名一覧  
 demo("colors"): 色デモ  
+viridis(5): viridisを5分類した時の各色をRGB値で返す  
