@@ -1555,7 +1555,33 @@ hw_plot +
 # 変数指定
 hw_plot +
   scale_colour_manual(values=c(m="blue", f="red"))
+
+
+# 連続変数
+
+# 色指定
+hw_plot +
+  scale_colour_gradient(low="black", high="white")
+
+# 三色
+hw_plot +
+  scale_colour_gradient2(
+    low=muted("red"),  # 彩度を落とす
+    mid="white",
+    high=muted("blue"),
+    midpoint=110  # 真ん中になる値
+  )
+
+# 複数色
+hw_plot +
+  scale_colour_gradientn(colours=c("darkred", "orange", "yellow", "white"))
+
+# viridis
+hw_plot +
+  scale_colour_viridis_c(option="magma")
 ~~~
+
+
 
 
 
