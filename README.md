@@ -1579,6 +1579,18 @@ hw_plot +
 # viridis
 hw_plot +
   scale_colour_viridis_c(option="magma")
+
+# 領域
+# 離散変数を作成
+climate_mod <- climate %>%
+  filter(Source=="Berkeley") %>%
+  mutate(valence=if_else(Anomaly10y>=0, "pos", "neg"))
+
+# 離散変数に色を割り当て
+ggplot(climate_mod, aes(Year, Anomaly10y)) +
+  geom_area(aes(fill=valence)) +
+  geom_line() +
+  geom_hline(yintercept=0)
 ~~~
 
 
