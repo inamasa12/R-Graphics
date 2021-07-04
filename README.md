@@ -1526,7 +1526,6 @@ uspopage_plot +
 ~~~
 
 * その他  
-
 ~~~
 # brewer
 uspopage_plot +
@@ -1574,7 +1573,7 @@ hw_plot +
 
 # 複数色
 hw_plot +
-  scale_colour_gradientn(colours=c("darkred", "orange", "yellow", "white"))
+  scale_colourgradientn(colours=c("darkred", "orange", "yellow", "white"))
 
 # viridis
 hw_plot +
@@ -1593,11 +1592,73 @@ ggplot(climate_mod, aes(Year, Anomaly10y)) +
   geom_hline(yintercept=0)
 ~~~
 
-
-
-
-
 * Tips  
 colors(): 色名一覧  
 demo("colors"): 色デモ  
 viridis(5): viridisを5分類した時の各色をRGB値で返す  
+
+## 第１３章　さまざまなグラフ  
+
+* 相関行列  
+~~~
+library(corrplot)
+
+# 基本設定
+corrplot(mcor, 
+         method="shade",  # パネル表示
+         shade.col=NA,    # 正負を表す斜線は使用しない 
+         tl.col="black",  # ラベルの色
+         tl.srt=45        # ラベルの表示角度
+         )
+
+# 詳細設定
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+corrplot(mcor, method="shade", shade.col=NA, tl.col="black", tl.srt=45,
+         addCoef.col="black", # 数字の追加
+         cl.pos="n",          # バーの非表示
+         order="AOE",         # 相関の高い要素を隣接させる
+         col=col(200)         # 色のタイプ
+         )
+~~~
+
+* 関数表示  
+~~~
+# 既存関数、パラメータの有無
+p + stat_function(fun=dnorm)
+p + stat_function(fun=dt, args=list(df=2))
+
+# 自作関数
+ggplot(data.frame(x=c(0, 20)), aes(x)) +
+  stat_function(fun=myfunc, n=200)
+
+# 網掛け
+# 関数の範囲を限定する関数
+limitRange <- function(fun, min, max) {
+  function(x) {
+    y <- fun(x)
+    y[x<min|x>max] <- NA
+    return(y)
+  }
+}
+# 範囲を限定された関数を併せて表示
+p +
+  stat_function(fun=dnorm) +
+  stat_function(fun=limitRange(dnorm, 0, 2), geom="area", fill="blue", alpha=.2)
+~~~
+
+* ネットワーク（標準作図関数）  
+~~~
+# 第一列から第二列への有向グラフ
+g <- graph.data.frame(madmen2, directed=T)
+plot(g, layout=layout.fruchterman.reingold, vertex.size=8,
+     edge.arrow.size=0.5, vertex.label=NA)
+
+# 無向グラフ
+g <- graph.data.frame(madmen, directed=F)
+plot(g, layout=layout.circle, vertex.size=8, vertex.label=NA)
+
+# レイアウトの種類確認
+?igraph:: layout
+~~~
+
+
