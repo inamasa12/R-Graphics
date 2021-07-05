@@ -1657,6 +1657,32 @@ plot(g, layout=layout.fruchterman.reingold, vertex.size=8,
 g <- graph.data.frame(madmen, directed=F)
 plot(g, layout=layout.circle, vertex.size=8, vertex.label=NA)
 
+# ラベルの設定１
+# グラフで設定
+plot(g, layout=layout.fruchterman.reingold,
+     vertex.size=4,
+     vertex.label=V(g)$name,
+     vertex.label.cex=0.8,
+     vertex.label.dist=0.4,
+     vertex.label.color="black")
+
+# ラベルの設定２
+# 頂点の属性として設定
+V(g)$size <- 4
+V(g)$label <- V(g)$name
+V(g)$label.cex <- 0.8
+V(g)$label.dist <- 0.4
+V(g)$label.color <- "black"
+g$layout <- layout.fruchterman.reingold
+plot(g)
+
+# 辺の設定
+E(g)[c(2, 11, 19)]$label <- "M"
+E(g)$color <- "grey70"
+E(g)[c(2, 11, 19)]$color <- "red"
+plot(g)
+
+
 # レイアウトの種類確認
 ?igraph:: layout
 ~~~
