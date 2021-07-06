@@ -1687,4 +1687,21 @@ plot(g)
 ?igraph:: layout
 ~~~
 
+* ヒートマップ  
+
+~~~
+# 基本  
+ggplot(pres_rating, aes(year, quarter, fill=rating)) + 
+  geom_tile()
+
+# 描画効率が良い
+p + geom_raster()
+
+# 詳細設定
+p + 
+  geom_tile() +
+  scale_y_reverse(expand=c(0, 0)) + # 逆順にし、上下の余白を除く
+  scale_x_continuous(breaks=seq(1940, 1976, by=4), expand=c(0, 0)) + # 目盛り設定
+  scale_fill_gradient2(midpoint=50, mid="grey50", limits=c(0, 100)) # グラデーションの設定
+~~~
 
