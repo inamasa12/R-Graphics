@@ -1705,3 +1705,49 @@ p +
   scale_fill_gradient2(midpoint=50, mid="grey50", limits=c(0, 100)) # グラデーションの設定
 ~~~
 
+* 三次元プロット  
+~~~
+install.packages("rgl")
+library(rgl)
+
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, 
+       typ="s",  # 球状
+       size=0.75, 
+       lit=FALSE) # 光沢なし
+
+
+# 背景操作
+
+# 線分（端点の組み合わせ）のベクトルを作成
+interleave <- function(v1, v2) as.vector(rbind(v1, v2))
+
+# 点のみ
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, 
+       xlab="", ylab="", zlab="",
+       axes=F,
+       typ="s", size=0.75, lit=FALSE)
+
+# 線分
+segments3d(interleave(mtcars$wt, mtcars$wt),
+           interleave(mtcars$disp, mtcars$disp),
+           interleave(mtcars$mpg, min(mtcars$mpg)),
+           alpha=0.4, col="blue")
+
+# 3D領域
+rgl.bbox(color="grey50")
+
+# 軸ラベルの追加
+axes3d(edges=c("x--", "y++", "z--"), # 軸の位置
+       ntick=6, # 目盛りの数
+       cex=0.75) # ラベルの大きさ
+
+# 軸タイトルの追加
+mtext3d("Weight", edge="x--", line=2) # lineは軸とラベルの距離
+mtext3d("Displacement", edge="y++", line=3) # lineは軸とラベルの距離
+mtext3d("MPG", edge="z--", line=3) # lineは軸とラベルの距離
+
+
+~~~
+
+
+
