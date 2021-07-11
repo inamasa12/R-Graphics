@@ -1747,6 +1747,47 @@ mtext3d("Displacement", edge="y++", line=3) # lineは軸とラベルの距離
 mtext3d("MPG", edge="z--", line=3) # lineは軸とラベルの距離
 
 
+# 予測面の追加、調整
+
+# 実測値
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
+     xlab="", ylab="", zlab="",
+     axes=F,
+     size=.5, type="s", lit=F)
+
+# 予測値
+spheres3d(m$wt, m$disp, m$pred_mpg, alpha=0.4, type="s", size=0.5,
+          lit=F)
+
+# 実測値から予測値への線分
+segments3d(interleave(m$wt, m$wt),
+           interleave(m$disp, m$disp),
+           interleave(m$mpg, m$pred_mpg),
+           alpha=0.4, col="red")
+
+# 予測面
+surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
+          alpha=0.4, 
+          front="lines", # グリッド面
+          back="lines"
+)
+
+# 軸平面
+rgl.bbox(color="grey50", # 表面の色
+         emission="grey50", # 発行色
+         xlen=0, ylen=0, zlen=0
+         )
+
+# 軸ラベルの追加
+rgl.material(color="black")
+axes3d(edges=c("x--", "y++", "z--"),
+       ntick=6,
+       cex=.75)
+
+# 軸タイトル
+mtext3d("Weight", edge="x--", line=2)
+mtext3d("Displacement", edge="y++", line=3)
+mtext3d("MPG", edge="z--", line=3)
 ~~~
 
 
