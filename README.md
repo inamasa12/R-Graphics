@@ -1815,5 +1815,16 @@ View <- structure(c(0.0885247588157654, 0.297822892665863, -0.950507640838623,
 
 #視点を再現
 par3d(userMatrix=view)
+
+# アニメーション
+# 回転速度、時間を設定
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type="s", size=0.75, lit=F)
+play3d(spin3d(axis=c(1, 0, 0), rpm=4), duration=20)
+
+# 保存、フレーム数を設定
+library(migick)
+movie3d(spin3d(axis=c(0, 0, 1), rpm=4), duration=15, fps=50,
+        movie="C:/Users/yh_in/learning/R-Graphics/anime",
+        convert=F)
 ~~~
 
