@@ -1790,5 +1790,30 @@ mtext3d("Displacement", edge="y++", line=3)
 mtext3d("MPG", edge="z--", line=3)
 ~~~
 
+* 保存  
+~~~
+#表示されているグラフの保存
+rgl.snapshot('3dplot.png', fmt='png')
+rgl.postscript('3dplot.pdf', fmt='pdf')
+rgl.postscript('3dplot.ps', fmt='ps')
 
+
+#現在の視点を保存
+view <- par3d("userMatrix")
+
+#視点を再現
+par3d(userMatrix=view)
+
+#視点を出力
+dput(view)
+
+#視点を設定
+View <- structure(c(0.0885247588157654, 0.297822892665863, -0.950507640838623, 
+                    0, -0.970648050308228, -0.188437670469284, -0.149443686008453, 
+                    0, -0.223619237542152, 0.935837864875793, 0.272399872541428, 
+                    0, 0, 0, 0, 1), .Dim = c(4L, 4L))
+
+#視点を再現
+par3d(userMatrix=view)
+~~~
 
