@@ -1834,6 +1834,9 @@ movie3d(spin3d(axis=c(0, 0, 1), rpm=4), duration=15, fps=50,
 # distで各点の距離を計測、hclustでクラスター
 hc <- hclust(dist(c3))
 plot(hc, hang=-1)
+
+# ベクトルフィールド
+
 ~~~
 
 
