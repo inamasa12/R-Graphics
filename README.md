@@ -1836,7 +1836,29 @@ hc <- hclust(dist(c3))
 plot(hc, hang=-1)
 
 # ベクトルフィールド
+# 基本
+ggplot(islicesub, aes(x, y)) +
+  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, alpha=speedxy), # ベクトルの終点を設定
+               arrow=arrow(length=unit(0.1, "cm")),
+               size=0.6)
 
+# 地図に重ねる
+usa <- map_data("usa")
+ggplot(islicesub, aes(x, y)) +
+  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, colour=speedxy),
+               arrow=arrow(length=unit(0.1, "cm")),
+               size=0.6) +
+  scale_colour_continuous(low="grey80", high="darkred") +
+  geom_path(aes(x=long, y=lat, group=group), data=usa) + #地図の表示
+  coord_cartesian(xlim=range(islicesub$x), ylim=range(islicesub$y)) #ズームイン
+
+# ファセット
+ggplot(isub, aes(x, y)) +
+  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, colour=speed),
+               arrow=arrow(length=unit(0.1, "cm")),
+               size=0.5) +
+  scale_colour_continuous(low="grey80", high="darkred") +
+  facet_wrap(~z)
 ~~~
 
 
