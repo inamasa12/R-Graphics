@@ -1835,6 +1835,7 @@ movie3d(spin3d(axis=c(0, 0, 1), rpm=4), duration=15, fps=50,
 hc <- hclust(dist(c3))
 plot(hc, hang=-1)
 
+
 # ベクトルフィールド
 # 基本
 ggplot(islicesub, aes(x, y)) +
@@ -1859,6 +1860,18 @@ ggplot(isub, aes(x, y)) +
                size=0.5) +
   scale_colour_continuous(low="grey80", high="darkred") +
   facet_wrap(~z)
+
+
+# Q-Qプロット、対応する正規分布と合わせて表示
+ggplot(heightweight, aes(sample=ageYear)) +
+  geom_qq_line() +
+  geom_qq()
+
+
+# 累積分布 
+ggplot(heightweight, aes(heightIn)) +
+  stat_ecdf()
+
 ~~~
 
 
