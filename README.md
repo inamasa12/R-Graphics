@@ -1872,6 +1872,19 @@ ggplot(heightweight, aes(sample=ageYear)) +
 ggplot(heightweight, aes(heightIn)) +
   stat_ecdf()
 
+
+# モザイクプロット  
+# 基本、インプットは多次元分割表
+library(vcd)
+mosaic(~Admit + Gender + Dept, data=UCBAdmissions)
+
+# 応用
+mosaic(~Dept + Gender + Admit, data=UCBAdmissions,
+       highlighting="Admit",
+       highlighting_fill=c("lightblue", "pink"),  # 指定のカテゴリで色分け
+       direction=c("v", "h", "v")) # v:垂直線で分割、h: 水平線で分割
+
+
 ~~~
 
 
