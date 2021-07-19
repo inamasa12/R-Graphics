@@ -1884,6 +1884,34 @@ mosaic(~Dept + Gender + Admit, data=UCBAdmissions,
        highlighting_fill=c("lightblue", "pink"),  # 指定のカテゴリで色分け
        direction=c("v", "h", "v")) # v:垂直線で分割、h: 水平線で分割
 
+# 円グラフ  
+# 分割表（table）を入力
+pie(fold)
+
+# 直接指定
+pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
+
+
+# 地図
+
+# 地図データの取得
+states_map <- map_data("state")
+# 塗りつぶしあり
+ggplot(states_map, aes(long, lat, group=group)) +
+  geom_polygon(fill="white", colour="black")
+# 塗りつぶしなし
+ggplot(states_map, aes(long, lat, group=group)) +
+  geom_path() +
+  coord_map("mercator")
+
+# 特定の地域
+east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South Korea"))
+ggplot(east_asia, aes(long, lat, group=group, fill=region)) +
+  geom_polygon(colour="black") +
+  scale_fill_brewer(palette="Set2")
+
+
+
 
 ~~~
 
