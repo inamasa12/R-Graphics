@@ -1909,13 +1909,9 @@ east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South 
 ggplot(east_asia, aes(long, lat, group=group, fill=region)) +
   geom_polygon(colour="black") +
   scale_fill_brewer(palette="Set2")
-
-
-
-
 ~~~
 
 
 * Tips  
 scale(df): 各列を正規化  
-
+merge(tbl1, tbl2, by.x=BMONTH, by.y=TMONTH): 結合（join）と同じ
