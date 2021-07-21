@@ -1909,6 +1909,28 @@ east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South 
 ggplot(east_asia, aes(long, lat, group=group, fill=region)) +
   geom_polygon(colour="black") +
   scale_fill_brewer(palette="Set2")
+
+
+# 地図に値を割り当てて表示
+
+# 割り当て
+crime_map <- merge(states_map, crimes, by.x="region", by.y="state")
+
+# 値をfillに設定
+crime_p <- ggplot(crime_map, aes(long, lat, group=group, fill=Assault)) +
+  geom_polygon(colour="black") +
+  expand_limits(x=states_map$long, y=states_map$lat) # 範囲の拡張（この場合変わらない）
+  coord_map("polyconic")
+
+# グラデーション１
+crime_p +
+  scale_fill_gradient2(low="#559999", mid="grey90", high="#BB650B",
+                      midpoint=median(crimes$Assault))
+
+# グラデーション２
+crime_p +
+  scale_fill_viridis_c()
+
 ~~~
 
 
