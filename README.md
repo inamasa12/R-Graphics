@@ -1911,7 +1911,7 @@ ggplot(east_asia, aes(long, lat, group=group, fill=region)) +
   scale_fill_brewer(palette="Set2")
 
 
-# 地図に値を割り当てて表示
+# 地図に値を割り当てて表示１（geom_polygonを使用）
 
 # 割り当て
 crime_map <- merge(states_map, crimes, by.x="region", by.y="state")
@@ -1931,6 +1931,18 @@ crime_p +
 crime_p +
   scale_fill_viridis_c()
 
+
+# 地図に値を割り当てて表示２（geom_mapを使用）
+# mapに与えるデータフレームはgeom_polygonで用いた、lat、long、regionの列を持つ必要がある
+# map_idにはregionに対応する変数を与える
+ggplot(crimes, aes(map_id=state, fill=Assault_q)) +
+  geom_map(map=states_map, colour="black") +
+  scale_fill_manual(values=pal) +
+  expand_limits(x=states_map$long, y=states_map$lat) + # geom_mapの時は必ず必要
+  coord_map("polyconic") +
+  labs(fill="Assault Rate\nPercentile") +
+  theme_void() # 背景を消す場合
+  
 ~~~
 
 
