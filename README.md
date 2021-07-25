@@ -1942,7 +1942,23 @@ ggplot(crimes, aes(map_id=state, fill=Assault_q)) +
   coord_map("polyconic") +
   labs(fill="Assault Rate\nPercentile") +
   theme_void() # 背景を消す場合
-  
+
+
+# シェープファイルから作図
+# https://gadm.org/index.htmlから旧バージョンのshファイルをダウンロード
+
+library(sf)
+
+taiwan_shp <- st_read("TWN_adm2.shp")
+
+ggplot(taiwan_shp) +
+  geom_sf()
+
+taiwan_shp_mod <- taiwan_shp
+taiwan_shp_mod <- taiwan_shp[!is.na(taiwan_shp$ENGTYPE_2),]
+
+ggplot(taiwan_shp_mod) +
+  geom_sf(aes(fill=ENGTYPE_2))
 ~~~
 
 
