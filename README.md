@@ -1953,7 +1953,12 @@ ggplot(taiwan_shp_mod) +
   geom_sf(aes(fill=ENGTYPE_2))
 ~~~
 
-
 * Tips  
 scale(df): 各列を正規化  
 merge(tbl1, tbl2, by.x=BMONTH, by.y=TMONTH): 結合（join）と同じ
+
+
+
+## 第１４章　文書用に図を出力する  
+
+
