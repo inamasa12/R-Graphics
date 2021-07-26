@@ -1945,18 +1945,10 @@ ggplot(crimes, aes(map_id=state, fill=Assault_q)) +
 
 
 # シェープファイルから作図
-# https://gadm.org/index.htmlから旧バージョンのshファイルをダウンロード
+# https://gadm.org/index.html から旧バージョンのshファイルをダウンロード
 
 library(sf)
-
 taiwan_shp <- st_read("TWN_adm2.shp")
-
-ggplot(taiwan_shp) +
-  geom_sf()
-
-taiwan_shp_mod <- taiwan_shp
-taiwan_shp_mod <- taiwan_shp[!is.na(taiwan_shp$ENGTYPE_2),]
-
 ggplot(taiwan_shp_mod) +
   geom_sf(aes(fill=ENGTYPE_2))
 ~~~
