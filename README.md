@@ -1961,4 +1961,45 @@ merge(tbl1, tbl2, by.x=BMONTH, by.y=TMONTH): 結合（join）と同じ
 
 ## 第１４章　文書用に図を出力する  
 
+* 出力  
+~~~
+# PDFファイルへの出力
 
+# 標準
+pdf("myplot.pdf", width=4, height=4)
+plot(mtcars$wt, mtcars$mpg)
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+dev.off()
+
+# ggplot
+plot1 <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+ggsave("myplot.pdf", plot1, width=8, height=8, units="cm")
+
+
+# svgファイルへの出力
+
+# 標準
+install.packages("svglite")
+library(svglite)
+svglite("myplot.svg", width=4, height=4)
+plot(mtcars$wt, mtcars$mpg)
+dev.off()
+
+# ggplot
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+ggsave("myplot.svg", width=8, height=8, units="cm")
+
+# wmfファイルへの出力
+
+# 標準
+win.metafile("myplot.wmf", width=4, height=4)
+plot(mtcars$wt, mtcars$mpg)
+dev.off()
+
+# ggplot
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+ggsave("myplot.wmf", width=8, height=8, units="cm")
+
+
+
+~~~
