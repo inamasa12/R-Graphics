@@ -1989,6 +1989,7 @@ dev.off()
 ggplot(mtcars, aes(wt, mpg)) + geom_point()
 ggsave("myplot.svg", width=8, height=8, units="cm")
 
+
 # wmfファイルへの出力
 
 # 標準
@@ -2000,6 +2001,20 @@ dev.off()
 ggplot(mtcars, aes(wt, mpg)) + geom_point()
 ggsave("myplot.wmf", width=8, height=8, units="cm")
 
+
+# PNGファイル（ビットマップファイル）への出力
+
+# 標準（複数ファイル）
+# 幅と高さは画素数（ピクセル）、解像度はインチあたりピクセルで指定
+# ⇒ 解像度に合わせて幅と高さを増減させないとグラフが縮小、拡大される
+png("myplot-%d.png", width=400, height=400, dpi=100)
+plot(mtcars$wt, mtcars$mpg)
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+dev.off()
+
+# ggplot
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+ggsave("myplot_gg2.png", width=8, height=8, unit="cm", dpi=300)
 
 
 ~~~
