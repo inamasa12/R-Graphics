@@ -2017,4 +2017,20 @@ ggplot(mtcars, aes(wt, mpg)) + geom_point()
 ggsave("myplot_gg2.png", width=8, height=8, unit="cm", dpi=300)
 
 
+# フォント指定
+
+library(extrafont)
+loadfonts("win")
+
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  ggtitle("Title text goes here") +
+  theme(text=element_text(size=16, family="Georgia", face="italic"))
+
+ggsave("myplot.png", width=4, height=4, dpi=300)
+
+
+# 図の結合
+library(patchwork)
+plot1 + plot2 + plot_layout(ncol=1, heights=c(1, 4))
 ~~~
