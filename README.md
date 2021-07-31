@@ -2034,3 +2034,22 @@ ggsave("myplot.png", width=4, height=4, dpi=300)
 library(patchwork)
 plot1 + plot2 + plot_layout(ncol=1, heights=c(1, 4))
 ~~~
+
+
+## 第１６章　データの前処理  
+
+* tidyverse  
+~~~
+# 列の削除
+ToothGrowth %>%
+  select(-len)
+
+# 列名の変更
+ToothGrowth %>%
+  rename(length=len)
+~~~
+
+
+* Tips  
+
+
