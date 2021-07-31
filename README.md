@@ -2047,9 +2047,20 @@ ToothGrowth %>%
 # 列名の変更
 ToothGrowth %>%
   rename(length=len)
+
+# 列の順序を変える
+# everything()は残りの列全てを表す
+ToothGrowth %>%
+  select(dose, everything())
+
+# 行の選択（インデックス指定）
+ToothGrowth %>%
+  slice(1:5)
+
+
 ~~~
 
 
 * Tips  
-
+fct_relevel(fct, "A", "B, "C"): ファクター列のカテゴリ順序を変更する
 
