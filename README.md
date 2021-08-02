@@ -2057,6 +2057,16 @@ ToothGrowth %>%
 ToothGrowth %>%
   slice(1:5)
 
+# カテゴリ変数の順序変更
+# base/reorder
+iss %>%
+  ggplot(aes(x=reorder(spray, count, FUN=mean), count)) +
+  geom_boxplot()
+
+# ggplot/fct_reorder
+iss %>%
+  ggplot(aes(x=fct_reorder(spray, count, .fun=median), count)) +
+  geom_boxplot()
 
 ~~~
 
