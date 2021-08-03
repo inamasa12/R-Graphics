@@ -2068,6 +2068,25 @@ iss %>%
   ggplot(aes(x=fct_reorder(spray, count, .fun=median), count)) +
   geom_boxplot()
 
+# カテゴリ変数のレベル名の操作
+# tidyverse
+fct_recode(sizes, S="small", M="medium", L="large")
+# base
+levels(sizes) <- list(S="small", M="medium", L="large")
+
+# カテゴリ変数で使用していないレベルを削除する
+# tidyverse
+fct_drop(sizes)
+# base
+droplevels(sizes)
+
+# 文字列ベクトルの置き換え
+# base
+recode(sizes, small="S", medium="M", large="L")
+# tidyverse
+fct_recode(sizes, S="small", M="medium", L="large")
+
+
 ~~~
 
 
