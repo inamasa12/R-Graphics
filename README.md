@@ -2058,32 +2058,32 @@ ToothGrowth %>%
   slice(1:5)
 
 # カテゴリ変数の順序変更
-# base/reorder
+# stats/reorder
 iss %>%
   ggplot(aes(x=reorder(spray, count, FUN=mean), count)) +
   geom_boxplot()
 
-# ggplot/fct_reorder
+# forcats/fct_reorder
 iss %>%
   ggplot(aes(x=fct_reorder(spray, count, .fun=median), count)) +
   geom_boxplot()
 
 # カテゴリ変数のレベル名の操作
-# tidyverse
-fct_recode(sizes, S="small", M="medium", L="large")
 # base
 levels(sizes) <- list(S="small", M="medium", L="large")
+# forcats
+fct_recode(sizes, S="small", M="medium", L="large")
 
 # カテゴリ変数で使用していないレベルを削除する
-# tidyverse
-fct_drop(sizes)
 # base
 droplevels(sizes)
+# forcats
+fct_drop(sizes)
 
-# 文字列ベクトルの置き換え
-# base
+# 文字列ベクトルの置き換え、baseとtidyverseで設定の右辺と左辺が逆になる点に注意
+# dplyr
 recode(sizes, small="S", medium="M", large="L")
-# tidyverse
+# forcats
 fct_recode(sizes, S="small", M="medium", L="large")
 
 
