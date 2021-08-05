@@ -2082,8 +2082,10 @@ fct_drop(sizes)
 
 # 文字列ベクトルの置き換え、baseとtidyverseで設定の右辺と左辺が逆になる点に注意
 # dplyr
+# recodeはインプットと同じ型を返す
 recode(sizes, small="S", medium="M", large="L")
 # forcats
+# fct_recodeは常にファクタを返す
 fct_recode(sizes, S="small", M="medium", L="large")
 
 
