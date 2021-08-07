@@ -2088,10 +2088,19 @@ recode(sizes, small="S", medium="M", large="L")
 # fct_recodeは常にファクタを返す
 fct_recode(sizes, S="small", M="medium", L="large")
 
+# カテゴリ変数の変換も文字列ベクトルの置き換え同様
+# 文字列をそのまま返す
+recode(pg$group, ctrl="No", trt1="Yes", trt2="Yes")
+# ファクターに変換して返す
+fct_recode(pg$group, No="ctrl", Yes="trt1", Yes="trt2")
+
+
 
 ~~~
 
 
 * Tips  
 fct_relevel(fct, "A", "B, "C"): ファクター列のカテゴリ順序を変更する
-
+interaction(col1, col2): 値を結合して新しい値を作る
+cut(col, breaks=閾値ベクトル, labels=ラベルベクトル): 連続変数をカテゴリ変数に変換する
+complete(col1, col2): 不足する組み合わせ行を追加する
