@@ -2093,10 +2093,41 @@ fct_recode(sizes, S="small", M="medium", L="large")
 recode(pg$group, ctrl="No", trt1="Yes", trt2="Yes")
 # ファクターに変換して返す
 fct_recode(pg$group, No="ctrl", Yes="trt1", Yes="trt2")
-
-
-
 ~~~
+
+* tidyverseを用いた関数（標準誤差の算出）
+~~~
+summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=F,
+                      conf.interval=.95, .drop=T){
+  
+  #有効データ数
+  length2 <- function(x, na.rm=F) {
+    if(na.rm) sum(!is.na(x))
+    else length(x)
+  }
+  
+  #関数に与えた値、ベクトルを、
+  #tidyverseの中でそれぞれ単独列変数、グループ列変数として扱えるようにする
+  groupvars <- rlang::syms(groupvars)
+  measurevar <- rlang::sym(measurevar)
+  
+  datac <- data %>%
+    dplyr::group_by(!!!groupvars) %>%
+    dplyr::summarize(
+      N=length2(!!measurevar, na.rm=na.rm),
+      sd=sd(!!measurevar, na.rm=na.rm),
+      !!measurevar:=mean(!!measurevar, na.rm=na.rm),
+      se=sd/sqrt(N),
+      ci=se*qt(conf.interval/2+.5, N-1)
+    ) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(seq_len(ncol(.)-4), ncol(.)-2, sd, se, ci)
+  
+  datac
+}
+~~~
+
+
 
 
 * Tips  
@@ -2104,3 +2135,4 @@ fct_relevel(fct, "A", "B, "C"): ファクター列のカテゴリ順序を変更
 interaction(col1, col2): 値を結合して新しい値を作る
 cut(col, breaks=閾値ベクトル, labels=ラベルベクトル): 連続変数をカテゴリ変数に変換する
 complete(col1, col2): 不足する組み合わせ行を追加する
+gather(tbl, factor_colname, val_colname, gathered_col1, gathered_col1): 横持ちから縦持ちへの変換
