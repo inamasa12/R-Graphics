@@ -2132,7 +2132,9 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=F,
 
 * Tips  
 fct_relevel(fct, "A", "B, "C"): ファクター列のカテゴリ順序を変更する
-interaction(col1, col2): 値を結合して新しい値を作る
+interaction(col1, col2): 列の値を結合して新しい列の値を作る
 cut(col, breaks=閾値ベクトル, labels=ラベルベクトル): 連続変数をカテゴリ変数に変換する
 complete(col1, col2): 不足する組み合わせ行を追加する
 gather(tbl, factor_colname, val_colname, gathered_col1, gathered_col1): 横持ちから縦持ちへの変換
+spread(tbl, factor_colname, val_colname): 縦持ちから横持への変換
+unite(new_colname, col1, col2): 列同士を結合した列を加えたtblを返す
