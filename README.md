@@ -2127,8 +2127,21 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=F,
 }
 ~~~
 
+* 時系列オブジェクトの変換
+~~~
+# 年次データ
+pres_rating <- data.frame(
+  year=as.numeric(time(presidents)),
+  rating=as.numeric(presidents)
+)
 
-
+# 四半期データ
+pres_rating <- data.frame(
+  year=as.numeric(floor(time(presidents))),
+  quarter=as.numeric(cycle(presidents)),
+  rating=as.numeric(presidents)
+)
+~~~
 
 * Tips  
 fct_relevel(fct, "A", "B, "C"): ファクター列のカテゴリ順序を変更する
@@ -2138,3 +2151,4 @@ complete(col1, col2): 不足する組み合わせ行を追加する
 gather(tbl, factor_colname, val_colname, gathered_col1, gathered_col1): 横持ちから縦持ちへの変換
 spread(tbl, factor_colname, val_colname): 縦持ちから横持への変換
 unite(new_colname, col1, col2): 列同士を結合した列を加えたtblを返す
+
