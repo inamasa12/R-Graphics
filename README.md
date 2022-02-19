@@ -6,22 +6,26 @@
 
 ## 付録A ggplot2を理解する  
 
-グラフ化 ⇒ データの視覚属性（軸、色等）へのマッピング  
-縦持ち形式（各行が観測値、各列が変数）のデータフレームを前提  
+ggplot概要  
+
+グラフ化とは各データを視覚属性（軸、色等）にマッピングすること  
+入力として縦持ち形式（各行が観測値、各列が変数）のデータフレームを想定  
 データをマッピングする前に何らかの要約が必要な場合には統計関数（stat_）を用いる    
 グラフの全体的な体裁をテーマとして統一的にコントロールすることができる    
 
-データ:            変数の集合  
-幾何オブジェクト:   グラフのタイプ（どのように表現するか）  
+データ: 変数の集合  
+幾何オブジェクト: グラフのタイプ（どのように表現するか）  
 エステティック属性: 視覚属性  
-スケール:          データ空間からエステティック空間への投影の仕方を定義するもの  
-ガイド:            目盛り、ラベル、凡例等  
-  ⇒ 幾何オブジェクトを決め、データをエステティック属性にマッピングし、スケールとガイドを定義する  
+スケール: データ空間からエステティック空間への投影の仕方を定義するもの  
+ガイド: 目盛り、ラベル、凡例等  
+⇒ 幾何オブジェクトを決め、データをエステティック属性にマッピングし、スケールとガイドを定義する  
 
 ---
 　  
 　  
 ## 第１章　Rの基本  
+
+割愛  
 
 ### R Tips
 gcookbookパッケージには多数のサンプルデータが含まれる  
@@ -34,120 +38,42 @@ gcookbookパッケージには多数のサンプルデータが含まれる
 
 ## 第２章　データの基本的なプロット  
 
-baseグラフィックスとの比較  
-基本的にggplotはいかなるグラフでも統一的な処理が可能  
+主なグラフ（幾何学オブジェクト）  
 
-* 散布図  
 ~~~
-# base
-plot(mtcars$wt, mtcars$mpg)
-
-# ggplot
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point()
-~~~
-
-* 折れ線グラフ  
-~~~
-# base
-plot(pressure$temperature, pressure$pressure, type="l")
-points(pressure$temperature, pressure$pressure)
-lines(pressure$temperature, pressure$pressure/2, col="red")
-points(pressure$temperature, pressure$pressure/2, col="red")
-
-# ggplot
-ggplot(pressure) +
-  geom_line(aes(temperature, pressure)) +
-  geom_point(aes(temperature, pressure)) +
-  geom_line(aes(temperature, pressure/2), colour="red") +
-  geom_point(aes(temperature, pressure/2), colour="red")
+ggplot(df, aes(col1, col2)) +
+  geom_point()   # 散布図
+  geom_line()    # 折れ線グラフ
+  geom_col()     # 棒グラフ（値を表示）
+  geom_boxplot() # 箱ひげ図
+  
+ggplot(df, aes(col)) +
+  geom_bar()                      # 棒グラフ（個数を集計）
+  geom_histogram()                # ヒストグラム
+  stat_function(fun, geom="line") # 関数曲線
 ~~~
 
-* 棒グラフ  
-~~~
-# base
-# 生値
-barplot(BOD$demand, names.arg=BOD$Time)
-# 集計値
-barplot(table(mtcars$cyl))
+### R Tips  
+interaction(col1, col2): 二つのファクターを合成し、新しいファクターを合成  
 
-# ggplot
-# 生値  
-# 連続値
-ggplot(BOD, aes(Time, demand)) +
-  geom_col()
-# 離散値
-ggplot(BOD, aes(factor(Time), demand)) +
-  geom_col()
-# 集計値
-# 連続値
-ggplot(mtcars, aes(cyl)) +
-  geom_bar()
-# 離散値
-ggplot(mtcars, aes(factor(cyl))) +
-  geom_bar()
-aes(temperature, pressure/2), colour="red") +
-  geom_point(aes(temperature, pressure/2), colour="red")
-~~~
-
-* ヒストグラム  
-~~~
-# base
-# ビンの数を指定
-hist(mtcars$mpg, breaks=10)
-
-# ggplot
-# ビンの幅を指定
-ggplot(mtcars, aes(mpg)) +
-  geom_histogram(binwidth=4)
-~~~
-
-* 箱ひげ図  
-~~~
-# base
-plot(ToothGrowth$supp, ToothGrowth$len)
-boxplot(len~supp+dose, data=ToothGrowth)
-
-# ggplot
-ggplot(ToothGrowth, aes(interaction(supp, dose), len)) +
-  geom_boxplot()
-~~~
-
-* 関数曲線  
-~~~
-# 関数定義
-myfun1 <- function(xvar) {
-  1 / (1 + exp(- xvar + 10))
-}
-myfun2 <- function(xvar) {
-  1 - 1 / (1 + exp(- xvar + 10))
-}
-
-# base
-curve(myfun1(x), from=0, to=20)
-curve(1-myfun1(x), add=TRUE, col="red")
-
-# ggplot
-ggplot(tibble(x=c(0, 20)), aes(x)) +
-  stat_function(fun=myfun1, geom="line") + 
-  stat_function(fun=myfun2, geom="line", color="red")
-~~~
-
-* Tips  
-search(): ロード済みのパッケージを確認  
-interaction(col1, col2): 合成ファクターの生成  
-
-
+---
 　  
+ 
 ## 第３章　棒グラフ    
 
 ある区分に対応する値を示す  
+表示する値が要約値か生値かを明確に区別する必要がある  
 
-* 基本  
+1. 値を表示  
 ~~~
-# fill: 塗りつぶしの色、colour: 枠線の色
-ggplot(pg_mean, aes(group, weight)) +
-  geom_col(fill="lightblue", colour="black")
+# 基本
+ggplot(df, aes(col1, col2)) +
+  geom_col(fill="lightblue", colour="black") # fill: 塗りつぶしの色、colour: 枠線の色
+
+# グループ別の表示
+ggplot(df, aes(col1, col2, fill=col3)) + # col3でグループ分け
+  geom_col(position="dodge", colour="black") +
+  scale_fill_brewer(palette="Pastel1") # fillのパターンを設定
 ~~~
 
 * グループ化  
