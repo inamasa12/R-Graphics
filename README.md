@@ -30,9 +30,11 @@ ggplot概要
 
 ### R Tips
 gcookbookパッケージには多数のサンプルデータが含まれる  
+
+### Other Functions
 `update.packages()`: パッケージの更新、ask=FALSEで確認なしで更新  
-`summary(df)': 単変量の統計量  
-`pairs(df)`: 共変量の統計量  
+`summary(df)': 単変量の統計量（全ての列）  
+`pairs(df)`: 共変量の統計量（各列の全ての組み合わせ）  
 
 ---
 　  
@@ -54,12 +56,12 @@ ggplot(df, aes(col)) +
   stat_function(fun, geom="line") # 関数曲線
 ~~~
 
-### R Tips  
-interaction(col1, col2): 二つのファクターを合成し、新しいファクターを合成  
+### Other Functions  
+`interaction(col1, col2)`: 二つのファクターを合成し、新しいファクターを合成  
 
 ---
 　  
- 
+
 ## 第３章　棒グラフ    
 
 ある区分に対応する値を示す  
@@ -69,29 +71,25 @@ interaction(col1, col2): 二つのファクターを合成し、新しいファ�
 ~~~
 # 基本
 ggplot(df, aes(col1, col2)) +
-  geom_col(fill="lightblue", colour="black") # fill: 塗りつぶしの色、colour: 枠線の色
+  geom_col(fill="lightblue", colour="black") + # fill: 塗りつぶしの色、colour: 枠線の色
+  xlab("x") # x軸のタイトル
 
 # グループ別の表示
-ggplot(df, aes(col1, col2, fill=col3)) + # col3でグループ分け
-  geom_col(position="dodge", colour="black") +
-  scale_fill_brewer(palette="Pastel1") # fillのパターンを設定
+ggplot(df, aes(col1, col2, fill=col3)) + # col3の値でfillを変える
+  geom_col(position="dodge", colour="black") + # dodgeは棒グラフの重なりを無くす
+  scale_fill_brewer(palette="Pastel1") # fillの既成パターンを設定
+  scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定
 ~~~
 
-* グループ化  
+2. 要約値の表示  
 ~~~
-# 塗りつぶしでグループ化、塗りつぶしの色設定変更（brwerのパレットを使用）
-# positionはデフォルトが積み上げ、"dodge"はグラフを重ねない
-ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
-  geom_col(position="dodge", colour="black") +
-  scale_fill_brewer(palette="Pastel1")
-~~~
-
-* 要約量  
-~~~
-# geom_barを用いる
-ggplot(diamonds, aes(cut)) +
+# 指定の列の値の個数を表示 ⇒ 列の値が離散値: 棒グラフ、連続値: ヒストグラム
+ggplot(df, aes(col)) +
   geom_bar()
 ~~~
+
+
+
 
 * 色付きのグラフ  
 ~~~
@@ -244,15 +242,17 @@ ggplot(tophit, aes(avg, reorder(name, avg))) +
   theme(panel.grid.major.y=element_blank())
 ~~~
 
-* Tips  
+### R Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
 top_n(n, col): 上位n個のデータを抽出  
-reorder(col, col2): col1をファクターに変換し、col2の順序で整列
 rev(col): ベクトルを逆順にする  
 desc(col): 符号を反転させる  
 format(x, nsmall=2): 少数第二位まで表示  
 
+### Related Functions
 
+### Other Functions
+`slice(df, 1:10)`: 指定の行を抽出  
 　  
 ## 第４章　折れ線グラフ    
 
