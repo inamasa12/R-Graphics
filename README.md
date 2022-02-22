@@ -45,15 +45,15 @@ gcookbookパッケージには多数のサンプルデータが含まれる
 
 ~~~
 ggplot(df, aes(col1, col2)) +
-  geom_point()   # 散布図
-  geom_line()    # 折れ線グラフ
-  geom_col()     # 棒グラフ（値を表示）
-  geom_boxplot() # 箱ひげ図
+    geom_point()   # 散布図
+    geom_line()    # 折れ線グラフ
+    geom_col()     # 棒グラフ（値を表示）
+    geom_boxplot() # 箱ひげ図
   
 ggplot(df, aes(col)) +
-  geom_bar()                      # 棒グラフ（個数を集計）
-  geom_histogram()                # ヒストグラム
-  stat_function(fun, geom="line") # 関数曲線
+    geom_bar()                      # 棒グラフ（個数を集計）
+    geom_histogram()                # ヒストグラム
+    stat_function(fun, geom="line") # 関数曲線
 ~~~
 
 ### Other Functions  
@@ -71,41 +71,36 @@ ggplot(df, aes(col)) +
 ~~~
 # 基本
 ggplot(df, aes(col1, col2)) +
-  geom_col(fill="lightblue", colour="black") + # fill: 塗りつぶしの色、colour: 枠線の色
-  xlab("x") # x軸のタイトル
+    geom_col(fill="lightblue", colour="black") + # fill: 塗りつぶしの色、colour: 枠線の色
+    xlab("x") # x軸のタイトル
 
 # グループ別の表示
-ggplot(df, aes(col1, col2, fill=col3)) + # col3の値でfillを変える
-  geom_col(position="dodge", colour="black") + # dodgeは棒グラフの重なりを無くす
-  scale_fill_brewer(palette="Pastel1") # fillの既成パターンを設定
-  scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定
+ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
+    geom_col(position="dodge", colour="black") +      # dodgeは棒グラフの重なりを無くす
+    scale_fill_brewer(palette="Pastel1")              # fillの既成パターンを設定
+    scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定
 ~~~
 
 2. 要約値の表示  
 ~~~
 # 指定の列の値の個数を表示 ⇒ 列の値が離散値: 棒グラフ、連続値: ヒストグラム
-ggplot(df, aes(col)) +
-  geom_bar()
+ggplot(df, aes(col1, fill=col2)) +
+  geom_bar(width=0.5, position=position_dodge(0.7) # widthで棒の幅を指定、position_dodgeで異なるグループ間の棒の幅を設定
 ~~~
 
-
-
-
-* 色付きのグラフ  
+3. 表示の工夫  
 ~~~
-# reorderでファクターの順序を変更、塗りつぶしの色設定を個別に変更
-ggplot(upc, aes(reorder(Abb, Change), Change)) +
-  geom_col(aes(fill=Region), colour="black") +
-  scale_fill_manual(values=c("#669933", "#FFCC66")) +
-  xlab("State")
+# 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定
+ggplot(df, aes(col1, col2)) +
+    geom_col(aes(fill=col3), colour="black", size=0.25) +
+    scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F) # guide=Fで凡例を非表示
+
+
 ~~~
 
 * グラフの色分け  
 ~~~
 # sizeは枠線の幅、guide=Fで凡例を非表示
-ggplot(climate_sub, aes(Year, Anomaly10y)) +
-  geom_col(aes(fill=pos), colour="black", size=0.25) +
-  scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F)
 ~~~
 
 * 棒の幅  
