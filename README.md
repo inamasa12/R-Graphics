@@ -73,23 +73,27 @@ geom_colを使用
 # 基本
 ggplot(df, aes(col1, col2)) +
     geom_col(fill="lightblue", colour="black") + # fill: 塗りつぶしの色、colour: 枠線の色
-    xlab("x") # x軸のタイトル
+    geom_text(aes(label=col2), vjust=1.5) +      # 値ラベル、vjustは下側にシフト
+    xlab("x")                                    # x軸のタイトル
 
 
 # グループ別の表示①（積み上げ）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
-    geom_col() +                                      # position指定はなし（デフォルト）
+    geom_col(position=position_stack(reverse=TRUE)) + # 積み上げを逆順にする
     guides(fill=guide_legend(reverse=TRUE))           # 凡例の表示を逆順にする
 
-
-# グループ別の表示②（並列）
+# グループ別の表示②（100%積み上げ）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
-    geom_col(position="dodge", colour="black") +      # dodgeは棒グラフの重なりを無くす
+    geom_col(position="fill") +                       # position="fill"は100%積み上げ
+    scale_y_continuous(labels=scales::percent)        # スケールを100%表示
+
+
+
+# グループ別の表示③（並列）
+ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
+    geom_col(position="dodge", colour="black") +      # position="dodge"は棒グラフの重なりを無くす
     scale_fill_brewer(palette="Pastel1")              # fillの既成パターンを設定
     scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定
-
-
-
 ~~~
 
 2. 要約値の表示  
@@ -99,7 +103,11 @@ geom_barを使用
 ggplot(df, aes(col1, fill=col2)) +
     # widthで棒の幅（棒の間隔）を指定（デフォルト0.9、最大1.0）
     # position_dodgeでグループ間の棒の間隔（互いの中心からの距離）を指定（デフォルト0.9）
-    geom_bar(width=0.5, position=position_dodge(0.7) 
+    geom_bar(width=0.5, position=position_dodge(0.7))
+    geom_text(aes(label=..count.., stat="count"))  # 要約値を値ラベルで表示
+
+
+
 ~~~
 
 3. 表示の工夫  
