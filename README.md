@@ -33,7 +33,7 @@ gcookbookパッケージには多数のサンプルデータが含まれる
 
 ### Other Functions
 `update.packages()`: パッケージの更新、ask=FALSEで確認なしで更新  
-`summary(df)': 単変量の統計量（全ての列）  
+`summary(df)`: 単変量の統計量（全ての列）  
 `pairs(df)`: 共変量の統計量（各列の全ての組み合わせ）  
 
 ---
@@ -68,24 +68,38 @@ ggplot(df, aes(col)) +
 表示する値が要約値か生値かを明確に区別する必要がある  
 
 1. 値を表示  
+geom_colを使用  
 ~~~
 # 基本
 ggplot(df, aes(col1, col2)) +
     geom_col(fill="lightblue", colour="black") + # fill: 塗りつぶしの色、colour: 枠線の色
     xlab("x") # x軸のタイトル
 
-# グループ別の表示
+
+# グループ別の表示①（積み上げ）
+ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
+    geom_col() +                                      # position指定はなし（デフォルト）
+    guides(fill=guide_legend(reverse=TRUE))           # 凡例の表示を逆順にする
+
+
+# グループ別の表示②（並列）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position="dodge", colour="black") +      # dodgeは棒グラフの重なりを無くす
     scale_fill_brewer(palette="Pastel1")              # fillの既成パターンを設定
     scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定
+
+
+
 ~~~
 
 2. 要約値の表示  
+geom_barを使用  
 ~~~
 # 指定の列の値の個数を表示 ⇒ 列の値が離散値: 棒グラフ、連続値: ヒストグラム
 ggplot(df, aes(col1, fill=col2)) +
-  geom_bar(width=0.5, position=position_dodge(0.7) # widthで棒の幅を指定、position_dodgeで異なるグループ間の棒の幅を設定
+    # widthで棒の幅（棒の間隔）を指定（デフォルト0.9、最大1.0）
+    # position_dodgeでグループ間の棒の間隔（互いの中心からの距離）を指定（デフォルト0.9）
+    geom_bar(width=0.5, position=position_dodge(0.7) 
 ~~~
 
 3. 表示の工夫  
@@ -98,17 +112,6 @@ ggplot(df, aes(col1, col2)) +
 
 ~~~
 
-* グラフの色分け  
-~~~
-# sizeは枠線の幅、guide=Fで凡例を非表示
-~~~
-
-* 棒の幅  
-~~~
-# width=0.9がデフォルト、position_dodge(x)で棒グラフ中心間の幅を設定
-ggplot(cabbage_exp, aes(Date, Weight)) +
-  geom_col(aes(fill=Cultivar), width=0.5, position=position_dodge(0.7))
-~~~
 
 * 積み上げ棒グラフ  
 ~~~
