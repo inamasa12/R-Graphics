@@ -76,7 +76,6 @@ ggplot(df, aes(col1, col2)) +
     geom_text(aes(label=col2), vjust=1.5) +      # 値ラベル、vjustは下側にシフト
     xlab("x")                                    # x軸のタイトル
 
-
 # グループ別の表示①（積み上げ）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position=position_stack(reverse=TRUE)) + # 積み上げを逆順にする
@@ -85,15 +84,14 @@ ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変�
 # グループ別の表示②（100%積み上げ）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position="fill") +                       # position="fill"は100%積み上げ
+    geom_text(aes(y=label_y, label=col2)) +           # 積み上げ棒グラフに値ラベル入れる場合は位置の列が必要
     scale_y_continuous(labels=scales::percent)        # スケールを100%表示
-
-
 
 # グループ別の表示③（並列）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position="dodge", colour="black") +      # position="dodge"は棒グラフの重なりを無くす
     scale_fill_brewer(palette="Pastel1")              # fillの既成パターンを設定
-    scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定
+    scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定    
 ~~~
 
 2. 要約値の表示  
@@ -104,91 +102,19 @@ ggplot(df, aes(col1, fill=col2)) +
     # widthで棒の幅（棒の間隔）を指定（デフォルト0.9、最大1.0）
     # position_dodgeでグループ間の棒の間隔（互いの中心からの距離）を指定（デフォルト0.9）
     geom_bar(width=0.5, position=position_dodge(0.7))
-    geom_text(aes(label=..count.., stat="count"))  # 要約値を値ラベルで表示
-
-
-
+    geom_text(aes(label=..count.., stat="count"), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
 ~~~
 
 3. 表示の工夫  
+値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定  
 ~~~
-# 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定
 ggplot(df, aes(col1, col2)) +
     geom_col(aes(fill=col3), colour="black", size=0.25) +
     scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F) # guide=Fで凡例を非表示
-
-
 ~~~
 
 
-* 積み上げ棒グラフ  
-~~~
-# デフォルト
-ggplot(cabbage_exp, aes(Date, Weight)) +
-  geom_col(aes(fill=Cultivar))
 
-# 逆順
-ggplot(cabbage_exp, aes(Date, Weight)) +
-  geom_col(aes(fill=Cultivar), position=position_stack(reverse=T), colour="black") +
-  scale_fill_brewer(palette="Pastel1") +
-  guides(fill=guide_legend(reverse=T))
-~~~
-
-* 100%積み上げ棒グラフ  
-~~~
-# スケールの設定でラベルをパーセント表示
-ggplot(cabbage_exp, aes(Date, Weight)) +
-  geom_col(aes(fill=Cultivar), position="fill", colour="black") +
-  scale_y_continuous(labels=scales::percent) +
-  scale_fill_brewer(palette="Pastel1")
-~~~
-
-* ラベル  
-~~~
-# vjustで位置の上下を微調整、ラベルを加味して表示範囲を調整
-ggplot(cabbage_exp, aes(interaction(Date, Cultivar), Weight)) +
-  geom_col() +
-  geom_text(aes(label=Weight), vjust=-0.2) +
-  ylim(0, max(cabbage_exp$Weight)*1.05)
-
-# 位置を直接指定、表示範囲は自動調整
-ggplot(cabbage_exp, aes(interaction(Date, Cultivar), Weight)) +
-  geom_col() +
-  geom_text(aes(y=Weight+0.1, label=Weight))
-
-# 要約量
-# geom_barを用い、statとlabelをcountに指定
-ggplot(mtcars, aes(factor(cyl))) +
-  geom_bar() +
-  geom_text(aes(label=..count..), stat="count", vjust=1.5, colour="white")
-
-# グループ化
-# geom_textではpositionの簡易表示"dodge"は使用できない
-ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
-  geom_col(position="dodge") +
-  geom_text(aes(label=Weight),
-            vjust=1.5,
-            colour="white", size=4, 
-            position=position_dodge(0.9))
-
-# 積み上げ棒グラフ
-
-# 表示順序にデータを並べる
-ce <- cabbage_exp %>%
-  arrange(Date, rev(Cultivar))
-
-# ラベルの表示位置を定める列を作成
-ce <- ce %>%
-  group_by(Date) %>%
-  mutate(label_y=cumsum(Weight)-0.5*Weight)
-
-# ラベルの表示形式を追加的に設定
-ggplot(ce, aes(Date, Weight, fill=Cultivar)) +
-  geom_col(colour="black") +
-  geom_text(aes(label=paste(format(Weight, nsmall=2), "kg"), y=label_y), 
-            size=4) +
-  scale_fill_brewer(palette="Pastel1")
-~~~
 
 * ドットプロット  
 ~~~
@@ -251,15 +177,22 @@ ggplot(tophit, aes(avg, reorder(name, avg))) +
 ### R Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
 top_n(n, col): 上位n個のデータを抽出  
-rev(col): ベクトルを逆順にする  
-desc(col): 符号を反転させる  
-format(x, nsmall=2): 少数第二位まで表示  
+
+ファクターのレベル順序の作り方  
+~~~
+lorder <- col1[order(col2, col3)]    # 好みの順序に並べ替え
+col1 <- factor(col1, levels=lorder)  # 並べ替えたベクトルをレベルとしてファクター化
+~~~
+
+
 
 ### Related Functions
 
 ### Other Functions
 `slice(df, 1:10)`: 指定の行を抽出  
-　  
+`rev(col)`: 逆順にする  
+
+
 ## 第４章　折れ線グラフ    
 
 連続変数もしくはカテゴリ変数に対して、連続値がどのように推移するかを表示  
