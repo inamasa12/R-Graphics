@@ -176,8 +176,6 @@ ggplot(tophit, aes(avg, reorder(name, avg))) +
 
 ### R Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
-top_n(n, col): 上位n個のデータを抽出  
-
 ファクターのレベル順序の作り方  
 ~~~
 lorder <- col1[order(col2, col3)]    # 好みの順序に並べ替え
@@ -188,10 +186,11 @@ col1 <- factor(col1, levels=lorder)  # 並べ替えたベクトルをレベル�
 
 ### Related Functions
 
+
 ### Other Functions
 `slice(df, 1:10)`: 指定の行を抽出  
 `rev(col)`: 逆順にする  
-
+`top_n(n, col)`: 上位n個のデータを抽出  
 
 ## 第４章　折れ線グラフ    
 
