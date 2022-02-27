@@ -94,6 +94,9 @@ ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変�
     scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定    
 ~~~
 
+<img src="https://user-images.githubusercontent.com/51372161/155881597-d2b8aa7f-00e4-4966-bbd7-6e36dde15a96.png">  
+
+
 2. 要約値の表示  
 geom_barを使用  
 ~~~
