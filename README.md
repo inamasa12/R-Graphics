@@ -76,7 +76,7 @@ ggplot(df, aes(col1, col2)) +
     geom_text(aes(label=col2), vjust=1.5) +      # 値ラベル、vjustは下側にシフト
     xlab("x")                                    # x軸のタイトル
 
-# グループ別の表示①（積み上げ）
+# グループ別の表示①（積み上げ、デフォルト）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position=position_stack(reverse=TRUE)) + # 積み上げを逆順にする
     guides(fill=guide_legend(reverse=TRUE))           # 凡例の表示を逆順にする
@@ -108,6 +108,8 @@ ggplot(df, aes(col1, fill=col2)) +
     geom_text(aes(label=..count.., stat="count"), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
 ~~~
 
+<img src="https://user-images.githubusercontent.com/51372161/155881597-d2b8aa7f-00e4-4966-bbd7-6e36dde15a96.png">  
+
 3. 表示の工夫  
 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定  
 ~~~
@@ -116,6 +118,7 @@ ggplot(df, aes(col1, col2)) +
     scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F) # guide=Fで凡例を非表示
 ~~~
 
+<img src="https://user-images.githubusercontent.com/51372161/155881597-d2b8aa7f-00e4-4966-bbd7-6e36dde15a96.png">  
 
 
 
