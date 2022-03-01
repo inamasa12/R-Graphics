@@ -108,7 +108,7 @@ ggplot(df, aes(col1, fill=col2)) +
     geom_text(aes(label=..count.., stat="count"), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
 ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/155881597-d2b8aa7f-00e4-4966-bbd7-6e36dde15a96.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156161280-9ed174a2-942d-4c46-be54-45dbc5ab153f.png">  
 
 3. 表示の工夫  
 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定  
