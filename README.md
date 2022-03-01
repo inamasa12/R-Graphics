@@ -118,7 +118,7 @@ ggplot(df, aes(col1, col2)) +
     scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F) # guide=Fで凡例を非表示
 ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/155881597-d2b8aa7f-00e4-4966-bbd7-6e36dde15a96.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156162343-98511e10-d9ae-47ab-94ea-1f131f32dfe4.png">  
 
 
 
