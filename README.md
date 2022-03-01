@@ -105,10 +105,10 @@ ggplot(df, aes(col1, fill=col2)) +
     # widthで棒の幅（棒の間隔）を指定（デフォルト0.9、最大1.0）
     # position_dodgeでグループ間の棒の間隔（互いの中心からの距離）を指定（デフォルト0.9）
     geom_bar(width=0.5, position=position_dodge(0.7))
-    geom_text(aes(label=..count.., stat="count"), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
+    geom_text(aes(label=..count.., stat="count"), position=position_dodge(0.7), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
 ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156161280-9ed174a2-942d-4c46-be54-45dbc5ab153f.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156161725-9a6b8d6c-b118-4263-b951-33f7332577bd.png">  
 
 3. 表示の工夫  
 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定  
