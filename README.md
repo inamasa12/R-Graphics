@@ -121,64 +121,18 @@ ggplot(df, aes(col1, col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/156162343-98511e10-d9ae-47ab-94ea-1f131f32dfe4.png">  
 
 
-
-* ドットプロット  
+4. ドットプロット  
 ~~~
-# テーマの設定
-# x軸の目盛り線を消す、y軸目盛りの書式を設定
-ggplot(tophit, aes(avg, reorder(name, avg))) +
-  geom_point(size=3) +
-  theme_bw() +
-  theme(
-    panel.grid.major.x=element_blank(),
-    panel.grid.minor.x=element_blank(),
-    panel.grid.major.y=element_line(colour="grey60", linetype="dashed")
-  ) 
-
-# 軸の入替、目盛りラベルの書式設定
-ggplot(tophit, aes(avg, reorder(name, avg))) +
-  geom_point(size=3) +
-  theme_bw() +
-  theme(
-    panel.grid.major.x=element_blank(),
-    panel.grid.minor.x=element_blank(),
-    panel.grid.major.y=element_line(colour="grey60", linetype="dashed"),
-    axis.text.x = element_text(angle=60, hjust=1)
-  ) +
-  coord_flip()
-
-# グループ分け１
-# 先に指定順のファクター変数を用意
-# geom_segmentでデータから線分を引く
-# データの表示順に合わせてlimitsで色の割当順を設定
-# 目盛りと凡例の書式設定
-tophit %>%
-  mutate(nameorder=tophit$name[order(tophit$lg, tophit$avg)]) %>%
-  mutate(name2=factor(name, levels=nameorder)) %>%
-  select(name2, lg, avg, nameorder) %>%
-  ggplot(aes(avg, name2)) +
-    geom_point(aes(colour=lg), size=3) +
-    geom_segment(aes(yend=name2), xend=0, colour="grey50") +
-    scale_colour_brewer(palette="Set1", limits=c("NL", "AL")) +
-    theme_bw() +
-    theme(
-      panel.grid.major.y=element_blank(),
-      legend.position=c(1, 0.5),
-      legend.justification=c(1, 0.5)
-    )
-
-# グループ分け２
-# 凡例なし、guide=FALSE
-# ファセット毎にスケールを変える（scales）
-# ファセット毎に大きさを変える（space）
-ggplot(tophit, aes(avg, reorder(name, avg))) +
-  geom_point(size=3, aes(colour=lg)) +
-  geom_segment(aes(yend=name), xend=0, colour="grey50") +
-  scale_colour_brewer(palette="Set1", guide=FALSE, limits=c("NL", "AL")) +
-  facet_grid(lg~., scales="free_y", space="free_y") +
-  theme_bw() +
-  theme(panel.grid.major.y=element_blank())
+ggplot(tophit, aes(avg, name)) +
+  geom_point(size=3, aes(colour=lg)) + 
+  geom_segment(aes(yend=name), xend=0, colour="grey50") + # (avg, name)から(0, name)に線分を引く
+  theme_bw() + # グラフ全体のテーマを設定
+  theme(panel.grid.major.y=element_blank()) + # 罫線はthemeで扱う
+  facet_grid(lg~., scales="free_y", space="free_y") # spaceを指定しない場合、各図の大きさは同じに設定される
 ~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/156549905-db73ddbc-7117-4d98-b2b5-2204bae2e752.png">  
+
 
 ### R Tips  
 RColorBrewer::display.brewer.all(): R Color Brewerの全パレット表示  
@@ -188,15 +142,13 @@ lorder <- col1[order(col2, col3)]    # 好みの順序に並べ替え
 col1 <- factor(col1, levels=lorder)  # 並べ替えたベクトルをレベルとしてファクター化
 ~~~
 
-
-
-### Related Functions
-
-
 ### Other Functions
 `slice(df, 1:10)`: 指定の行を抽出  
 `rev(col)`: 逆順にする  
 `top_n(n, col)`: 上位n個のデータを抽出  
+
+--
+　  
 
 ## 第４章　折れ線グラフ    
 
