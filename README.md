@@ -194,7 +194,7 @@ ggplot(df, aes(col1, col2, fill=col3)) +
   geom_line(position="fill", colour="gray", size=.2) # 枠線
 ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156903177-d52bf879-25c6-4166-aa41-d8bf0874ab63.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156903207-e1434d5f-388e-4f29-b90c-5be41a42345c.png">  
 
 
 
