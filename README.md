@@ -173,15 +173,29 @@ ggplot(df, aes(col1, col2, linetype=col3, group=col3)) + #x軸がファクター
 
 <img src="https://user-images.githubusercontent.com/51372161/156872927-e593a801-397a-4d47-9d8e-864b056dfc1f.png">  
 
-
-
 2. 面グラフ  
 geom_areaを使用  
 ~~~
 # 基本（網掛け領域付のグラフ）
+ggplot(df, aes(col1, col2)) +
+  geom_area(fill="blue", alpha=.2) + # 領域の色と透明度を指定
+  geom_line()                        # 枠線
 
+# グループ別の表示①（積み上げ、デフォルト）
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_area(colour=NA) +                              # 枠線が面の全てを囲まないようにするためNA
+  scale_fill_brewer(palette="Blues") +
+  geom_line(position="stack", colour="grey", size=.2) # 枠線
 
+# グループ別の表示②（100%積み上げ）
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_area(colour=NA, position="fill") +             # 枠線が面の全てを囲まないようにするためNA
+  scale_fill_brewer(palette="Pastel1") +
+  geom_line(position="fill", colour="gray", size=.2) # 枠線
 ~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/156903177-d52bf879-25c6-4166-aa41-d8bf0874ab63.png">  
+
 
 
 3. 信頼区間の表示  
