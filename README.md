@@ -159,73 +159,33 @@ geom_lineを使用
 ~~~
 # 基本
 ggplot(df, aes(col1, col2, group=1)) + # x軸がファクターの場合は全てのデータが同じグループであることを明示するために「group=1」を指定する  
-    geom_line() +
-    geom_point() +        # 点を追加する場合
-    ylim(0, max(df$col))  # y軸の範囲を指定
-    expand_limits(y=0)    # y軸に含める値を指定
-    scale_y_log10()       # 対数グラフの場合
+    geom_line(colour="blue") + # 共通の色を設定
+    geom_point() +             # 点を追加する場合
+    ylim(0, max(df$col))       # y軸の範囲を指定
+    expand_limits(y=0)         # y軸に含める値を指定
+    scale_y_log10()            # 対数グラフの場合
 
 # グループ別の表示
 ggplot(df, aes(col1, col2, linetype=col3, group=col3)) + #x軸がファクターの場合はgroupを明示的に指定する
     geom_line(position=position_dodge(0.2)) + # 点の重複を避けたい場合はposition_dodgeでずらす
-    geom_point(size=4, shape=21)
-
+    geom_point(size=4, shape=21, fill="pink") # サイズのデフォルトは2
 ~~~
 
-2. 積み上げ面グラフ  
+<img src="https://user-images.githubusercontent.com/51372161/156872927-e593a801-397a-4d47-9d8e-864b056dfc1f.png">  
 
+
+
+2. 面グラフ  
+geom_areaを使用  
+~~~
+# 基本（網掛け領域付のグラフ）
+
+
+~~~
 
 
 3. 信頼区間の表示  
 
-
-* 基本  
-~~~
-# 連続値
-# 縦軸の範囲を設定
-ggplot(BOD, aes(Time, demand)) +
-  geom_line() +
-  ylim(0, max(BOD$demand))
-
-# 離散値
-# 変数がファクターの場合は各値のグループを明示的に設定する必要がある
-# 　⇒ 設定がない場合、全ての値が独立した値と見做され、折れ線グラフでは表示できなくなる
-# 縦軸の範囲を設定
-ggplot(BOD1, aes(Time, demand, group=1)) +
-  geom_line() +
-  expand_limits(y=0)
-~~~
-
-* 点線グラフ  
-~~~
-# geom_pointを重ねる、縦軸を対数目盛に変換
-ggplot(worldpop, aes(Year, Population)) +
-  geom_line() +
-  geom_point() +
-  scale_y_log10()
-
-# 点の重なりを無くす、shapeは点の形状を指定
-ggplot(tg, aes(dose, length, shape=supp)) +
-  geom_line(position=position_dodge(0.2)) +
-  geom_point(size=4, position=position_dodge(0.2))
-
-# fillは点の塗りつぶしを指定、colourは点の外形の色を指定、fillは塗りつぶしの色を指定
-ggplot(tg, aes(dose, length, fill=supp)) +
-  geom_line() +
-  geom_point(size=4, shape=21, colour="darkred", fill="pink")
-~~~
-
-* 線の形状  
-~~~
-# linetypeで指定
-ggplot(BOD, aes(Time, demand)) +
-  geom_line(size=1, colour="blue", linetype="dashed")
-
-# 色を指定
-ggplot(tg, aes(dose, length, colour=supp)) +
-  geom_line(size=0.5) +
-  scale_colour_brewer(palette="Set1")
-~~~
 
 * 面グラフ
 ~~~
