@@ -191,10 +191,11 @@ ggplot(df, aes(col1, col2, fill=col3)) +
 ggplot(df, aes(col1, col2, fill=col3)) +
   geom_area(colour=NA, position="fill") +             # 枠線が面の全てを囲まないようにするためNA
   scale_fill_brewer(palette="Pastel1") +
-  geom_line(position="fill", colour="gray", size=.2) # 枠線
+  geom_line(position="fill", colour="gray", size=.2)  # 枠線
+  scale_y_continuous(labels=scales::percent)          # y軸をパーセント表示
 ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156921232-630912a3-4dbb-420a-aee5-63f79a9e2547.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156921425-062ac4ce-1a0a-41d4-bb7e-102228786351.png">  
 
 
 
