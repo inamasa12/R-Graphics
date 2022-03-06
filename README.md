@@ -197,9 +197,16 @@ ggplot(df, aes(col1, col2, fill=col3)) +
 
 <img src="https://user-images.githubusercontent.com/51372161/156921425-062ac4ce-1a0a-41d4-bb7e-102228786351.png">  
 
-
-
 3. 信頼区間の表示  
+geom_ribbonを使用  
+~~~
+# 指定領域を網掛する
+ggplot(df, aes(col1, col2)) +
+  geom_ribbon(aes(ymin=col2 - col3, ymax=col2 + col3), alpha=.2) +
+  geom_line()
+~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/156921881-6f5c5df0-0b98-4ccb-aee0-c244c6940308.png">  
 
 
 * 面グラフ
