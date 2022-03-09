@@ -223,15 +223,25 @@ geom_pointを使用
 
 1. 基本  
 ~~~
-# 基本
-
 # グループ別の表示①（離散変数でグルーピング）
-
+ggplot(df, aes(col1, col2, shape=col3, fill=col4)) +
+  geom_point(size=2.5) +                              # 共通のサイズを指定
+  scale_shape_manual(values=c(21, 24)) +              # グループ毎に形を指定
+  scale_fill_manual(
+    values=c(NA, "black"),                            # グループ毎に塗りつぶしを指定
+    guide=guide_legend(override.aes=list(shape=21)))  # 凡例に表示する形を指定
 
 # グループ別の表示②（連続変数でグルーピング）
-
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_point(shape=21, size=2.5) +   # 共通の形とサイズを指定
+  scale_fill_gradient(               # 連続変数のスケールにグラデーションを使用
+    low="black", high="white",       # 両端の色を設定
+    breaks=seq(70, 170, by=20),      # 連続変数の目盛を設定
+    guide=guide_legend()             # 凡例の表示を離散的にする
+  )
 ~~~
 
+<img src="https://user-images.githubusercontent.com/51372161/157440331-d60154bf-81e1-4c93-b096-f64a4ff9aa07.png">  
 
 
 * 基本  
