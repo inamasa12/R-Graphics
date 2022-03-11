@@ -249,32 +249,38 @@ ggplot(df, aes(col1, col2, fill=col3, size=col4)) +
 点の重なりを回避するための技法  
 
 ~~~
+# 点に透明度を与える
+ggplot(df, aes(col1, col2)) +
+  geom_point(alpha=.1)
 
-
-
-~~~
-
-
-* オーバープロット  
-多くの点が重なるケース  
-~~~
-# 透明度を上げる
-diamonds_sp +
-  geom_point(alpha=0.01)
-
-# 色で分布を表現する、グラデーションのメリハリを付ける
-diamonds_sp +
+# ヒストグラム（長方形）を使用する
+ggplot(df, aes(col1, col2)) +
   stat_bin2d(bins=50) +
-  scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
+  scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000)) 
 
-# ジッター
-cw_sp +
+# ヒストグラム（六角形）を使用する
+ggplot(df, aes(col1, col2)) +
+  stat_binhex() +
+  scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
+~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png">  
+
+~~~
+# 散布図（ジッター）
+ggplot(ChickWeight, aes(Time, weight)) +
   geom_point(position=position_jitter(width=.5, height=0))
 
 # 箱ひげ図
-cw_sp +
+ggplot(ChickWeight, aes(Time, weight)) +
   geom_boxplot(aes(group=Time))
 ~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
+
+3. 傾向線  
+
+
 
 * 回帰線  
 
