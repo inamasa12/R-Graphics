@@ -279,7 +279,19 @@ ggplot(ChickWeight, aes(Time, weight)) +
 <img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
 
 3. 傾向線  
-
+~~~
+# グループ別の表示、注釈
+ggplot(df, aes(col1, col2, colour=col3)) +
+  geom_point(shape=21, fill="white") + # 散布図
+  stat_smooth(method=lm, se=FALSE, fullrange=TRUE) + # 線形モデルをフィッティング（信頼区間の表示なし、全データの範囲で予測値を外挿）
+  annotate("text", x=16.5, y=52.5, label="f:r^2==0.43", parse=TRUE) + # 注釈を文字列の数式オブジェクトで与える場合
+  annotate("text", x=16.5, y=51, label=expression(m:r^2==0.47)) # 注釈を直接数式オブジェクトで与える場合
+  
+# 非線形
+ggplot(df, aes(col1, col2)) +
+  geom_point(position=position_jitter(width=0.3, height=0.06)) +
+  stat_smooth(method=glm, method.args=list(family=binomial)) # ロジスティック回帰
+~~~
 
 
 
