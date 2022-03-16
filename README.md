@@ -282,52 +282,7 @@ ggplot(ChickWeight, aes(Time, weight)) +
 
 
 
-* 回帰線  
 
-~~~
-# 信頼区間の設定
-hw_sp +
-  geom_point() +
-  stat_smooth(method=lm, level=0.99)
-
-# 色の調整、信頼区間の無効化
-hw_sp +
-  geom_point(colour="grey60") +
-  stat_smooth(method=lm, se=F, colour="black")
-
-# デフォルトの局所加重多項式でパラメータを設定
-hw_sp +
-  geom_point() +
-  stat_smooth(method=loess, method.args=list(degree=1))
-
-# ロジスティック回帰でフィッティング
-ggplot(biopsy_mod, aes(V1, classn)) +
-  geom_point(
-    position=position_jitter(width=0.3, height=0.06),
-    size=1.5,
-    alpha=0.4,
-    shape=21
-  ) +
-  stat_smooth(method=glm, method.args=list(family=binomial))
-
-# グループ化している場合はグループ毎に曲線が引かれる
-# 外挿して曲線を両端まで表示
-ggplot(heightweight, aes(ageYear, heightIn, colour=sex)) +
-  geom_smooth(method=lm, fullrange=T)
-
-# 曲線のデータを作成して追加
-# 変数名を揃えておく必要がある
-hw_sp +
-  geom_line(data=lm_predicted, colour="red", size=0.8) +
-  geom_line(data=loess_predicted, colour="blue", size=0.8)
-~~~
-
-* アノテーション  
-~~~
-# Rの数式表現を使用する場合
-hw_sp +
-  annotate("text", x=16.5, y=52, label="r^2==0.42", parse=T)
-~~~
 
 * ラグ（一次元の分布を軸上に表示）  
 ~~~
@@ -397,6 +352,10 @@ heightweight %>%
   do(model=lm(heightIn~ageYear, .)) %>%
   ungroup()
 ~~~
+
+### R Tips  
+グラフ内で数式を用いる場合には特有の[数式オブジェクト](http://cse.naro.affrc.go.jp/takezawa/r-tips/r/56.html)を用いる  
+数式オブジェクトの書式は`demo(plotmath)`でも確認可能  
 
 
 　  
