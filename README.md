@@ -294,7 +294,29 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png">  
 
+~~~
+# 別に作成したモデルの予測値をプロット  
 
+# 性別毎に線形モデルを構築
+mdls <- heightweight %>%
+  nest(dt=!sex) %>%
+  mutate(mdl=map(dt, ~lm(heightIn~ageYear, .))) %>%
+  ungroup() %>%
+  select(sex, mdl)
+
+# 各モデルの予測値を算出（データと列名を一致させる必要がある）
+preds <- mdls %>%
+  mutate(pred=map(mdl, predictvals, xvar="ageYear", yvar="heightIn")) %>%
+  select(sex, pred) %>%
+  unnest(pred)
+
+# 性別毎に予測値をプロット
+ggplot(heightweight, aes(ageYear, heightIn)) +
+  geom_point() + # データのプロット
+  geom_line(data=preds) +　# 予測値（線）のプロット
+  facet_grid(.~sex)
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png">  
 
 
 
