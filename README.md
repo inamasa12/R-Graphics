@@ -76,18 +76,18 @@ ggplot(df, aes(col1, col2)) +
     geom_text(aes(label=col2), vjust=1.5) +      # 値ラベル、vjustは下側にシフト
     xlab("x")                                    # x軸のタイトル
 
-# グループ別の表示①（積み上げ、デフォルト）
+# グループ別の表示１（積み上げ、デフォルト）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position=position_stack(reverse=TRUE)) + # 積み上げを逆順にする
     guides(fill=guide_legend(reverse=TRUE))           # 凡例の表示を逆順にする
 
-# グループ別の表示②（100%積み上げ）
+# グループ別の表示２（100%積み上げ）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position="fill") +                       # position="fill"は100%積み上げ
     geom_text(aes(y=label_y, label=col2)) +           # 積み上げ棒グラフに値ラベル入れる場合は位置の列が必要
     scale_y_continuous(labels=scales::percent)        # スケールを100%表示
 
-# グループ別の表示③（並列）
+# グループ別の表示３（並列）
 ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
     geom_col(position="dodge", colour="black") +      # position="dodge"は棒グラフの重なりを無くす
     scale_fill_brewer(palette="Pastel1")              # fillの既成パターンを設定
@@ -181,13 +181,13 @@ ggplot(df, aes(col1, col2)) +
   geom_area(fill="blue", alpha=.2) + # 領域の色と透明度を指定
   geom_line()                        # 枠線
 
-# グループ別の表示①（積み上げ、デフォルト）
+# グループ別の表示１（積み上げ、デフォルト）
 ggplot(df, aes(col1, col2, fill=col3)) +
   geom_area(colour=NA) +                              # 枠線が面の全てを囲まないようにするためNA
   scale_fill_brewer(palette="Blues") +
   geom_line(position="stack", colour="grey", size=.2) # 枠線
 
-# グループ別の表示②（100%積み上げ）
+# グループ別の表示２（100%積み上げ）
 ggplot(df, aes(col1, col2, fill=col3)) +
   geom_area(colour=NA, position="fill") +             # 枠線が面の全てを囲まないようにするためNA
   scale_fill_brewer(palette="Pastel1") +
@@ -223,7 +223,7 @@ geom_pointを使用
 
 1. 基本  
 ~~~
-# グループ別の表示①（離散変数でグルーピング）
+# グループ別の表示１（離散変数でグルーピング）
 ggplot(df, aes(col1, col2, shape=col3, fill=col4)) +
   geom_point(size=2.5) +                              # 共通のサイズを指定
   scale_shape_manual(values=c(21, 24)) +              # グループ毎に形を指定
@@ -231,7 +231,7 @@ ggplot(df, aes(col1, col2, shape=col3, fill=col4)) +
     values=c(NA, "black"),                            # グループ毎に塗りつぶしを指定
     guide=guide_legend(override.aes=list(shape=21)))  # 凡例に表示する形を指定
 
-# グループ別の表示②（連続変数でグルーピング）
+# グループ別の表示２（連続変数でグルーピング）
 ggplot(df, aes(col1, col2, fill=col3, size=col4)) +
   geom_point(shape=21) +             # 共通の形とサイズを指定
   scale_fill_gradient(               # 連続変数のスケールにグラデーションを使用
@@ -318,7 +318,34 @@ ggplot(heightweight, aes(ageYear, heightIn)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png">  
 
+4. ラベリング  
 
+5. その他  
+
+~~~
+# バルーンプロット１
+ggplot(df, aes(col1, col2, size=col3)) +
+  geom_point(shape=21, colour="black", fill="cornsilk") + # 散布図の設定
+  scale_size_area(max_size=15) # 値を円の面積に反映させる（デフォルトは半径）
+
+# バルーンプロット２
+ggplot(df, aes(col1, col2)) +
+  geom_point(aes(size=col3), shape=21, colour="black", fill="cornsilk") + # 散布図の設定
+  scale_size_area(max_size=20, guide=FALSE) + # 値を円の面積に反映
+  geom_text(aes(
+    y=as.numeric(as.factor(col2))-sqrt(col3)/29, label=col3),
+    vjust=1.3,
+    colour="grey60",
+    size=4) # ラベルを円の下端に表示
+
+# ラグ（軸別の度数分布）
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  geom_rug(position="jitter", size=0.2) # ラグの設定
+
+# 散布図行列
+pairs(df[, c(col1, col2, ...))
+~~~
 
 * ラグ（一次元の分布を軸上に表示）  
 ~~~
