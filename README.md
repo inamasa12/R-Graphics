@@ -337,15 +337,24 @@ ggplot(df, aes(col1, col2)) +
     vjust=1.3,
     colour="grey60",
     size=4) # ラベルを円の下端に表示
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/159483255-a09c9e76-63e4-4559-80e8-43635e68f74d.png">  
 
+~~~
 # ラグ（軸別の度数分布）
 ggplot(df, aes(col1, col2)) +
   geom_point() +
   geom_rug(position="jitter", size=0.2) # ラグの設定
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png">  
 
+~~~
 # 散布図行列
 pairs(df[, c(col1, col2, ...))
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/159484089-3c454bb5-0e57-4e48-9be7-6cdf747c5fcf.png">  
+
+
 
 * ラグ（一次元の分布を軸上に表示）  
 ~~~
@@ -353,6 +362,9 @@ ggplot(faithful, aes(eruptions, waiting)) +
   geom_point() +
   geom_rug(position="jitter", size=0.2)
 ~~~
+
+
+
 
 * ラベル  
 ~~~
