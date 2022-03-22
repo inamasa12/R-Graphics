@@ -320,6 +320,23 @@ ggplot(heightweight, aes(ageYear, heightIn)) +
 
 4. ラベリング  
 
+~~~
+# 基本
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  geom_text(aes(label=col3), size=3)
+
+# ラベルの位置を一律にシフト
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  geom_text(aes(label=col3), 
+            size=3, 
+            hjust=0, # ラベルの左端を座標に合わせる
+            position=position_nudge(x=80, y=-0.1)) # 一律にシフト
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png">  
+
+
 5. その他  
 
 ~~~
@@ -356,12 +373,6 @@ pairs(df[, c(col1, col2, ...))
 
 
 
-* ラグ（一次元の分布を軸上に表示）  
-~~~
-ggplot(faithful, aes(eruptions, waiting)) +
-  geom_point() +
-  geom_rug(position="jitter", size=0.2)
-~~~
 
 
 
@@ -381,28 +392,6 @@ countries_sp +
 # ラベルに囲みを追加（ggrepel）
 countries_sp +
   geom_label_repel(aes(label=Name), size=3)
-~~~
-
-* バルーンプロット  
-~~~
-# scale_size_areaで値を面積に比例させる
-# 半径の大きさに応じてラベルの位置を調整
-ggplot(hec, aes(Eye, Hair)) +
-  geom_point(aes(size=count), shape=21, colour="black", fill="cornsilk") +
-  scale_size_area(max_size=20, guide=F) +
-  geom_text(aes(label=count, y=as.numeric(as.factor(Hair))-sqrt(count)/34),
-            colour="grey60",
-            vjust=1.3,
-            size=4)
-~~~
-
-* 散布図行列  
-~~~
-# pairsをそのまま用いるのが楽
-c2009 <- countries %>%
-  filter(Year==2009) %>%
-  select(Name, GDP, laborrate, healthexp, infmortality) %>%
-  pairs()
 ~~~
 
 　  
