@@ -316,6 +316,7 @@ ggplot(heightweight, aes(ageYear, heightIn)) +
   geom_line(data=preds) +　# 予測値（線）のプロット
   facet_grid(.~sex)
 ~~~
+
 <img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png">  
 
 4. ラベリング  
@@ -335,6 +336,21 @@ ggplot(df, aes(col1, col2)) +
             position=position_nudge(x=80, y=-0.1)) # 一律にシフト
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png">  
+
+~~~
+# ggrepelの使用
+
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  geom_text_repel(aes(label=col3), size=3)
+
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  geom_label_repel(aes(label=col2), size=3)
+~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/159678346-21232347-9d07-45e4-bc7c-033ebda6defe.png">  
+
 
 
 5. その他  
