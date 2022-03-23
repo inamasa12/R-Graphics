@@ -387,52 +387,6 @@ pairs(df[, c(col1, col2, ...))
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159484089-3c454bb5-0e57-4e48-9be7-6cdf747c5fcf.png">  
 
-
-
-
-
-
-
-* ラベル  
-~~~
-# justは点を中心にした位置調整、(0.5, 0.5)が点の中心で0が左（下）揃え、1が右（上）揃え
-# aesでプロット位置をオーバーライド、更にposition_nudgeで調整
-countries_sp +
-  geom_text(aes(x=healthexp + 100, label=Name), size=3, hjust=0,
-            position=position_nudge(x=100, y=0))
-
-# ラベルの重複を無くす（ggrepel）
-countries_sp +
-  geom_text_repel(aes(label=Name), size=3)
-
-# ラベルに囲みを追加（ggrepel）
-countries_sp +
-  geom_label_repel(aes(label=Name), size=3)
-~~~
-
-　  
-* Tips  
-グループ化は文字列かファクターで行い、数値の場合はファクターに変更してから使用する  
-shape: 0～20はcolourだけ指定、21～25はfillも指定  
-range: 最大値と最小値  
-recode(col, x1=y1, x2=y2): col列のxをyに置き換える  
-ungroup: group_byの解除  
-特定のデータグループに関数を適用する方法  
-~~~
-# 入れ子データの列を作成し、当該要素にmapで関数を適用する
-heightweight %>%
-  group_by(sex) %>%
-  nest() %>%
-  mutate(model=map(data, ~lm(heightIn~ageYear, data=.))) %>%
-  ungroup()
-
-#doでグループ化したデータフレーム毎に関数を適用する
-heightweight %>%
-  group_by(sex) %>%
-  do(model=lm(heightIn~ageYear, .)) %>%
-  ungroup()
-~~~
-
 ### R Tips  
 グラフ内で数式を用いる場合には特有の[数式オブジェクト](http://cse.naro.affrc.go.jp/takezawa/r-tips/r/56.html)を用いる  
 数式オブジェクトの書式は`demo(plotmath)`でも確認可能  
