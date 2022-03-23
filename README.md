@@ -304,7 +304,7 @@ mdls <- heightweight %>%
   ungroup() %>%
   select(sex, mdl)
 
-# 各モデルの予測値を算出（データと列名を一致させる必要がある）
+# 各モデルの予測値を算出（データと列名を一致させる必要がある、predictvalsはモデルを入力とし予測値を出力する独自関数）
 preds <- mdls %>%
   mutate(pred=map(mdl, predictvals, xvar="ageYear", yvar="heightIn")) %>%
   select(sex, pred) %>%
@@ -351,8 +351,6 @@ ggplot(df, aes(col1, col2)) +
 
 <img src="https://user-images.githubusercontent.com/51372161/159678346-21232347-9d07-45e4-bc7c-033ebda6defe.png">  
 
-
-
 5. その他  
 
 ~~~
@@ -394,6 +392,8 @@ pairs(df[, c(col1, col2, ...))
 
 　  
 ## 第６章　データ分布の要約  
+
+分布を可視化する方法  
 
 * ヒストグラム  
 ~~~
