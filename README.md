@@ -159,55 +159,58 @@ col1 <- factor(col1, levels=lorder)  # 並べ替えたベクトルをレベル�
 
 1. 折れ線グラフ  
 geom_lineを使用  
-~~~
-# 基本
-ggplot(df, aes(col1, col2, group=1)) + # x軸がファクターの場合は全てのデータが同じグループであることを明示するために「group=1」を指定する  
-    geom_line(colour="blue") + # 共通の色を設定
-    geom_point() +             # 点を追加する場合
-    ylim(0, max(df$col))       # y軸の範囲を指定
-    expand_limits(y=0)         # y軸に含める値を指定
-    scale_y_log10()            # 対数グラフの場合
 
-# グループ別の表示
-ggplot(df, aes(col1, col2, linetype=col3, group=col3)) + #x軸がファクターの場合はgroupを明示的に指定する
-    geom_line(position=position_dodge(0.2)) + # 点の重複を避けたい場合はposition_dodgeでずらす
-    geom_point(size=4, shape=21, fill="pink") # サイズのデフォルトは2
-~~~
+    ~~~
+    # 基本
+    ggplot(df, aes(col1, col2, group=1)) + # x軸がファクターの場合は全てのデータが同じグループであることを明示するために「group=1」を指定する  
+        geom_line(colour="blue") + # 共通の色を設定
+        geom_point() +             # 点を追加する場合
+        ylim(0, max(df$col))       # y軸の範囲を指定
+        expand_limits(y=0)         # y軸に含める値を指定
+        scale_y_log10()            # 対数グラフの場合
+
+    # グループ別の表示
+    ggplot(df, aes(col1, col2, linetype=col3, group=col3)) + #x軸がファクターの場合はgroupを明示的に指定する
+        geom_line(position=position_dodge(0.2)) + # 点の重複を避けたい場合はposition_dodgeでずらす
+        geom_point(size=4, shape=21, fill="pink") # サイズのデフォルトは2
+    ~~~
 
 <img src="https://user-images.githubusercontent.com/51372161/156872927-e593a801-397a-4d47-9d8e-864b056dfc1f.png">  
 
 2. 面グラフ  
 geom_areaを使用  
-~~~
-# 基本（網掛け領域付のグラフ）
-ggplot(df, aes(col1, col2)) +
-  geom_area(fill="blue", alpha=.2) + # 領域の色と透明度を指定
-  geom_line()                        # 枠線
 
-# グループ別の表示１（積み上げ、デフォルト）
-ggplot(df, aes(col1, col2, fill=col3)) +
-  geom_area(colour=NA) +                              # 枠線が面の全てを囲まないようにするためNA
-  scale_fill_brewer(palette="Blues") +
-  geom_line(position="stack", colour="grey", size=.2) # 枠線
+    ~~~
+    # 基本（網掛け領域付のグラフ）
+    ggplot(df, aes(col1, col2)) +
+        geom_area(fill="blue", alpha=.2) + # 領域の色と透明度を指定
+        geom_line()                        # 枠線
 
-# グループ別の表示２（100%積み上げ）
-ggplot(df, aes(col1, col2, fill=col3)) +
-  geom_area(colour=NA, position="fill") +             # 枠線が面の全てを囲まないようにするためNA
-  scale_fill_brewer(palette="Pastel1") +
-  geom_line(position="fill", colour="gray", size=.2)  # 枠線
-  scale_y_continuous(labels=scales::percent)          # y軸をパーセント表示
-~~~
+    # グループ別の表示１（積み上げ、デフォルト）
+    ggplot(df, aes(col1, col2, fill=col3)) +
+        geom_area(colour=NA) +                              # 枠線が面の全てを囲まないようにするためNA
+        scale_fill_brewer(palette="Blues") +
+        geom_line(position="stack", colour="grey", size=.2) # 枠線
+
+    # グループ別の表示２（100%積み上げ）
+    ggplot(df, aes(col1, col2, fill=col3)) +
+        geom_area(colour=NA, position="fill") +             # 枠線が面の全てを囲まないようにするためNA
+        scale_fill_brewer(palette="Pastel1") +
+        geom_line(position="fill", colour="gray", size=.2)  # 枠線
+        scale_y_continuous(labels=scales::percent)          # y軸をパーセント表示
+    ~~~
 
 <img src="https://user-images.githubusercontent.com/51372161/156921425-062ac4ce-1a0a-41d4-bb7e-102228786351.png">  
 
 3. 信頼区間の表示  
 geom_ribbonを使用  
-~~~
-# 指定領域を網掛する
-ggplot(df, aes(col1, col2)) +
-  geom_ribbon(aes(ymin=col2 - col3, ymax=col2 + col3), alpha=.2) +
-  geom_line()
-~~~
+
+    ~~~
+    # 指定領域を網掛する
+    ggplot(df, aes(col1, col2)) +
+        geom_ribbon(aes(ymin=col2 - col3, ymax=col2 + col3), alpha=.2) +
+        geom_line()
+    ~~~
 
 <img src="https://user-images.githubusercontent.com/51372161/156921881-6f5c5df0-0b98-4ccb-aee0-c244c6940308.png">  
 
