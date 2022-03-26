@@ -100,6 +100,7 @@ geom_colを使用
 
 2. 要約値の表示  
 geom_barを使用  
+
     ~~~
     # 指定の列の値の個数を表示 ⇒ 列の値が離散値: 棒グラフ、連続値: ヒストグラム
     ggplot(df, aes(col1, fill=col2)) +
@@ -113,6 +114,7 @@ geom_barを使用
 
 3. 表示の工夫  
 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定  
+
     ~~~
     ggplot(df, aes(col1, col2)) +
         geom_col(aes(fill=col3), colour="black", size=0.25) +
