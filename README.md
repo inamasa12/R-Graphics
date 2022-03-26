@@ -69,30 +69,30 @@ ggplot(df, aes(col)) +
 
 1. 値を表示  
 geom_colを使用  
-~~~
-# 基本
-ggplot(df, aes(col1, col2)) +
-    geom_col(fill="lightblue", colour="black") + # fill: 塗りつぶしの色、colour: 枠線の色
-    geom_text(aes(label=col2), vjust=1.5) +      # 値ラベル、vjustは下側にシフト
-    xlab("x")                                    # x軸のタイトル
+    ~~~
+    # 基本
+    ggplot(df, aes(col1, col2)) +
+        geom_col(fill="lightblue", colour="black") + # fill: 塗りつぶしの色、colour: 枠線の色
+        geom_text(aes(label=col2), vjust=1.5) +      # 値ラベル、vjustは下側にシフト
+        xlab("x")                                    # x軸のタイトル
 
-# グループ別の表示１（積み上げ、デフォルト）
-ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
-    geom_col(position=position_stack(reverse=TRUE)) + # 積み上げを逆順にする
-    guides(fill=guide_legend(reverse=TRUE))           # 凡例の表示を逆順にする
+    # グループ別の表示１（積み上げ、デフォルト）
+    ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
+        geom_col(position=position_stack(reverse=TRUE)) + # 積み上げを逆順にする
+        guides(fill=guide_legend(reverse=TRUE))           # 凡例の表示を逆順にする
 
-# グループ別の表示２（100%積み上げ）
-ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
-    geom_col(position="fill") +                       # position="fill"は100%積み上げ
-    geom_text(aes(y=label_y, label=col2)) +           # 積み上げ棒グラフに値ラベル入れる場合は位置の列が必要
-    scale_y_continuous(labels=scales::percent)        # スケールを100%表示
+    # グループ別の表示２（100%積み上げ）
+    ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
+        geom_col(position="fill") +                       # position="fill"は100%積み上げ
+        geom_text(aes(y=label_y, label=col2)) +           # 積み上げ棒グラフに値ラベル入れる場合は位置の列が必要
+        scale_y_continuous(labels=scales::percent)        # スケールを100%表示
 
-# グループ別の表示３（並列）
-ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
-    geom_col(position="dodge", colour="black") +      # position="dodge"は棒グラフの重なりを無くす
-    scale_fill_brewer(palette="Pastel1")              # fillの既成パターンを設定
-    scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定    
-~~~
+    # グループ別の表示３（並列）
+    ggplot(df, aes(col1, col2, fill=col3)) +              # col3の値でfillを変える
+        geom_col(position="dodge", colour="black") +      # position="dodge"は棒グラフの重なりを無くす
+        scale_fill_brewer(palette="Pastel1")              # fillの既成パターンを設定
+        scale_fill_manual(values=c("#669933", "#FFCC66")) # fillをマニュアル指定    
+    ~~~
 
 <img src="https://user-images.githubusercontent.com/51372161/155881597-d2b8aa7f-00e4-4966-bbd7-6e36dde15a96.png">  
 
