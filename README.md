@@ -217,10 +217,8 @@ as.integer(as.character(factor)): ファクターを表示の値で数値に変�
 
 　  
 ## 第５章　散布図    
-
 2つの連続変数の関係を表示  
 geom_pointを使用  
-
 1. 基本  
 ~~~
 # グループ別の表示１（離散変数でグルーピング）
@@ -241,13 +239,11 @@ ggplot(df, aes(col1, col2, fill=col3, size=col4)) +
   ) +
   scale_size_area()                  # col4の値の大きさを点の面積に反映させる（デフォルトは半径） 
 ~~~
-
 <img src="https://user-images.githubusercontent.com/51372161/157440331-d60154bf-81e1-4c93-b096-f64a4ff9aa07.png">  
 
 2. オーバープロット  
-
 点の重なりを回避するための技法  
-
+stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
 ~~~
 # 点に透明度を与える
 ggplot(df, aes(col1, col2)) +
@@ -263,9 +259,9 @@ ggplot(df, aes(col1, col2)) +
   stat_binhex() +
   scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
 ~~~
-
 <img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png">  
 
+ジッターや箱ひげ図（geom_boxplot）を使用
 ~~~
 # 散布図（ジッター）
 ggplot(ChickWeight, aes(Time, weight)) +
@@ -275,10 +271,10 @@ ggplot(ChickWeight, aes(Time, weight)) +
 ggplot(ChickWeight, aes(Time, weight)) +
   geom_boxplot(aes(group=Time))
 ~~~
-
 <img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
 
 3. 傾向線  
+stat_smoothを使用  
 ~~~
 # グループ別の表示、注釈
 ggplot(df, aes(col1, col2, colour=col3)) +
@@ -294,9 +290,8 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png">  
 
+別に作成したモデルの予測値をプロット  
 ~~~
-# 別に作成したモデルの予測値をプロット  
-
 # 性別毎に線形モデルを構築
 mdls <- heightweight %>%
   nest(dt=!sex) %>%
@@ -316,11 +311,10 @@ ggplot(heightweight, aes(ageYear, heightIn)) +
   geom_line(data=preds) +　# 予測値（線）のプロット
   facet_grid(.~sex)
 ~~~
-
 <img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png">  
 
 4. ラベリング  
-
+geom_textを使用  
 ~~~
 # 基本
 ggplot(df, aes(col1, col2)) +
@@ -337,9 +331,8 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png">  
 
+ggrepelを使用  
 ~~~
-# ggrepelの使用
-
 ggplot(df, aes(col1, col2)) +
   geom_point() +
   geom_text_repel(aes(label=col3), size=3)
@@ -348,11 +341,10 @@ ggplot(df, aes(col1, col2)) +
   geom_point() +
   geom_label_repel(aes(label=col2), size=3)
 ~~~
-
 <img src="https://user-images.githubusercontent.com/51372161/159678346-21232347-9d07-45e4-bc7c-033ebda6defe.png">  
 
 5. その他  
-
+バルーンプロットによる情報付加  
 ~~~
 # バルーンプロット１
 ggplot(df, aes(col1, col2, size=col3)) +
@@ -371,6 +363,7 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159483255-a09c9e76-63e4-4559-80e8-43635e68f74d.png">  
 
+ラグによる情報付加（geom_rugの使用）  
 ~~~
 # ラグ（軸別の度数分布）
 ggplot(df, aes(col1, col2)) +
@@ -394,6 +387,21 @@ pairs(df[, c(col1, col2, ...))
 ## 第６章　データ分布の要約  
 
 分布を可視化する方法  
+
+1. ヒストグラム  
+geom_histogramの使用  
+~~~
+ggplot(birthwt, aes(bwt)) +
+  geom_histogram(fill="white", colour="black") +
+  facet_grid(race~., scales="free")
+
+# 複数、fill
+ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
+  geom_histogram(position="identity", alpha=0.4)
+
+
+
+~~~
 
 * ヒストグラム  
 ~~~
