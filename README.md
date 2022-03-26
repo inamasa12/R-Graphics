@@ -226,163 +226,167 @@ as.integer(as.character(factor)): ファクターを表示の値で数値に変�
 2つの連続変数の関係を表示  
 geom_pointを使用  
 1. 基本  
-~~~
-# グループ別の表示１（離散変数でグルーピング）
-ggplot(df, aes(col1, col2, shape=col3, fill=col4)) +
-  geom_point(size=2.5) +                              # 共通のサイズを指定
-  scale_shape_manual(values=c(21, 24)) +              # グループ毎に形を指定
-  scale_fill_manual(
-    values=c(NA, "black"),                            # グループ毎に塗りつぶしを指定
-    guide=guide_legend(override.aes=list(shape=21)))  # 凡例に表示する形を指定
+    ~~~
+    # グループ別の表示１（離散変数でグルーピング）
+    ggplot(df, aes(col1, col2, shape=col3, fill=col4)) +
+        geom_point(size=2.5) +                              # 共通のサイズを指定
+        scale_shape_manual(values=c(21, 24)) +              # グループ毎に形を指定
+        scale_fill_manual(
+            values=c(NA, "black"),                            # グループ毎に塗りつぶしを指定
+            guide=guide_legend(override.aes=list(shape=21)))  # 凡例に表示する形を指定
 
-# グループ別の表示２（連続変数でグルーピング）
-ggplot(df, aes(col1, col2, fill=col3, size=col4)) +
-  geom_point(shape=21) +             # 共通の形とサイズを指定
-  scale_fill_gradient(               # 連続変数のスケールにグラデーションを使用
-    low="black", high="white",       # 両端の色を設定
-    breaks=seq(70, 170, by=20),      # 連続変数の目盛を設定
-    guide=guide_legend()             # 凡例の表示を離散的にする
-  ) +
-  scale_size_area()                  # col4の値の大きさを点の面積に反映させる（デフォルトは半径） 
-~~~
+    # グループ別の表示２（連続変数でグルーピング）
+    ggplot(df, aes(col1, col2, fill=col3, size=col4)) +
+        geom_point(shape=21) +             # 共通の形とサイズを指定
+        scale_fill_gradient(               # 連続変数のスケールにグラデーションを使用
+            low="black", high="white",       # 両端の色を設定
+            breaks=seq(70, 170, by=20),      # 連続変数の目盛を設定
+            guide=guide_legend()             # 凡例の表示を離散的にする
+            ) +
+        scale_size_area()                  # col4の値の大きさを点の面積に反映させる（デフォルトは半径） 
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157440331-d60154bf-81e1-4c93-b096-f64a4ff9aa07.png">  
 
 2. オーバープロット  
 点の重なりを回避するための技法  
-stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
-~~~
-# 点に透明度を与える
-ggplot(df, aes(col1, col2)) +
-  geom_point(alpha=.1)
+stat_bin2d、stat_binhex等の多次元ヒストグラムを使用  
 
-# ヒストグラム（長方形）を使用する
-ggplot(df, aes(col1, col2)) +
-  stat_bin2d(bins=50) +
-  scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000)) 
+    ~~~
+    # 点に透明度を与える
+    ggplot(df, aes(col1, col2)) +
+        geom_point(alpha=.1)
 
-# ヒストグラム（六角形）を使用する
-ggplot(df, aes(col1, col2)) +
-  stat_binhex() +
-  scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
-~~~
+    # ヒストグラム（長方形）を使用する
+    ggplot(df, aes(col1, col2)) +
+        stat_bin2d(bins=50) +
+        scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000)) 
+
+    # ヒストグラム（六角形）を使用する
+    ggplot(df, aes(col1, col2)) +
+        stat_binhex() +
+        scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png">  
 
-　ジッターや箱ひげ図（geom_boxplot）を使用
-~~~
-# 散布図（ジッター）
-ggplot(ChickWeight, aes(Time, weight)) +
-  geom_point(position=position_jitter(width=.5, height=0))
+　　ジッターや箱ひげ図（geom_boxplot）を使用
+    ~~~
+    # 散布図（ジッター）
+    ggplot(ChickWeight, aes(Time, weight)) +
+        geom_point(position=position_jitter(width=.5, height=0))
 
-# 箱ひげ図
-ggplot(ChickWeight, aes(Time, weight)) +
-  geom_boxplot(aes(group=Time))
-~~~
+    # 箱ひげ図
+    ggplot(ChickWeight, aes(Time, weight)) +
+        geom_boxplot(aes(group=Time))
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
 
 3. 傾向線  
 stat_smoothを使用  
-~~~
-# グループ別の表示、注釈
-ggplot(df, aes(col1, col2, colour=col3)) +
-  geom_point(shape=21, fill="white") + # 散布図
-  stat_smooth(method=lm, se=FALSE, fullrange=TRUE) + # 線形モデルをフィッティング（信頼区間の表示なし、全データの範囲で予測値を外挿）
-  annotate("text", x=16.5, y=52.5, label="f:r^2==0.43", parse=TRUE) + # 注釈を文字列の数式オブジェクトで与える場合
-  annotate("text", x=16.5, y=51, label=expression(m:r^2==0.47)) # 注釈を直接数式オブジェクトで与える場合
+
+    ~~~
+    # グループ別の表示、注釈
+    ggplot(df, aes(col1, col2, colour=col3)) +
+        geom_point(shape=21, fill="white") + # 散布図
+        stat_smooth(method=lm, se=FALSE, fullrange=TRUE) + # 線形モデルをフィッティング（信頼区間の表示なし、全データの範囲で予測値を外挿）
+        annotate("text", x=16.5, y=52.5, label="f:r^2==0.43", parse=TRUE) + # 注釈を文字列の数式オブジェクトで与える場合
+        annotate("text", x=16.5, y=51, label=expression(m:r^2==0.47)) # 注釈を直接数式オブジェクトで与える場合
   
-# 非線形
-ggplot(df, aes(col1, col2)) +
-  geom_point(position=position_jitter(width=0.3, height=0.06)) +
-  stat_smooth(method=glm, method.args=list(family=binomial)) # ロジスティック回帰
-~~~
+    # 非線形
+    ggplot(df, aes(col1, col2)) +
+        geom_point(position=position_jitter(width=0.3, height=0.06)) +
+        stat_smooth(method=glm, method.args=list(family=binomial)) # ロジスティック回帰
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png">  
 
-　別に作成したモデルの予測値をプロット  
-~~~
-# 性別毎に線形モデルを構築
-mdls <- heightweight %>%
-  nest(dt=!sex) %>%
-  mutate(mdl=map(dt, ~lm(heightIn~ageYear, .))) %>%
-  ungroup() %>%
-  select(sex, mdl)
+　　別に作成したモデルの予測値をプロット  
+    ~~~
+    # 性別毎に線形モデルを構築
+    mdls <- heightweight %>%
+        nest(dt=!sex) %>%
+        mutate(mdl=map(dt, ~lm(heightIn~ageYear, .))) %>%
+        ungroup() %>%
+        select(sex, mdl)
 
-# 各モデルの予測値を算出（データと列名を一致させる必要がある、predictvalsはモデルを入力とし予測値を出力する独自関数）
-preds <- mdls %>%
-  mutate(pred=map(mdl, predictvals, xvar="ageYear", yvar="heightIn")) %>%
-  select(sex, pred) %>%
-  unnest(pred)
+    # 各モデルの予測値を算出（データと列名を一致させる必要がある、predictvalsはモデルを入力とし予測値を出力する独自関数）
+    preds <- mdls %>%
+        mutate(pred=map(mdl, predictvals, xvar="ageYear", yvar="heightIn")) %>%
+        select(sex, pred) %>%
+        unnest(pred)
 
-# 性別毎に予測値をプロット
-ggplot(heightweight, aes(ageYear, heightIn)) +
-  geom_point() + # データのプロット
-  geom_line(data=preds) +　# 予測値（線）のプロット
-  facet_grid(.~sex)
-~~~
+    # 性別毎に予測値をプロット
+    ggplot(heightweight, aes(ageYear, heightIn)) +
+        geom_point() + # データのプロット
+        geom_line(data=preds) +　# 予測値（線）のプロット
+        facet_grid(.~sex)
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png">  
 
 4. ラベリング  
 geom_textを使用  
-~~~
-# 基本
-ggplot(df, aes(col1, col2)) +
-  geom_point() +
-  geom_text(aes(label=col3), size=3)
 
-# ラベルの位置を一律にシフト
-ggplot(df, aes(col1, col2)) +
-  geom_point() +
-  geom_text(aes(label=col3), 
+    ~~~
+    # 基本
+    ggplot(df, aes(col1, col2)) +
+        geom_point() +
+        geom_text(aes(label=col3), size=3)
+
+    # ラベルの位置を一律にシフト
+    ggplot(df, aes(col1, col2)) +
+        geom_point() +
+        geom_text(aes(label=col3), 
             size=3, 
             hjust=0, # ラベルの左端を座標に合わせる
             position=position_nudge(x=80, y=-0.1)) # 一律にシフト
-~~~
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png">  
 
-　ggrepelを使用  
-~~~
-ggplot(df, aes(col1, col2)) +
-  geom_point() +
-  geom_text_repel(aes(label=col3), size=3)
+　　ggrepelを使用  
+    ~~~
+    ggplot(df, aes(col1, col2)) +
+        geom_point() +
+        geom_text_repel(aes(label=col3), size=3)
 
-ggplot(df, aes(col1, col2)) +
-  geom_point() +
-  geom_label_repel(aes(label=col2), size=3)
-~~~
+    ggplot(df, aes(col1, col2)) +
+        geom_point() +
+        geom_label_repel(aes(label=col2), size=3)
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159678346-21232347-9d07-45e4-bc7c-033ebda6defe.png">  
 
 5. その他  
 バルーンプロットによる情報付加  
-~~~
-# バルーンプロット１
-ggplot(df, aes(col1, col2, size=col3)) +
-  geom_point(shape=21, colour="black", fill="cornsilk") + # 散布図の設定
-  scale_size_area(max_size=15) # 値を円の面積に反映させる（デフォルトは半径）
 
-# バルーンプロット２
-ggplot(df, aes(col1, col2)) +
-  geom_point(aes(size=col3), shape=21, colour="black", fill="cornsilk") + # 散布図の設定
-  scale_size_area(max_size=20, guide=FALSE) + # 値を円の面積に反映
-  geom_text(aes(
-    y=as.numeric(as.factor(col2))-sqrt(col3)/29, label=col3),
-    vjust=1.3,
-    colour="grey60",
-    size=4) # ラベルを円の下端に表示
-~~~
+    ~~~
+    # バルーンプロット１
+    ggplot(df, aes(col1, col2, size=col3)) +
+        geom_point(shape=21, colour="black", fill="cornsilk") + # 散布図の設定
+        scale_size_area(max_size=15) # 値を円の面積に反映させる（デフォルトは半径）
+
+    # バルーンプロット２
+    ggplot(df, aes(col1, col2)) +
+        geom_point(aes(size=col3), shape=21, colour="black", fill="cornsilk") + # 散布図の設定
+        scale_size_area(max_size=20, guide=FALSE) + # 値を円の面積に反映
+        geom_text(aes(
+            y=as.numeric(as.factor(col2))-sqrt(col3)/29, label=col3),
+            vjust=1.3,
+            colour="grey60",
+            size=4) # ラベルを円の下端に表示
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159483255-a09c9e76-63e4-4559-80e8-43635e68f74d.png">  
 
-　ラグによる情報付加（geom_rugの使用）  
-~~~
-# ラグ（軸別の度数分布）
-ggplot(df, aes(col1, col2)) +
-  geom_point() +
-  geom_rug(position="jitter", size=0.2) # ラグの設定
-~~~
+　　ラグによる情報付加（geom_rugの使用）  
+    ~~~
+    # ラグ（軸別の度数分布）
+    ggplot(df, aes(col1, col2)) +
+        geom_point() +
+        geom_rug(position="jitter", size=0.2) # ラグの設定
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png">  
 
-　散布図行列  
-~~~
-# 散布図行列
-pairs(df[, c(col1, col2, ...))
-~~~
+　　散布図行列  
+    ~~~
+    # 散布図行列
+    pairs(df[, c(col1, col2, ...))
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159484089-3c454bb5-0e57-4e48-9be7-6cdf747c5fcf.png">  
 
 ### R Tips  
@@ -397,6 +401,7 @@ pairs(df[, c(col1, col2, ...))
 
 1. ヒストグラム  
 geom_histogramの使用  
+
 ~~~
 ggplot(birthwt, aes(bwt)) +
   geom_histogram(fill="white", colour="black") +
