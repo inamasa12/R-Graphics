@@ -69,6 +69,7 @@ ggplot(df, aes(col)) +
 
 1. 値を表示  
 geom_colを使用  
+
     ~~~
     # 基本
     ggplot(df, aes(col1, col2)) +
@@ -99,37 +100,37 @@ geom_colを使用
 
 2. 要約値の表示  
 geom_barを使用  
-~~~
-# 指定の列の値の個数を表示 ⇒ 列の値が離散値: 棒グラフ、連続値: ヒストグラム
-ggplot(df, aes(col1, fill=col2)) +
-    # widthで棒の幅（棒の間隔）を指定（デフォルト0.9、最大1.0）
-    # position_dodgeでグループ間の棒の間隔（互いの中心からの距離）を指定（デフォルト0.9）
-    geom_bar(width=0.5, position=position_dodge(0.7))
-    geom_text(aes(label=..count.., stat="count"), position=position_dodge(0.7), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
-~~~
+    ~~~
+    # 指定の列の値の個数を表示 ⇒ 列の値が離散値: 棒グラフ、連続値: ヒストグラム
+    ggplot(df, aes(col1, fill=col2)) +
+        # widthで棒の幅（棒の間隔）を指定（デフォルト0.9、最大1.0）
+        # position_dodgeでグループ間の棒の間隔（互いの中心からの距離）を指定（デフォルト0.9）
+        geom_bar(width=0.5, position=position_dodge(0.7))
+        geom_text(aes(label=..count.., stat="count"), position=position_dodge(0.7), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
+    ~~~
 
 <img src="https://user-images.githubusercontent.com/51372161/156161725-9a6b8d6c-b118-4263-b951-33f7332577bd.png">  
 
 3. 表示の工夫  
 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定  
-~~~
-ggplot(df, aes(col1, col2)) +
-    geom_col(aes(fill=col3), colour="black", size=0.25) +
-    scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F) # guide=Fで凡例を非表示
-~~~
+    ~~~
+    ggplot(df, aes(col1, col2)) +
+        geom_col(aes(fill=col3), colour="black", size=0.25) +
+        scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F) # guide=Fで凡例を非表示
+    ~~~
 
 <img src="https://user-images.githubusercontent.com/51372161/156162343-98511e10-d9ae-47ab-94ea-1f131f32dfe4.png">  
 
 
 4. ドットプロット  
-~~~
-ggplot(tophit, aes(avg, name)) +
-  geom_point(size=3, aes(colour=lg)) + 
-  geom_segment(aes(yend=name), xend=0, colour="grey50") + # (avg, name)から(0, name)に線分を引く
-  theme_bw() + # グラフ全体のテーマを設定
-  theme(panel.grid.major.y=element_blank()) + # 罫線はthemeで扱う
-  facet_grid(lg~., scales="free_y", space="free_y") # spaceを指定しない場合、各図の大きさは同じに設定される
-~~~
+    ~~~
+    ggplot(tophit, aes(avg, name)) +
+        geom_point(size=3, aes(colour=lg)) + 
+        geom_segment(aes(yend=name), xend=0, colour="grey50") + # (avg, name)から(0, name)に線分を引く
+        theme_bw() + # グラフ全体のテーマを設定
+        theme(panel.grid.major.y=element_blank()) + # 罫線はthemeで扱う
+        facet_grid(lg~., scales="free_y", space="free_y") # spaceを指定しない場合、各図の大きさは同じに設定される
+    ~~~
 
 <img src="https://user-images.githubusercontent.com/51372161/156549905-db73ddbc-7117-4d98-b2b5-2204bae2e752.png">  
 
