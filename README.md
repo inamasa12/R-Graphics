@@ -242,6 +242,7 @@ ggplot(df, aes(col1, col2, fill=col3, size=col4)) +
 <img src="https://user-images.githubusercontent.com/51372161/157440331-d60154bf-81e1-4c93-b096-f64a4ff9aa07.png">  
 
 2. オーバープロット  
+
 点の重なりを回避するための技法  
 stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
 ~~~
