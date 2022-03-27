@@ -268,7 +268,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png">  
 
-3. オーバープロット２
+3. オーバープロット２  
 ジッターや箱ひげ図（geom_boxplot）を使用  
 
     ~~~
@@ -282,7 +282,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
 
-3. 傾向線１  
+4. 傾向線１  
 stat_smoothを使用  
 
     ~~~
@@ -300,7 +300,7 @@ stat_smoothを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png">  
 
-4. 傾向線２
+5. 傾向線２  
 別に作成したモデルの予測値をプロット  
 
     ~~~
@@ -325,7 +325,7 @@ stat_smoothを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png">  
 
-4. ラベリング  
+6. ラベリング１  
 geom_textを使用  
 
     ~~~
@@ -344,7 +344,8 @@ geom_textを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png">  
 
-　　ggrepelを使用  
+7. ラベリング２  
+ggrepelを使用  
 
     ~~~
     ggplot(df, aes(col1, col2)) +
@@ -357,7 +358,7 @@ geom_textを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159678346-21232347-9d07-45e4-bc7c-033ebda6defe.png">  
 
-5. その他  
+8. その他１  
 バルーンプロットによる情報付加  
 
     ~~~
@@ -378,7 +379,8 @@ geom_textを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159483255-a09c9e76-63e4-4559-80e8-43635e68f74d.png">  
 
-　　ラグによる情報付加（geom_rugの使用）  
+9. その他２  
+ラグによる情報付加（geom_rugの使用）  
 
     ~~~
     # ラグ（軸別の度数分布）
@@ -388,7 +390,8 @@ geom_textを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png">  
 
-　　散布図行列  
+10. その他３  
+散布図行列  
 
     ~~~
     # 散布図行列
