@@ -247,7 +247,7 @@ geom_pointを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157440331-d60154bf-81e1-4c93-b096-f64a4ff9aa07.png">  
 
-2. オーバープロット  
+2. オーバープロット１  
 点の重なりを回避するための技法  
 stat_bin2d、stat_binhex等の多次元ヒストグラムを使用  
 
@@ -268,7 +268,8 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png">  
 
-　　ジッターや箱ひげ図（geom_boxplot）を使用  
+3. オーバープロット２
+ジッターや箱ひげ図（geom_boxplot）を使用  
 
     ~~~
     # 散布図（ジッター）
@@ -278,10 +279,10 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     # 箱ひげ図
     ggplot(ChickWeight, aes(Time, weight)) +
         geom_boxplot(aes(group=Time))
-  ~~~
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
 
-3. 傾向線  
+3. 傾向線１  
 stat_smoothを使用  
 
     ~~~
@@ -299,7 +300,8 @@ stat_smoothを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png">  
 
-　　別に作成したモデルの予測値をプロット  
+4. 傾向線２
+別に作成したモデルの予測値をプロット  
 
     ~~~
     # 性別毎に線形モデルを構築
