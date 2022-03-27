@@ -412,15 +412,15 @@ ggrepelを使用
 1. ヒストグラム  
 geom_histogramの使用  
 
-~~~
-ggplot(df, aes(col1)) +
-  geom_histogram(fill="white", colour="black") +
-  facet_grid(col2~., scales="free")
+    ~~~
+    ggplot(df, aes(col1)) +
+        geom_histogram(fill="white", colour="black") +
+        facet_grid(col2~., scales="free")
 
-# 複数、fill
-ggplot(df, aes(col1, fill=col2)) +
-  geom_histogram(position="identity", alpha=0.4)
-~~~
+    # 複数、fill
+        ggplot(df, aes(col1, fill=col2)) +
+        geom_histogram(position="identity", alpha=0.4)
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/160262195-dc894cf3-a422-4529-b91b-1cb202a4c5e9.png">  
 
 
