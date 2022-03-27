@@ -413,17 +413,17 @@ ggrepelを使用
 geom_histogramの使用  
 
 ~~~
-ggplot(birthwt, aes(bwt)) +
+ggplot(df, aes(col1)) +
   geom_histogram(fill="white", colour="black") +
-  facet_grid(race~., scales="free")
+  facet_grid(col2~., scales="free")
 
 # 複数、fill
-ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
+ggplot(df, aes(col1, fill=col2)) +
   geom_histogram(position="identity", alpha=0.4)
-
-
-
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/160262195-dc894cf3-a422-4529-b91b-1cb202a4c5e9.png">  
+
+
 
 * ヒストグラム  
 ~~~
