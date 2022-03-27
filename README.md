@@ -270,7 +270,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
 
 　　ジッターや箱ひげ図（geom_boxplot）を使用  
 
-    ~~~
+~~~
     # 散布図（ジッター）
     ggplot(ChickWeight, aes(Time, weight)) +
         geom_point(position=position_jitter(width=.5, height=0))
@@ -278,7 +278,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     # 箱ひげ図
     ggplot(ChickWeight, aes(Time, weight)) +
         geom_boxplot(aes(group=Time))
-    ~~~
+~~~
 <img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
 
 3. 傾向線  
