@@ -268,7 +268,8 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png">  
 
-　　ジッターや箱ひげ図（geom_boxplot）を使用
+　　ジッターや箱ひげ図（geom_boxplot）を使用  
+  
     ~~~
     # 散布図（ジッター）
     ggplot(ChickWeight, aes(Time, weight)) +
@@ -299,6 +300,7 @@ stat_smoothを使用
 <img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png">  
 
 　　別に作成したモデルの予測値をプロット  
+  
     ~~~
     # 性別毎に線形モデルを構築
     mdls <- heightweight %>%
@@ -341,6 +343,7 @@ geom_textを使用
 <img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png">  
 
 　　ggrepelを使用  
+  
     ~~~
     ggplot(df, aes(col1, col2)) +
         geom_point() +
@@ -374,6 +377,7 @@ geom_textを使用
 <img src="https://user-images.githubusercontent.com/51372161/159483255-a09c9e76-63e4-4559-80e8-43635e68f74d.png">  
 
 　　ラグによる情報付加（geom_rugの使用）  
+  
     ~~~
     # ラグ（軸別の度数分布）
     ggplot(df, aes(col1, col2)) +
@@ -383,6 +387,7 @@ geom_textを使用
 <img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png">  
 
 　　散布図行列  
+  
     ~~~
     # 散布図行列
     pairs(df[, c(col1, col2, ...))
