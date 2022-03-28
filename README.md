@@ -411,44 +411,30 @@ ggrepelを使用
 
 1. ヒストグラム  
 geom_histogramの使用  
+ビンは下限値に閉じ、上限値に開いている  
 
     ~~~
+    # ファセットで複数表示
     ggplot(df, aes(col1)) +
-        geom_histogram(fill="white", colour="black") +
-        facet_grid(col2~., scales="free")
+        geom_histogram(binwidth=150, fill="white", colour="black", boundary=750) + # ビンの幅を指定、boundaryはビンの左端
+        facet_grid(col2~., scales="free") # 行指定（上下に並べる）
+        facet_grid(~col2, scales="free")  # 列指定（左右に並べる）
 
-    # 複数、fill
+    # 色を変えて複数表示
         ggplot(df, aes(col1, fill=col2)) +
-        geom_histogram(position="identity", alpha=0.4)
+        geom_histogram(bins=15, position="identity", alpha=0.4) # ビンの数を指定
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/160262195-dc894cf3-a422-4529-b91b-1cb202a4c5e9.png">  
 
+2. 密度曲線  
+geom_densityを使用  
 
+    ~~~
+    
+    
+    
+    ~~~
 
-* ヒストグラム  
-~~~
-# binwidthはビンの幅、binsはビンの数、boundaryは集計の起点
-# ビンは下限値には閉じていて、上限値には開いている  
-ggplot(faithful, aes(waiting)) +
-  geom_histogram(binwidth=8, fill="white", colour="black", boundary=35)
- 
- # データフレームではなくベクトルから作成
- ggplot(NULL, aes(vec)) +
-  geom_histogram()
-~~~
-
-* 複数のヒストグラム  
-~~~
-# facetを用いる
-ggplot(birthwt_mod, aes(bwt)) +
-  geom_histogram(fill="white", colour="black") +
-  facet_grid(smoke~.) #上下に並べる（行指定）
-  #facet_grid(~smoke) #左右に並べる（列指定）
-
-# グルーピングを用いる、identityを指定しないと積み上げグラフになる
-ggplot(birthwt_mod, aes(bwt, fill=smoke)) +
-  geom_histogram(alpha=0.4, position="identity") 
-~~~
 
 * 密度曲線
 推定量である点に注意  
