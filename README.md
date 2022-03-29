@@ -427,57 +427,32 @@ geom_histogramの使用
 <img src="https://user-images.githubusercontent.com/51372161/160262195-dc894cf3-a422-4529-b91b-1cb202a4c5e9.png">  
 
 2. 密度曲線  
-geom_densityを使用  
+geom_density、geom_line、geom_freqpolyを使用  
 
     ~~~
-    
-    
-    
+    # ヒストグラムと併せて表示（geom_density）
+    ggplot(df, aes(col, ..density..)) + # 縦軸を百分比に統一
+        geom_histogram(fill="cornsilk", colour="grey60", size=.2) + # ヒストグラムの表示
+        geom_density(fill="blue", alpha=.1, colour=NA) + # 密度曲線の面を表示
+        geom_line(stat="density") # 密度曲線の枠線を表示
+
+    # 平滑化の度合別（geom_line）
+    ggplot(df, aes(col)) +
+        geom_line(stat="density") +
+        geom_line(stat="density", adjust=.25, colour="red") +
+        geom_line(stat="density", adjust=2, colour="blue")
+
+    # 折れ線（geom_freqpoly）
+    ggplot(df, aes(col)) +
+        geom_freqpoly(binwidth=1, colour="blue")
     ~~~
 
+<img src="https://user-images.githubusercontent.com/51372161/160624498-a6ff6bd0-18c0-4c2e-9f00-b59dfca59eda.png">  
 
-* 密度曲線
-推定量である点に注意  
 
-~~~
-# geom_density
-ggplot(faithful, aes(waiting)) +
-  geom_density(colour="red") +
-  geom_density(adjust=.25, colour="red") +
-  geom_density(adjust=2, colour="blue")
 
-# geom_line
-ggplot(faithful, aes(waiting)) +
-  geom_line(stat="density") +
-  geom_line(stat="density", adjust=.25, colour="red") +
-  geom_line(stat="density", adjust=2, colour="blue")
 
-# 色掛けはgeom_densityのみで可能
-ggplot(faithful, aes(waiting)) +
-  geom_density(alpha=.2, fill="blue") +
-  xlim(35, 105)
-  #expand_limits(x=c(35, 105))
 
-# 実際の分布と重ねる
-# 実際の分布はy=..density..で百分比に揃える必要がある
-ggplot(faithful, aes(waiting, y=..density..)) +
-  geom_histogram(fill="cornsilk", colour="grey60", size=.2) +
-  geom_density() +
-  xlim(35, 105)
-
-# 複数の密度曲線  
-# facetで複数のグラフに分けるのが見やすく最善
-ggplot(birthwt_mod, aes(bwt, ..density..)) +
-  geom_histogram(binwidth=200, fill="cornsilk", colour="grey60", size=.2) +
-  geom_density() +
-  facet_grid(smoke ~ .)
-~~~
-
-* 頻度の折れ線グラフ  
-~~~
-ggplot(faithful, aes(waiting)) +
-  geom_freqpoly(binwidth=15)
-~~~
 
 * 箱ひげ図  
 ~~~
