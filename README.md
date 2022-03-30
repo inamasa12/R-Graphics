@@ -426,7 +426,7 @@ geom_histogramの使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/160262195-dc894cf3-a422-4529-b91b-1cb202a4c5e9.png">  
 
-2. 密度曲線  
+2. 密度曲線１  
 geom_density、geom_line、geom_freqpolyを使用  
 
     ~~~
@@ -449,51 +449,55 @@ geom_density、geom_line、geom_freqpolyを使用
 
 <img src="https://user-images.githubusercontent.com/51372161/160624498-a6ff6bd0-18c0-4c2e-9f00-b59dfca59eda.png">  
 
+3. 密度曲線２（複数）  
+    ~~~
+    # fill
+    ggplot(df, aes(col1, fill=col2)) +
+        geom_density(alpha=.3)
+
+    # facet 
+    ggplot      (df, aes(bwt, ..density..)) +
+        geom_histogram(binwidth=200, fill="cornsilk", colour="grey60", size=.2) + # ヒストグラムを併せて表示
+        geom_desity(alpha=.3) +
+        facet_g rid(col2~.)
+        lot      (df, aes(bwt, ..density..)) +
+<img s      rc="https://user-images.githubusercontent.com/51372161/160827097-3c6bc74f-4582-4780-8e9c-9c88abb616f2.pn        g">  
+        
+4. 箱ひげ図  
+geom_boxplotを使用  
+
+    ~~~
+    # 基本
+    ggplot(df, aes(factor(col1), col2)) + # 数値をファクターとして扱う、x軸でグループ分けしない場合はx=1とする
+        geom_boxplot(width=.5, outlier.size=1.5, outlier.shape=21)
+
+    # 平均値を併せて表示
+    ggplot(df, aes(factor(col1, col2)) +
+        geom_boxplot() +
+        stat_summary(fun="mean", geom="point", shape=23, fill="white") # 平均値
+    ~~~
+<img src="https://user-images.githubusercontent.com/51372161/160829503-e0a43845-eb60-40f2-b97b-3d496a0cce1b.png">  
+
+5. バイオリンプロット  
+デフォルトは各バイオリンの面積が等しくなるようにプロットされる  
+
+    ~~~
+    # 基本
+    ggplot(df, aes(col1, col2)) +
+        geom_violin(scale="count", adjust=.5) # バイオリンの面積をサンプル数に比例させる場合はscale="count"、adjustで平滑度をコントロール
+
+    # 箱ひげ図を併せて表示
+    ggplot(df, aes(col1, col2)) +
+        geom_violin() +
+        geom_boxplot(width=.1, fill="black", outlier=NA) +
+        stat_summary(fun=median, geom="point", fill="white", shape=21, size=2.5)
+    ~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/160831764-f0e83829-d015-473f-bf60-062b48ef4069.png">  
 
 
 
 
-
-* 箱ひげ図  
-~~~
-# 箱の横幅、外れ値の形と大きさを指定
-ggplot(birthwt, aes(factor(race), bwt)) +
-  geom_boxplot(width=.5, outlier.size=1.5, outlier.shape=21)
-
-# 一変数のみのケース、xに1を指定
-# x軸の補助線とタイトルを消す
-ggplot(birthwt, aes(1, bwt)) +
-  geom_boxplot() +
-  scale_x_continuous(breaks=NULL) +
-  theme(axis.title.x=element_blank())
-
-# ノッチ、中央値の信頼区間を表す
-ggplot(birthwt, aes(factor(race), bwt)) +
-  geom_boxplot(notch=T)
-
-# 平均値、stat_summaryで要約量を算出して表示
-ggplot(birthwt, aes(factor(race), bwt)) +
-  geom_boxplot() +
-  stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")
-~~~
-
-* バイオリンプロット  
-~~~
-# プロット内に箱ひげ図を表示、中央値を別途表示
-# バイオリンプロットの範囲を推定値の端点まで表示（trim=F、デフォルトは最大値と最小値の範囲を表示）
-hw_p +
-  geom_violin(trim=F) +
-  geom_boxplot(width=.1, fill="black", outlier.colour=NA) +
-  stat_summary(fun.y=median, geom="point", fill="white", shape=21, size=2.5)
-
-# 分布の面積を観測数に比例させる（デフォルトは全ての面積を等しくする）
-hw_p +
-  geom_violin(scale="count")
-
-# 分布の平滑度合を設定
-hw_p +
-  geom_violin(adjust=2)
-~~~
 
 * ドットプロット
 ~~~
