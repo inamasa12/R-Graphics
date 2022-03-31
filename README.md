@@ -495,8 +495,25 @@ geom_boxplotを使用
 
 <img src="https://user-images.githubusercontent.com/51372161/160831764-f0e83829-d015-473f-bf60-062b48ef4069.png">  
 
+6. ドットプロット
+geom_dotplotを使用
 
+    ~~~
+    # 箱ひげ図と重ねて表示
+    ggplot(heightweight, aes(sex, heightIn)) +
+        geom_boxplot(outlier.colour=NA, width=.4) +
+        geom_dotplot(binaxis="y", stackdir="center", fill=NA)
 
+    # 箱ひげ図と並べて表示
+    ggplot(heightweight, aes(sex, heightIn)) +
+        geom_boxplot(aes(as.numeric(sex)+0.2, group=sex), width=.25) +
+        geom_dotplot(aes(x=as.numeric(sex)-.2, group=sex),
+            binaxis="y",
+            stackdir="center") +
+        scale_x_continuous(breaks=1:nlevels(heightweight$sex),
+            labels=levels(heightweight$sex))
+            
+    ~~~
 
 
 * ドットプロット
