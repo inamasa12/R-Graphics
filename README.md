@@ -500,70 +500,27 @@ geom_dotplotを使用
 
     ~~~
     # 箱ひげ図と重ねて表示
-    ggplot(heightweight, aes(sex, heightIn)) +
+    ggplot(df, aes(col1, col2)) + # ドットプロット、箱ひげ図共通の設定
         geom_boxplot(outlier.colour=NA, width=.4) +
-        geom_dotplot(binaxis="y", stackdir="center", fill=NA)
+        geom_dotplot(binaxis="y", stackdir="center", fill=NA)　# stackdirでドットの積み上げ方を指定
 
     # 箱ひげ図と並べて表示
-    ggplot(heightweight, aes(sex, heightIn)) +
-        geom_boxplot(aes(as.numeric(sex)+0.2, group=sex), width=.25) +
-        geom_dotplot(aes(x=as.numeric(sex)-.2, group=sex),
-            binaxis="y",
+    ggplot(df1, aes(col1, col2)) +
+        geom_boxplot(aes(as.numeric(col1)+0.2, group=col1), width=.25) + # 並べて表示するために横位置をずらす
+        geom_dotplot(aes(x=as.numeric(col1)-.2, group=col1),
+            binaxis="y",　# ビンをy軸方向に並べる
+            binwidth=0.5, # ビンの幅を指定
             stackdir="center") +
-        scale_x_continuous(breaks=1:nlevels(heightweight$sex),
-            labels=levels(heightweight$sex))
-            
+        scale_x_continuous(breaks=1:nlevels(df$col1),
+            labels=levels(df$col1))
     ~~~
+<img src="https://user-images.githubusercontent.com/51372161/161200788-ff46e3b5-c86b-4c3a-b706-4fda569069e3.png">  
 
 
-* ドットプロット
-~~~
-# デフォルト
-# 下端基準、ビンはデフォルトで設定（dot-density）
-c2009_p +
-  geom_dotplot(binwidth=.25) +
-  geom_rug() +
-  scale_y_continuous(breaks=NULL) +
-  theme(axis.title.y=element_blank())
 
-# ビンを等間隔に設定
-c2009_p +
-  geom_dotplot(method="histodot", binwidth=.25) +
-  geom_rug() +
-  scale_y_continuous(breaks=NULL) +
-  theme(axis.title.y=element_blank())
-
-# 中央基準
-c2009_p +
-  geom_dotplot(binwidth=.25, stackdir="center") +
-  geom_rug() +
-  scale_y_continuous(breaks=NULL) +
-  theme(axis.title.y=element_blank())
-
-# ドットの縦位置を揃える
-c2009_p +
-  geom_dotplot(binwidth=.25, stackdir="centerwhole") +
-  geom_rug() +
-  scale_y_continuous(breaks=NULL) +
-  theme(axis.title.y=element_blank())
-
-# 箱ひげ図と重ねて表示
-ggplot(heightweight, aes(sex, heightIn)) +
-  geom_boxplot(outlier.colour=NA, width=.4) +
-  geom_dotplot(binaxis="y", binwidth=.5, stackdir="center", fill=NA)
-
-# 箱ひげ図と並べて表示
-# 横軸の位置をずらす、横軸で使用する列を変換して使用すると改めてグルーピングを指定する必要がある
-ggplot(heightweight, aes(sex, heightIn)) +
-  geom_boxplot(aes(as.numeric(sex) + .2, group=sex), width=.25) +
-  geom_dotplot(aes(as.numeric(sex) - .2, group=sex),
-    binaxis="y", binwidth=.5, stackdir="center") +
-  scale_x_continuous(
-    breaks=1:nlevels(heightweight$sex),
-    labels=levels(heightweight$sex))
-~~~
 
 * 密度プロット  
+
 ~~~
 # 等高線
 faithful_p +
