@@ -403,6 +403,8 @@ ggrepelを使用
 グラフ内で数式を用いる場合には特有の[数式オブジェクト](http://cse.naro.affrc.go.jp/takezawa/r-tips/r/56.html)を用いる  
 数式オブジェクトの書式は`demo(plotmath)`でも確認可能  
 
+---
+　  
 
 　  
 ## 第６章　データ分布の要約  
@@ -517,41 +519,36 @@ geom_dotplotを使用
 <img src="https://user-images.githubusercontent.com/51372161/161200788-ff46e3b5-c86b-4c3a-b706-4fda569069e3.png">  
 
 
+7. 二次元密度プロット  
+stat_density2dを使用  
+
+    ~~~
+    # 等高線
+    ggplot(df, aes(col1, col2)) +
+    geom_point() + # 散布図と併せて表示
+        stat_density2d(aes(colour=..level..))
+
+    # 塗りつぶし
+    ggplot(df, aes(col1, col2)) +
+        # hで各軸の平滑化帯域幅を設定（大きいほど滑らかになる）
+        stat_density2d(aes(fill=..density..), geom="raster", contour=F, h=c(.5, 5))
+
+    # 透過度
+    ggplot(df, aes(col1, col2)) +
+        geom_point() + # 散布図と併せて表示
+        stat_density2d(aes(alpha=..density..), geom="raster", contour=F)
+    ~~~
+<img src="https://user-images.githubusercontent.com/51372161/161356765-693c4cfa-8565-4dd3-8ddc-20b4e86dbc8a.png">  
 
 
-* 密度プロット  
-
-~~~
-# 等高線
-faithful_p +
-  geom_point() +
-  stat_density2d()
-
-# 色付き
-faithful_p +
-  stat_density2d(aes(colour=..level..))
-
-# 塗りつぶし、色に反映させる
-faithful_p +
-  stat_density2d(aes(fill=..density..), geom="raster", contour=F)
-
-# 塗りつぶし、透過率に反映させる
-faithful_p +
-  geom_point() +
-  stat_density2d(aes(alpha=..density..), geom="tile", contour=F)
-
-#カーネル推定の範囲を調節、x軸とy軸の両方のパラメータを指定
-faithful_p +
-  stat_density2d(aes(fill=..density..), 
-                 geom="raster", 
-                 contour=F,
-                 h=c(.5, 5))
-~~~
-
-* Tips  
+### R Tips  
 levels: カテゴリ変数のレベルを表示  
-recode_factor: カテゴリ変数の変換  
+nlevels: カテゴリ変数の数を表示  
 
+
+
+---
+　  
 
 ## 第７章　注釈  
 
