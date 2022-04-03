@@ -497,8 +497,8 @@ geom_boxplotを使用
 
 <img src="https://user-images.githubusercontent.com/51372161/160831764-f0e83829-d015-473f-bf60-062b48ef4069.png">  
 
-6. ドットプロット
-geom_dotplotを使用
+6. ドットプロット  
+geom_dotplotを使用  
 
     ~~~
     # 箱ひげ図と重ねて表示
@@ -545,10 +545,9 @@ stat_density2dを使用
 levels: カテゴリ変数のレベルを表示  
 nlevels: カテゴリ変数の数を表示  
 
-
-
 ---
 　  
+
 
 ## 第７章　注釈  
 
