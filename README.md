@@ -550,6 +550,19 @@ nlevels: カテゴリ変数の数を表示
 
 
 ## 第７章　注釈  
+補助的要素の追加  
+
+1. 注釈  
+テキストの中心が指定した点に来るように表示される（デフォルトはhjust=0.5、vjust=0.5）  
+hjust=0（1）でテキストの左端（右端）が、vjust=0（1）でテキストの下端（上端）が指定した点に来る  
+    ~~~
+    ggplot(faithful, aes(eruptions, waiting)) +
+        geom_point() +
+        annotate("text", x=-Inf, y=Inf, label="Upper left", hjust=0, vjust=1) +
+        annotate("text", x=Inf, y=-Inf, label="Lower Right", hjust=1, vjust=0)
+    ~~~
+<img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png">  
+
 
 * 注釈  
 ~~~
@@ -659,6 +672,12 @@ facet_plot +
 * Tips  
 ?plotmath: 数式表現のヘルプ  
 library(grid): 矢印を記載する場合に必要  
+
+---
+　  
+
+
+
 
 
 ## 第８章　軸  
