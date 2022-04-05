@@ -563,32 +563,21 @@ hjust=0（1）でテキストの左端（右端）が、vjust=0（1）でテキ�
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png">  
 
-
-* 注釈  
+2. 補助線  
 ~~~
-# 書式等を指定
-p +
-  annotate("text", x=3, y=48, label="Group 1",
-           family="serif", fontface="italic", colour="darkred", size=3) +
-  annotate("text", x=4.5, y=66, label="Group 2",
-           family="serif", fontface="italic", colour="darkred", size=3)
+ggplot(df, aes(col1, col2, colour=col3)) +
+  geom_point() +
+  geom_hline(yintercept=60) +
+  geom_vline(xintercept=14)
 
-# geom_textはデータの数だけ指定のテキストを表示するので注意
-p +
-  annotate("text", x=3, y=48, label="Group 1", alpha=.1) +
-  geom_text(x=4.5, y=66, label="Group 2", alpha=.1)
-
-# テキストは指定の点を中心に設定されるので、hjust、vjustで微調整する
-p +
-  annotate("text", x=-Inf, y=Inf, label="Upper left", 
-           hjust=-.2, vjust=2) +
-  annotate("text", x=mean(range(faithful$eruptions)), y=-Inf, label="Bottom middle",
-           vjust=-0.4)
-
-# 数式
-p + annotate("text", x=2, y=0.3, parse=T,
-             label="'Function: '*frac(1, sqrt(2*pi))*e~{-x^2/x}")
+ggplot(df, aes(col1, col2, colour=col3)) +
+  geom_point() +
+  geom_abline(intercept=37.4, slope=1.75)
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/161755642-38d440a8-402b-439a-aafb-7a0a11b67ea3.png">  
+
+
+
 
 
 * 補助線    
