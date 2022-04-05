@@ -578,33 +578,6 @@ ggplot(df, aes(col1, col2, colour=col3)) +
 
 
 
-
-
-* 補助線    
-~~~
-# 軸に平行な線
-hw_plot +
-  geom_hline(yintercept=60) +
-  geom_vline(xintercept=14)
-
-# 傾きのある線
-hw_plot +
-  geom_abline(intercept=37.4, slope=1.75)
-
-# 複数の線  
-hw_plot +
-  geom_hline(
-    data=hw_means,
-    aes(yintercept=heightIn, colour=sex),
-    linetype="dashed",
-    size=1
-  )
-
-# ファクター値を切片とする場合
-pg_plot +
-  geom_vline(xintercept=which(levels(PlantGrowth$group)=="ctrl"))
-~~~
-
 * その他  
 ~~~
 # 線分、endに向かって矢印が出る
