@@ -553,6 +553,7 @@ nlevels: カテゴリ変数の数を表示
 補助的要素の追加  
 
 1. 注釈  
+annotateを使用  
 テキストの中心が指定した点に来るように表示される（デフォルトはhjust=0.5、vjust=0.5）  
 hjust=0（1）でテキストの左端（右端）が、vjust=0（1）でテキストの下端（上端）が指定した点に来る  
     ~~~
@@ -564,17 +565,36 @@ hjust=0（1）でテキストの左端（右端）が、vjust=0（1）でテキ�
 <img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png">  
 
 2. 補助線  
-~~~
-ggplot(df, aes(col1, col2, colour=col3)) +
-  geom_point() +
-  geom_hline(yintercept=60) +
-  geom_vline(xintercept=14)
+geom_hline、geom_vline、geom_ablineを使用  
 
-ggplot(df, aes(col1, col2, colour=col3)) +
-  geom_point() +
-  geom_abline(intercept=37.4, slope=1.75)
-~~~
+    ~~~
+    ggplot(df, aes(col1, col2, colour=col3)) +
+        geom_point() +
+        geom_hline(yintercept=60) +
+        geom_vline(xintercept=14)
+
+    ggplot(df, aes(col1, col2, colour=col3)) +
+        geom_point() +
+        geom_abline(intercept=37.4, slope=1.75)
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/161755642-38d440a8-402b-439a-aafb-7a0a11b67ea3.png">  
+
+3. 線分、網掛け  
+annotateを使用  
+
+    ~~~
+    ggplot(df, aes(col1, col2)) +
+        geom_line() +
+        # 矢印
+        annotate("segment", x=1850, xend=1820, y=-0.8, yend=-.95, colour="blue", size=2, arrow=arrow()) +
+        # 線分
+        annotate("segment", x=1925, xend=1950, y=-.25, yend=-.25, arrow=arrow(ends="both", angle=90, length=unit(.2,"cm"))) +
+        # 網掛け
+        annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1, alpha=.1, fill="blue")
+    ~~~
+<img src="https://user-images.githubusercontent.com/51372161/161975566-89ae3ae3-1da3-4371-b24c-57b5748b36fa.png">  
+
+4. エラーバー  
 
 
 
