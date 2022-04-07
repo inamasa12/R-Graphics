@@ -595,46 +595,27 @@ annotateを使用
 <img src="https://user-images.githubusercontent.com/51372161/161975566-89ae3ae3-1da3-4371-b24c-57b5748b36fa.png">  
 
 4. エラーバー  
+geom_errorbarを使用  
 
+    ~~~
+    # 棒グラフ
+    ggplot(df, aes(col1, col2, fill=col3)) +
+        geom_col(position="dodge") +
+        # 棒グラフと同じだけエラーバーもずらす（col4にエラーが収録）
+        geom_errorbar(aes(ymin=col2-col4, ymax=col2+colr), position=position_dodge(0.9), width=.2)
 
+    # 折れ線グラフ
+    ggplot(df, aes(col1, col2, colour=col3, group=col3)) +
+        geom_errorbar(aes(ymin=col2-col4, ymax=col2+col4),
+                        position=position_dodge(0.3), 
+                        width=.2,
+                        size=.25,
+                        colour="black") +
+        geom_line(position=position_dodge(0.3)) +
+        geom_point(position=position_dodge(0.3), size=2.5)
+    ~~~
+<img src="https://user-images.githubusercontent.com/51372161/162194498-5d85a686-6587-4a4c-849d-e2f22a2a27db.png">  
 
-* その他  
-~~~
-# 線分、endに向かって矢印が出る
-p +
-  annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25,
-           arrow=arrow(ends="both", angle=90, length=unit(.2,"cm"))) +
-  annotate("segment", x=1850, xend=1820, y=-.8, yend=-.95,
-           colour="blue", size=2, arrow=arrow())
-
-# 長方形の網掛
-p +
-  annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1,
-           alpha=.1, fill="blue")
-
-# 要素の強調１、列を準備
-ggplot(pg_mod, aes(group, y=weight, fill=hl)) +
-  geom_boxplot() +
-  scale_fill_manual(values=c("grey85", "#FFDDCC"), guide=F)
-
-# 要素の強調２、要素ごとに設定
-ggplot(PlantGrowth, aes(group, y=weight, fill=group)) +
-  geom_boxplot() +
-  scale_fill_manual(values=c("grey85", "grey85", "#FFDDCC"), guide=F)
-  
-# 折れ線グラフのエラーバー
-ggplot(ce_mod, aes(Date, Weight)) +
-  geom_line(aes(group=1)) +
-  geom_point(size=4) +
-  geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se), width=.2)
-
-# 棒グラフのエラーバー
-# グループ表示する場合は棒グラフと同じ幅だけドッジする必要がある
-ggplot(cabbage_exp, aes(Date, Weight, fill=Cultivar)) +
-  geom_col(position="dodge") +
-  geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se),
-                width=.2, position=position_dodge(0.9))
-~~~
 
 * ファセット    
 ~~~
