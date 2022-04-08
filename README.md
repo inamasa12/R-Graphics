@@ -583,6 +583,7 @@ geom_hline、geom_vline、geom_ablineを使用
 annotateを使用  
 
     ~~~
+    library(grid)
     ggplot(df, aes(col1, col2)) +
         geom_line() +
         # 矢印
@@ -616,28 +617,41 @@ geom_errorbarを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162194498-5d85a686-6587-4a4c-849d-e2f22a2a27db.png">  
 
-
-* ファセット    
+5. ファセットに注釈を表示  
 ~~~
-# ファセットに対応した表示データを用意
-f_labels <- data.frame(drv=c("4", "f", "r"), label=c("4wd", "Front", "Rear"))
+# データに対して数式となる文字列（Rフォーマット）を出力する関数を定義
+lm_labels <- function(dat) {
+  mod <- lm(hwy~displ, data=dat)
+  # 回帰式
+  formula <- sprintf("italic(y) == %.2f %+.2f * italic(x)",
+                     round(coef(mod)[1], 2), round(coef(mod)[2], 2))
+  r <- cor(dat$displ, dat$hwy)
+  # 決定係数
+  r2 <- sprintf("italic(R^2) == %.2f", r^2)
+  data.frame(formula=formula, r2=r2, stringsAsFactors = F)
+
+# グループ別のデータに関数を適用して数式を生成
+labels <- mpg %>%
+  select(drv, displ, hwy) %>%
+  nest(dat=c(displ, hwy)) %>%
+  mutate(label=map(dat, lm_labels)) %>%
+  unnest(c(drv, label)) %>%
+  select(drv, formula, r2)
+
+# グループ別に表示
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  facet_grid(.~drv) +
-  geom_text(x=6, y=40, aes(label=label), data=f_labels)
-
-#annotateはデータ、対応関係を問わずに同じ値を表示
-facet_plot +
-  annotate("text", x=6, y=42, label="label text")
+  geom_smooth(method=lm, se=F) +
+  # 回帰式、ラベルデータを与える
+  geom_text(data=labels, x=3, y=40, hjust=0, aes(label=formula), parse=T) +
+  # 決定係数、ラベルデータを与える
+  geom_text(data=labels, x=3, y=35, hjust=0, aes(label=r2), parse=T) +
+  facet_grid(.~drv)
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/162444661-5035e04e-4e86-4c93-8f90-84a5f18d4819.png">  
 
 
-* Tips  
-?plotmath: 数式表現のヘルプ  
-library(grid): 矢印を記載する場合に必要  
 
----
-　  
 
 
 
