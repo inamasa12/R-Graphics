@@ -651,6 +651,8 @@ ggplot(mpg, aes(displ, hwy)) +
 <img src="https://user-images.githubusercontent.com/51372161/162444661-5035e04e-4e86-4c93-8f90-84a5f18d4819.png">  
 
 
+---
+　  
 
 
 
