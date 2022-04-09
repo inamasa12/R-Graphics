@@ -661,14 +661,31 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ## 第８章　軸  
 
-* 基本  
+1. 軸の反転、表示順の変更  
 ~~~
-# 軸の入替、カテゴリ変数の表示順序を逆にする
-ggplot(PlantGrowth, aes(group, weight)) +
+ggplot(df, aes(col1, col2)) +
   geom_boxplot() +
-  coord_flip() +
-  scale_x_discrete(limits=rev(levels(PlantGrowth$group)))
+  coord_flip() + # 軸の反転
+  scale_x_discrete(limits=rev(levels(col1))) # 離散値の表示順はlimitsで指定
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/162551652-7e579904-b656-41a4-bec5-b60d5e56d443.png">  
+
+2. 軸の範囲  
+~~~
+# データ範囲の指定、指定の範囲だけを用いてグラフを作成
+ggplot(df, aes(col1, col2)) +
+  geom_boxplot() +
+  ylim(0, 6)
+  expand_limits(y=0) # 範囲を一方向に拡張
+  scale_y_continuous(limits=c(0, 6), breaks=NULL) # 複数の設定が可能（breaksは目盛り線の設定）
+
+# 表示範囲の指定、全データを用いて作成したグラフの表示範囲を指定
+ggplot(df, aes(col1, col2)) +
+  geom_boxplot() +
+  coord_cartesian(ylim=c(5, 6.5))
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/162552176-0bc93c82-c175-493e-8674-7bf29f13dc13.png">  
+
 
 
 * 範囲の変更と目盛りの非表示  
