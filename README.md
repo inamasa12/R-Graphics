@@ -653,12 +653,6 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ---
 　  
-
-
-
-
-
-
 ## 第８章　軸  
 
 1. 軸の反転、表示順の変更  
@@ -666,7 +660,9 @@ ggplot(mpg, aes(displ, hwy)) +
 ggplot(df, aes(col1, col2)) +
   geom_boxplot() +
   coord_flip() + # 軸の反転
-  scale_x_discrete(limits=rev(levels(col1))) # 離散値の表示順はlimitsで指定
+  scale_x_discrete(limits=rev(levels(col1))) # 離散値の表示順はlimitsで指定できる
+  scale_x_reverse() # 連続値の表示順の逆転
+  xlim(6, 3) # 連続値は範囲の指定を逆にすることでも逆転できる
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162551652-7e579904-b656-41a4-bec5-b60d5e56d443.png">  
 
@@ -685,6 +681,12 @@ ggplot(df, aes(col1, col2)) +
   coord_cartesian(ylim=c(5, 6.5))
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162552176-0bc93c82-c175-493e-8674-7bf29f13dc13.png">  
+
+
+3. 目盛の表示設定（breaks: 目盛線、labels: 目盛ラベル、ticks: 目盛記号）
+
+
+
 
 
 
