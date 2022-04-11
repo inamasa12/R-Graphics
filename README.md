@@ -683,10 +683,35 @@ ggplot(df, aes(col1, col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/162552176-0bc93c82-c175-493e-8674-7bf29f13dc13.png">  
 
 
-3. 目盛の表示設定（breaks: 目盛線、labels: 目盛ラベル、ticks: 目盛記号）
+3. 目盛の表示設定（breaks: 目盛線、labels: 目盛ラベル）  
+目盛線と目盛ラベルの表示内容はscaleで設定する  
+~~~
+# 目盛線と目盛ラベルの設定
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  scale_y_continuous(breaks=c(50, 56, 60, 66, 72),
+                     labels=c("Tiny", "Really\nshort", "Short", "Medium", "Tallish"))
+  scale_y_continuous(breaks=NULL) # 目盛線を非表示にする場合
+
+# 関数を用いた表示単位の変換
+# 変換関数の設定
+footinch_formatter <- function(x) {
+  foot <- floor(x/12)
+  inch <- x %% 12
+  return(paste(foot, "'", inch, "\"", sep=""))
+}
+
+# ラベルに作成した変換関数を設定する
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  scale_y_continuous(labels=footinch_formatter)
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png">  
 
 
 
+4. 目盛ラベルの体裁、目盛記号の設定  
+目盛ラベルの体裁、目盛記号の設定はthemeで行う  
 
 
 
