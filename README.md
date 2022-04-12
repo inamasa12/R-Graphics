@@ -693,7 +693,7 @@ ggplot(df, aes(col1, col2)) +
                      labels=c("Tiny", "Really\nshort", "Short", "Medium", "Tallish"))
   scale_y_continuous(breaks=NULL) # 目盛線を非表示にする場合
 
-# 関数を用いた表示単位の変換
+# 関数（フォーマッタ）を用いた表示単位の変換
 # 変換関数の設定
 footinch_formatter <- function(x) {
   foot <- floor(x/12)
@@ -708,10 +708,35 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png">  
 
+`scales`パッケージで提供されているフォーマッタ  
+|フォーマッタ|昨日|  
+|---|---|  
+|comma|桁区切り|  
+|dollar|ドルマーク|
+|percent|パーセント表示|  
 
 
 4. 目盛ラベルの体裁、目盛記号の設定  
 目盛ラベルの体裁、目盛記号の設定はthemeで行う  
+
+~~~
+# 目盛ラベルと目盛記号の非表示
+ggplot(df, aes(col1, col2)) +
+  geom_boxplot() +
+  theme(axis.ticks=element_blank(), axis.text.y=element_blank())
+
+# 目盛ラベルの体裁変更
+ggplot(df, aes(col1, col2)) +
+  geom_boxplot() +
+  scale_x_discrete(
+    breaks=c("fact1", "fact2", "fact3"),
+    labels=c("Control", "Treatment 1", "Treatment 2")) +
+  # hjust(vjust)=1は右（上）揃え、relでデフォルトからの倍率で文字サイズを指定する
+  theme(axis.text.x=element_text(angle=30, hjust=1, vjust=1, size=rel(0.8)))
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/162975056-cc1d80e2-e00e-4887-833c-e5e1daafa23e.png">  
+
+
 
 
 
