@@ -714,7 +714,7 @@ ggplot(df, aes(col1, col2)) +
     |フォーマッタ|昨日|  
     |---|---|  
     |comma|桁区切り|  
-    |dollar|ドルマーク|
+    |dollar|ドルマーク|  
     |percent|パーセント表示|  
 
 
