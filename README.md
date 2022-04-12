@@ -685,6 +685,7 @@ ggplot(df, aes(col1, col2)) +
 
 3. 目盛の表示設定（breaks: 目盛線、labels: 目盛ラベル）  
 目盛線と目盛ラベルの表示内容はscaleで設定する  
+
     ~~~
     # 目盛線と目盛ラベルの設定
     ggplot(df, aes(col1, col2)) +
@@ -709,6 +710,7 @@ ggplot(df, aes(col1, col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png">  
 
 `scales`パッケージで提供されているフォーマッタ  
+
     |フォーマッタ|昨日|  
     |---|---|  
     |comma|桁区切り|  
