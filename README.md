@@ -674,7 +674,7 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163175296-b33e8d25-eba0-4a2d-b400-a3b47e72e53d.png">  
 
-2. 軸の範囲  
+2. 軸の範囲（limits）  
 ~~~
 # データ範囲の指定、指定の範囲だけを用いてグラフを作成
 ggplot(df, aes(col1, col2)) +
@@ -717,8 +717,7 @@ ggplot(df, aes(col1, col2)) +
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png">  
 
-`scales`パッケージで提供されているフォーマッタ  
-
+scalesパッケージで提供されているフォーマッタ  
 
     |フォーマッタ|昨日|  
     |---|---|  
