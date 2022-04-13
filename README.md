@@ -655,16 +655,24 @@ ggplot(mpg, aes(displ, hwy)) +
 　  
 ## 第８章　軸  
 
-1. 軸の反転、表示順の変更  
+1. 軸の反転、表示順の変更、スケール比の設定  
 ~~~
+# 軸の反転、表示順の変更
 ggplot(df, aes(col1, col2)) +
   geom_boxplot() +
   coord_flip() + # 軸の反転
   scale_x_discrete(limits=rev(levels(col1))) # 離散値の表示順はlimitsで指定できる
   scale_x_reverse() # 連続値の表示順の逆転
   xlim(6, 3) # 連続値は範囲の指定を逆にすることでも逆転できる
+
+# スケール比の設定
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  coord_fixed(ratio=1/2) +
+  scale_y_continuous(breaks=seq(0, 420, 30)) +
+  scale_x_continuous(breaks=seq(0, 420, 15)) +
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/162551652-7e579904-b656-41a4-bec5-b60d5e56d443.png">  
+<img src="https://user-images.githubusercontent.com/51372161/163175296-b33e8d25-eba0-4a2d-b400-a3b47e72e53d.png">  
 
 2. 軸の範囲  
 ~~~
@@ -710,6 +718,7 @@ ggplot(df, aes(col1, col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png">  
 
 `scales`パッケージで提供されているフォーマッタ  
+
 
     |フォーマッタ|昨日|  
     |---|---|  
