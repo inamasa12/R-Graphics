@@ -743,52 +743,6 @@ ggplot(df, aes(col1, col2)) +
 
 
 
-* 範囲の変更と目盛りの非表示  
-~~~
-# 複数の変更を行う場合はscaleで同時に設定する
-pg_plot +
-  scale_y_continuous(limits=c(0, 10), breaks=NULL)
-
-# 悪い例１、最後の設定だけが有効となり範囲の変更は無視される
-pg_plot +
-  ylim(0, 10) +
-  scale_y_continuous(breaks=NULL)
-  
-# 悪い例１、最後の設定だけが有効となり目盛りの非表示は無視される
-hhpg_plot +
-  scale_y_continuous(breaks=NULL) +
-  ylim(0, 10)
-
-# 範囲の拡大
-pg_plot +
-  expand_limits(y=0)
-
-#座標変換（ズームイン、ズームアウト）
-pg_plot +
-  coord_cartesian(ylim=c(5, 6.5))
-~~~
-
-* 軸の順序  
-~~~
-# 軸の順序を反転
-し、範囲も変更
-ggplot(PlantGrowth, aes(group, weight)) +
-  geom_boxplot() +
-  scale_y_reverse(limits=c(8, 0))
-
-# ylimでも変更が可能
-ggplot(PlantGrowth, aes(group, weight)) +
-  geom_boxplot() +
-  ylim(6.5, 3.5)
-
-# カテゴリカル変数の順序指定
-pg_plot +
-  scale_x_discrete(limits=c("trt1", "ctrl", "trt2"))
-
-# カテゴリカル変数の順序反転
-pg_plot +
-  scale_x_discrete(limits=rev(levels(PlantGrowth$group)))
-~~~
 
 * レイアウト  
 ~~~
