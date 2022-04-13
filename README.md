@@ -719,11 +719,18 @@ ggplot(df, aes(col1, col2)) +
 
 scalesパッケージで提供されているフォーマッタ  
 
-    |フォーマッタ|昨日|  
-    |---|---|  
-    |comma|桁区切り|  
-    |dollar|ドルマーク|  
-    |percent|パーセント表示|  
+   |フォーマッタ|昨日|  
+   |---|---|  
+   |comma|桁区切り|  
+   |dollar|ドルマーク|  
+   |percent|パーセント表示|  
+
+   |属性|内容|  
+   |---|---|  
+   |coord_flip|座標軸の入替|  
+   |coord_quickmap|縦横比の調整|  
+   |coord_polar|極座標の使用|  
+   |coord_fixed|縦横比を揃える|  
 
 
 4. 目盛ラベルの体裁、目盛記号の設定  
