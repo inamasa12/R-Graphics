@@ -692,7 +692,7 @@ ggplot(df, aes(col1, col2)) +
 
 
 3. 目盛の表示設定（breaks: 目盛線、labels: 目盛ラベル）  
-目盛線と目盛ラベルの表示内容はscaleで設定する  
+目盛線と目盛ラベルの表示内容はscaleで設定する（補助目盛線は目盛線の半分の幅で自動的に引かれる）  
 
     ~~~
     # 目盛線と目盛ラベルの設定
@@ -725,14 +725,6 @@ scalesパッケージで提供されているフォーマッタ
    |dollar|ドルマーク|  
    |percent|パーセント表示|  
 
-   |属性|内容|  
-   |---|---|  
-   |coord_flip|座標軸の入替|  
-   |coord_quickmap|縦横比の調整|  
-   |coord_polar|極座標の使用|  
-   |coord_fixed|縦横比を揃える|  
-
-
 4. 目盛ラベルの体裁、目盛記号の設定  
 目盛ラベルの体裁、目盛記号の設定はthemeで行う  
 
@@ -751,7 +743,6 @@ scalesパッケージで提供されているフォーマッタ
         # hjust(vjust)=1は右（上）揃え、relでデフォルトからの倍率で文字サイズを指定する
         theme(axis.text.x=element_text(angle=30, hjust=1, vjust=1, size=rel(0.8)))
     ~~~
-
 <img src="https://user-images.githubusercontent.com/51372161/162975056-cc1d80e2-e00e-4887-833c-e5e1daafa23e.png">  
 
 
@@ -759,58 +750,7 @@ scalesパッケージで提供されているフォーマッタ
 
 
 
-* レイアウト  
-~~~
-# 縦横比を揃えて、同じ幅の区切りを設定
-m_plot +
-  #coord_fixed() +
-  scale_y_continuous(breaks=seq(0, 420, 30)) +
-  scale_x_continuous(breaks=seq(0, 420, 30))
 
-# 縦横比を1:2にして、同じ幅の区切りを設定
-m_plot +
-  coord_fixed(ratio=1/2) +
-  scale_y_continuous(breaks=seq(0, 420, 30)) +
-  scale_x_continuous(breaks=seq(0, 420, 30))
-~~~
-
-* 目盛り  
-~~~
-# 主目盛りを指定（補助目盛は主目盛りの半分になる）
-ggplot(PlantGrowth, aes(group, weight)) +
-  geom_boxplot() +
-  scale_y_continuous(breaks=c(4, 4.25, 4.5, 5, 6, 8))
-
-# 目盛り線の消去、目盛り記号の消去、目盛りラベルの消去
-pg_plot +
-  scale_y_continuous(breaks=NULL) +
-  theme(axis.ticks=element_blank(), axis.text.y=element_blank())
-
-# ラベルの変更１
-hw_plot +
-  scale_y_continuous(breaks=c(50, 56, 60, 66, 72),
-                     labels=c("Tiny", "Really\nshort", "Short", "Medium", "Tallish"))
-
-# ラベルの変更２，独自変換関数を使用
-hw_plot +
-  scale_y_continuous(breaks=seq(48, 72, 4), labels=footinch_formatter)
-
-# ラベルの変更３，既存変換関数を使用（scalesパッケージ）
-# comma: 桁区切り、dollar: ドル表示、percent: パーセント表示
-hw_plot +
-  scale_y_continuous(breaks=seq(48, 72, 4), labels=comma)
-
-# ラベルの角度、justは文字揃え（0, 0.5, 1で指定）
-pg_plot +
-  theme(axis.text.x=element_text(angle=30, hjust=1, vjust=1))
-
-# ラベルの詳細設定
-pg_plot +
-  theme(axis.text.x=element_text(family="Arial", 
-                                 face="italic", 
-                                 colour="darkred",
-                                 size=rel(0.9)))
-~~~
 
 
 * 軸  
