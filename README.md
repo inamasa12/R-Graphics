@@ -548,7 +548,6 @@ nlevels: カテゴリ変数の数を表示
 ---
 　  
 
-
 ## 第７章　注釈  
 補助的要素の追加  
 
@@ -650,9 +649,9 @@ ggplot(mpg, aes(displ, hwy)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162444661-5035e04e-4e86-4c93-8f90-84a5f18d4819.png">  
 
-
 ---
 　  
+
 ## 第８章　軸  
 
 1. 軸の反転、表示順の変更、スケール比の設定  
@@ -725,6 +724,7 @@ scalesパッケージで提供されているフォーマッタ
    |dollar|ドルマーク|  
    |percent|パーセント表示|  
 
+
 4. 目盛ラベルの体裁、目盛記号の設定  
 目盛ラベルの体裁、目盛記号の設定はthemeで行う  
 
@@ -745,8 +745,29 @@ scalesパッケージで提供されているフォーマッタ
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162975056-cc1d80e2-e00e-4887-833c-e5e1daafa23e.png">  
 
+5. 軸タイトル、軸線、枠線の設定  
+~~~
+# 軸タイトルの設定
+ggplot(df, aes(col1, col2, colour=col3)) +
+  geom_point() +
+  labs(x="Age in years")
+  scale_x_continuous(name="Age in years")
 
+# 軸タイトルの書式設定
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  theme(axis.title.x=element_text(angle=30, face="italic", colour="darkred", size=14))
+  theme(axis.title.x=element_blank()) # 軸タイトルを表示しない
 
+# 軸線、枠線の設定
+ggplot(df, aes(col1, col2)) +
+  theme_bw() +
+  geom_point() +
+  theme(axis.line=element_line(colour="black"), # 軸線の設定
+        panel.border=element_blank() # 枠線を非表示
+        )
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/163387635-bbd9f303-3813-4416-8a01-9f609a7d87fb.png">  
 
 
 
