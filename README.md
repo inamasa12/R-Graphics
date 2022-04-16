@@ -692,6 +692,13 @@ ggplot(df, aes(col1, col2)) +
 
 3. 目盛の表示設定（breaks: 目盛線、labels: 目盛ラベル）  
 目盛線と目盛ラベルの表示内容はscaleで設定する（補助目盛線は目盛線の半分の幅で自動的に引かれる）  
+scalesパッケージで提供されているフォーマッタ  
+
+   |フォーマッタ|昨日|  
+   |---|---|  
+   |comma|桁区切り|  
+   |dollar|ドルマーク|  
+   |percent|パーセント表示|  
 
     ~~~
     # 目盛線と目盛ラベルの設定
@@ -715,14 +722,6 @@ ggplot(df, aes(col1, col2)) +
         scale_y_continuous(labels=footinch_formatter)
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png">  
-
-scalesパッケージで提供されているフォーマッタ  
-
-   |フォーマッタ|昨日|  
-   |---|---|  
-   |comma|桁区切り|  
-   |dollar|ドルマーク|  
-   |percent|パーセント表示|  
 
 
 4. 目盛ラベルの体裁、目盛記号の設定  
@@ -770,98 +769,34 @@ ggplot(df, aes(col1, col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/163387635-bbd9f303-3813-4416-8a01-9f609a7d87fb.png">  
 
 
-
-
-
-
-* 軸  
+6. 対数軸の設定  
 ~~~
-# 軸タイトルの指定１
-hw_plot +
-  xlab("Age in years") +
-  ylab("Height in inches")
-
-# 軸タイトルの指定２
-hw_plot +
-  labs(x="Age in years", y="Height in inches")
-
-# 軸タイトルの指定３
-hw_plot +
-  scale_x_continuous(name="Age\n(years)")
-
-# 軸タイトルの非表示１、タイトル表示部分を完全になくす
-pg_plot +
-  xlab(NULL)
-
-# 軸タイトルの非表示２、１と同じ
-pg_plot +
-  theme(axis.title.x=element_blank())
-
-# 軸タイトルの非表３、タイトル部分をブランク
-pg_plot +
-  xlab("")
-
-# 軸タイトルを回転させない（デフォルトは90度左に回転）
-hw_plot +
-  ylab("Height\n(inches)") +
-  theme(axis.title.y=element_text(face="italic", size=14, angle=0))
-
-# 軸を明示
-hw_plot +
-  theme(axis.line=element_line(colour="black"))
-
-# 太軸、交点を揃える
-hw_plot +
-  theme_bw() +
-  theme(panel.border=element_blank(),
-        axis.line=element_line(colour="black", size=4, lineend="square"))
-
-# 対数グラフ、簡易バージョン
-animals_plot +
-  scale_x_log10(breaks=10^(-1:5),
-                labels=trans_format("log10", math_format(10^.x))) +
-  scale_y_log10(breaks=10^(0:3),
-                labels=trans_format("log10", math_format(10^.x)))
-
-# データ自体を変換
-ggplot(Animals, aes(log10(body), log10(brain),
-                    label=rownames(Animals))) +
-         geom_text(size=3)
-
-# 対数グラフ、詳細設定
-animals_plot +
-  scale_x_continuous(
-    trans=log_trans(),   # 軸を自然対数変換
-    breaks=trans_breaks("log", function(x) exp(x)),  # 目盛りの位置を変換
-    labels=trans_format("log", math_format(e^.x))    # 表記の指定
-  ) +
-  scale_y_continuous(
-    trans=log2_trans(),  # 軸を対数変換（底２）
-    breaks=trans_breaks("log2", function(x) 2^x),    # 目盛りの位置を変換
-    labels=trans_format("log2", math_format(2^.x))   # 表記の指定
-)
-
-# 片方だけ対数軸
-ggplot(aapl, aes(date, adj_price)) +
-  geom_line() +
-  scale_y_log10(breaks=c(2, 10, 50, 250))
-
-# 目盛り幅を関数で指定
-# 目盛りをグラフ内で表示（annotation_logticks）
-breaks_log10 <- function(x) {
-  low <- floor(log10(min(x)))
-  high <- ceiling(log10(max(x)))
-  10^(seq.int(low, high))
-}
-
-ggplot(Animals, aes(body, brain, label=rownames(Animals))) +
+# 常用対数
+ggplot(df, aes(col1, col2, label=col3)) +
   geom_text(size=3) +
-  scale_x_log10(breaks=breaks_log10, 
-                labels=trans_format(log10, math_format(10^.x))) +
-  scale_y_log10(breaks=breaks_log10, 
-                labels=trans_format(log10, math_format(10^.x))) +
-  annotation_logticks() # 対数目盛り
+  annotation_logticks() +                                            # 対数軸目盛を追加
+  scale_x_log10(breaks=10^(-1:5),                                    # 目盛線の位置を指定
+                minor_breaks=10^(-1:5)/2,                            # 補助目盛線の位置を指定
+                labels=trans_format("log10", math_format(10^.x))) +  # ラベルの書式設定
+  scale_y_log10(breaks=10^(0:3),
+                labels=trans_format("log10", math_format(10^.x))) +
+  theme_bw()
+
+# それ以外
+ggplot(df, aes(col1, col2, label=col3)) +
+  geom_text(size=3) +
+  scale_x_continuous(trans=log_trans(),
+                     breaks=trans_breaks("log", function(x) exp(x)),
+                     labels=trans_format("log", math_format(e^.x))) +
+  scale_y_continuous(trans=log2_trans(),
+                     breaks=trans_breaks("log2", function(x) 2^x),
+                     labels=trans_format("log2", math_format(2^.x)))
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/163659322-babdf2d8-d470-41ca-bf86-655fbc49bec0.png">  
+
+
+
+
 
 
 * 円形グラフ  
@@ -915,9 +850,10 @@ ggplot(www, aes(minute, users)) +
   )
 ~~~
 
-* Tips  
+### R Tips  
 seq(f, t, b): fromからtoまでをb区切りで数列化  
-floor(x): xを越えない最大の整数ound(x): 独自の基準で少数以下を丸める
+floor(x): xを越えない最大の整数  
+round(x): 独自の基準で少数以下を丸める  
 rownames(tbl): 行名のベクトルを出力  
 colnames(tbl): 列名のベクトルを出力  
 %+%: グラフオブジェクト %+% df で既存のグラフのデータを新しいものに置き換えることができる  
