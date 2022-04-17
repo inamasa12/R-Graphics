@@ -794,27 +794,18 @@ ggplot(df, aes(col1, col2, label=col3)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163659322-babdf2d8-d470-41ca-bf86-655fbc49bec0.png">  
 
-
-
-
-
-
-* 円形グラフ  
-デフォルトではデータの最小値が座標の中心になる  
-デフォルトでは回転軸の始点と終点が同じになる  
-データは一周しかできない  
+7. 円形グラフ（極座標）  
+coord_polarを使用  
 ~~~
-# -7.5から幅15でbinをスタートし、0、15、30、、、にセンタリング
-# 凡例は逆順に表示、スタートは45度反時計回りにずらす
-ggplot(wind, aes(DirCat, fill=SpeedCat)) +
-  geom_histogram(binwidth=15, boundary=-7.5, colour="black", size=0.25) +
-  guides(fill=guide_legend(reverse=T)) + # 凡例の表示順を逆にする
-  coord_polar(start=-45*pi/180) +
+ggplot(df, aes(col1, fill=col2)) +
+  geom_histogram(binwidth=15, boundary=-7.5, colour="black", size=.25) +
+  coord_polar() +
   scale_x_continuous(limits=c(0, 360),
                      breaks=seq(0, 360, by=45),
-                     minor_breaks=seq(0, 360, by=15)) +
-  scale_fill_brewer()
+                     minor_breaks = seq(0, 360, by=15))
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/163695999-f1138af6-7762-4df8-8a21-78c80159e04d.png">  
+
 
 * 日付  
 ~~~
@@ -851,11 +842,8 @@ ggplot(www, aes(minute, users)) +
 ~~~
 
 ### R Tips  
-seq(f, t, b): fromからtoまでをb区切りで数列化  
 floor(x): xを越えない最大の整数  
 round(x): 独自の基準で少数以下を丸める  
-rownames(tbl): 行名のベクトルを出力  
-colnames(tbl): 列名のベクトルを出力  
 %+%: グラフオブジェクト %+% df で既存のグラフのデータを新しいものに置き換えることができる  
 ?strptime: 日付フォーマットオプション  
 time(ts): タイムシリーズオブジェクトの時間のベクトルを出力する  
