@@ -794,7 +794,7 @@ ggplot(df, aes(col1, col2, label=col3)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163659322-babdf2d8-d470-41ca-bf86-655fbc49bec0.png">  
 
-7. 円形グラフ（極座標）  
+7. 極座標  
 coord_polarを使用  
 ~~~
 ggplot(df, aes(col1, fill=col2)) +
@@ -805,6 +805,16 @@ ggplot(df, aes(col1, fill=col2)) +
                      minor_breaks = seq(0, 360, by=15))
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163695999-f1138af6-7762-4df8-8a21-78c80159e04d.png">  
+
+8. 日付軸
+
+
+
+   |フォーマッタ|昨日|  
+   |---|---|  
+   |comma|桁区切り|  
+   |dollar|ドルマーク|  
+   |percent|パーセント表示|  
 
 
 * 日付  
@@ -844,7 +854,7 @@ ggplot(www, aes(minute, users)) +
 ### R Tips  
 floor(x): xを越えない最大の整数  
 round(x): 独自の基準で少数以下を丸める  
-%+%: グラフオブジェクト %+% df で既存のグラフのデータを新しいものに置き換えることができる  
+%+%: `グラフオブジェクト %+% df_new` でグラフで使用するデータセットを置き換える  
 ?strptime: 日付フォーマットオプション  
 time(ts): タイムシリーズオブジェクトの時間のベクトルを出力する  
 
