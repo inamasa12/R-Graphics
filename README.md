@@ -694,7 +694,7 @@ ggplot(df, aes(col1, col2)) +
 目盛線と目盛ラベルの表示内容はscaleで設定する（補助目盛線は目盛線の半分の幅で自動的に引かれる）  
 scalesパッケージで提供されているフォーマッタ  
 
-   |フォーマッタ|昨日|  
+   |フォーマッタ|機能|  
    |---|---|  
    |comma|桁区切り|  
    |dollar|ドルマーク|  
@@ -807,49 +807,25 @@ ggplot(df, aes(col1, fill=col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/163695999-f1138af6-7762-4df8-8a21-78c80159e04d.png">  
 
 8. 日付軸
-
-
-
-   |フォーマッタ|昨日|  
-   |---|---|  
-   |comma|桁区切り|  
-   |dollar|ドルマーク|  
-   |percent|パーセント表示|  
-
-
-* 日付  
-~~~
-# date_formatを使用するにはscalesのロードが必要
-datebreaks <- seq(as.Date("1992-06-01"), as.Date("1993-06-01"), by="2 month")
-econ_plot +
-  scale_x_date(breaks=datebreaks, labels=date_format("%Y %b")) +
+scale_x_dateを使用  
+~~~ 
+ggplot(econ_mod, aes(date, psavert)) +
+  geom_line() +
+  scale_x_date(breaks=seq(as.Date("1992-6-1"), as.Date("1993-6-1"), by="2 month"),
+               labels=date_format("%Y / %m")) + # 独自関数（フォーマッタ）の使用も可能
   theme(axis.text.x=element_text(angle=30, hjust=1))
-
-# 表示形式を独自関数で設定
-timeHM_formatter <- function(x) {
-  h <- floor(x/60)
-  m <- floor(x %% 60)
-  lab <- sprintf("%d:%02d", h, m)
-  return(lab)
-}
-
-ggplot(www, aes(minute, users)) +
-  geom_line() +
-  scale_x_continuous(
-    name="time",
-    breaks=seq(0, 100, by=10),
-    labels=timeHM_formatter
-  )
-
-# 目盛りラベルを直接指定
-ggplot(www, aes(minute, users)) +
-  geom_line() +
-  scale_x_continuous(
-    name="time",
-    breaks=seq(0, 100, by=20),
-    labels=c("0:00", "0:20", "0:40", "1:00", "1:20", "1:40")
-  )
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
+
+   |日付オプション|説明|  
+   |---|---|  
+   |%Y|年(YYYY)|  
+   |%y|年(YY)|  
+   |%m|月(MM)|  
+   |%d|日(DD)|  
+   |%a|曜日|  
+
+
 
 ### R Tips  
 floor(x): xを越えない最大の整数  
