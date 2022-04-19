@@ -869,22 +869,7 @@ ggplot(df, aes(col1, col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/164014806-d4207cd6-24fc-4cdd-8593-bfc34ec2b1ec.png">  
 
 
-* グラフタイトル  
-~~~
-# 上部余白
-hw_plot +
-  ggtitle("Age and Height of Schoolchildren", "11.5 to 17.5 years old")
 
-# プロット内、vjust
-hw_plot +
-  ggtitle("Age and Height of Schoolchildren") +
-  theme(plot.title=element_text(vjust=-8))
-
-# プロット内、annotate
-hw_plot +
-  annotate("text", x=mean(range(heightweight$ageYear)), y=Inf,
-           label="Age and Height of Schoolchildren", size=4.5, vjust=1.5)
-~~~
 
 * 書式設定  
 タイトル、ラベル、凡例、ファセットラベルの書式を設定する
