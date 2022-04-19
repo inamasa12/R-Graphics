@@ -825,19 +825,49 @@ ggplot(econ_mod, aes(date, psavert)) +
    |%d|日(DD)|  
    |%a|曜日|  
 
-
-
 ### R Tips  
 floor(x): xを越えない最大の整数  
 round(x): 独自の基準で少数以下を丸める  
-%+%: `グラフオブジェクト %+% df_new` でグラフで使用するデータセットを置き換える  
-?strptime: 日付フォーマットオプション  
 time(ts): タイムシリーズオブジェクトの時間のベクトルを出力する  
+%+%: `グラフオブジェクト %+% df_new` でグラフで使用するデータセットを置き換える  
+?strptime: 日付フォーマットオプションの一覧  
 
-
+---
+　  
 ## 第９章　グラフの全体的な体裁  
 
-軸ラベル、凡例、各タイトル、ファセットの書式設定  
+1. 各種テキストの書式設定    
+
+~~~
+# 軸タイトル
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  theme(axis.title.x=element_text(size=16, lineheight=.9,
+                                  family="Times", face="bold.italic",
+                                  colour="red"))
+
+# グラフタイトル
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  labs(title="Age and Height\nof Schoolchildren") +
+  theme(plot.title=element_text(size=16, lineheight=.9,
+                                  family="Times", face="bold.italic",
+                                  colour="red"))
+
+# 凡例ラベル
+ggplot(df, aes(col1, col2)) +
+  geom_point(aes(colour=col3)) +
+  theme(legend.text=element_text(family="Times", face="bold.italic", colour="red"))
+
+# ファセットラベル
+ggplot(df, aes(col1, col2)) +
+  geom_point() +
+  facet_wrap(~col3) +
+  theme(strip.text.x=element_text(family="Times", face="bold.italic", colour="red"))
+~~~
+
+<img src="https://user-images.githubusercontent.com/51372161/164014806-d4207cd6-24fc-4cdd-8593-bfc34ec2b1ec.png">  
+
 
 * グラフタイトル  
 ~~~
