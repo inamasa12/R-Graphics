@@ -796,25 +796,25 @@ ggplot(df, aes(col1, col2, label=col3)) +
 
 7. 極座標  
 coord_polarを使用  
-~~~
-ggplot(df, aes(col1, fill=col2)) +
-  geom_histogram(binwidth=15, boundary=-7.5, colour="black", size=.25) +
-  coord_polar() +
-  scale_x_continuous(limits=c(0, 360),
+    ~~~
+    ggplot(df, aes(col1, fill=col2)) +
+        geom_histogram(binwidth=15, boundary=-7.5, colour="black", size=.25) +
+        coord_polar() +
+        scale_x_continuous(limits=c(0, 360),
                      breaks=seq(0, 360, by=45),
                      minor_breaks = seq(0, 360, by=15))
-~~~
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163695999-f1138af6-7762-4df8-8a21-78c80159e04d.png">  
 
 8. 日付軸
 scale_x_dateを使用  
-~~~ 
-ggplot(econ_mod, aes(date, psavert)) +
-  geom_line() +
-  scale_x_date(breaks=seq(as.Date("1992-6-1"), as.Date("1993-6-1"), by="2 month"),
-               labels=date_format("%Y / %m")) + # 独自関数（フォーマッタ）の使用も可能
-  theme(axis.text.x=element_text(angle=30, hjust=1))
-~~~
+    ~~~ 
+    ggplot(econ_mod, aes(date, psavert)) +
+        geom_line() +
+        scale_x_date(breaks=seq(as.Date("1992-6-1"), as.Date("1993-6-1"), by="2 month"),
+                       labels=date_format("%Y / %m")) + # 独自関数（フォーマッタ）の使用も可能
+        theme(axis.text.x=element_text(angle=30, hjust=1))
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
 
    |日付オプション|説明|  
@@ -837,13 +837,14 @@ time(ts): タイムシリーズオブジェクトの時間のベクトルを出�
 ## 第９章　グラフの全体的な体裁  
 
 1. 各種テキストの書式設定    
-
 ~~~
 # 軸タイトル
 ggplot(df, aes(col1, col2)) +
   geom_point() +
-  theme(axis.title.x=element_text(size=16, lineheight=.9,
-                                  family="Times", face="bold.italic",
+  theme(axis.title.x=element_text(size=16, 
+                                  lineheight=.9, # 行間隔を設定
+                                  family="Times", 
+                                  face="bold.italic", # 太字、イタリック等の文字効果
                                   colour="red"))
 
 # グラフタイトル
@@ -869,44 +870,12 @@ ggplot(df, aes(col1, col2)) +
 <img src="https://user-images.githubusercontent.com/51372161/164014806-d4207cd6-24fc-4cdd-8593-bfc34ec2b1ec.png">  
 
 
-
-
-* 書式設定  
-タイトル、ラベル、凡例、ファセットラベルの書式を設定する
+2. テーマ設定  
 ~~~
-# 拡張書式の設定
-library(extrafont)
-font_import()
-loadfonts(device="win")
-windowsFonts()　# 出力される表記でfamilyを設定する
 
-# 軸タイトル
-# lineheightは行の間隔
-hw_plot +
-  theme(axis.title.x=element_text(size=16,
-                                  lineheight=.9,
-                                  family="serif",
-                                  face="bold.italic",
-                                  colour="red"))
 
-# 表タイトル
-hw_plot +
-  ggtitle("Age and Height\nof Schoolchildren") +
-  theme(plot.title=element_text(size=rel(1.5),
-                                lineheight=.9,
-                                family="serif",
-                                face="bold.italic",
-                                colour="red"))
-
-# アノテーション
-hw_plot +
-  annotate("text", x=15, y=53, label="Some text",
-           size=7, family="serif", fontface="bold.italic", colour="red")
-
-# データ毎
-hw_plot +
-  geom_text(aes(label=weightLb), size=4, family="serif", colour="red")
 ~~~
+
 
 * テーマ設定  
 
@@ -967,6 +936,18 @@ hw_plot +
     panel.grid.minor=element_blank()
   )
 ~~~
+
+
+
+### R Tips  
+書式の拡張  
+~~~
+library(extrafont)
+font_import()
+loadfonts(device="win")
+windowsFonts()　# 出力される表記でfamilyを設定すれば良い
+~~~
+
 
 
 ## 第１０章　凡例  
