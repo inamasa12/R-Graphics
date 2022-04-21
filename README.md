@@ -871,73 +871,50 @@ ggplot(df, aes(col1, col2)) +
 
 
 2. テーマ設定  
+デフォルトのtheme_greyの他に幾つか既成のテーマが存在する  
+    ~~~
+    ggplot(df, aes(col1, col2)) +
+        geom_point() +
+        theme_classic()
+        theme_minimal()
+        theme_bw()
+        theme_grey() # デフォルト
+    ~~~
+
+3. 各種オブジェクトの書式設定例  
 ~~~
+# プロット領域（panel）
+ggplot(df, aes(col1, col2, colour=col3)) +
+    geom_point() +
+    theme(panel.grid.major=element_line(colour="red"), # 主目盛線
+            panel.grid.minor=element_line(colour="red", linetype="dashed", size=0.2), # 補助目盛線
+            panel.background=element_rect(fill="lightblue"), # 背景
+            panel.border=element_rect(colour="blue", fill=NA, size=2)) # 枠線
 
+# 凡例（legend）
+ggplot(df, aes(col1, col2, colour=col3)) +
+    geom_point() +
+    theme(legend.background=element_rect(fill="grey85", colour="red", size=1),
+            legend.title=element_text(colour="blue", face="bold", size=14), # タイトル
+            legend.text=element_text(colour="red"), # ラベル
+            legend.key=element_rect(colour="blue", size=0.25)) # 各要素の枠線
 
+# 軸（axis）、プロット全体（plot）
+ggplot(df, aes(col1, col2, colour=col3)) +
+    geom_point() +
+    theme(axis.title.x=element_text(colour="red", size=14),
+            axis.text.x=element_text(colour="blue"),
+            axis.title.y=element_text(colour="red", size=14, angle=90), # タイトル
+            axis.text.y=element_text(colour="blue"),
+            plot.title=element_text(colour="red", size=20, face="bold"))　
+
+# ファセット（strip）
+ggplot(df, aes(col1, col2, colour=col3)) +
+    geom_point() +
+    facet_grid(col3~.) +
+    theme(strip.background=element_rect(fill="pink"),
+            strip.text.y=element_text(size=14, angle=-90, face="bold"))
 ~~~
-
-
-* テーマ設定  
-
-デフォルトはtheme_grey
-theme_bw()、theme_minimal()、theme_classic()、theme_void()等  
-
-~~~
-各オブジェクトのテーマ設定
-
-#プロット領域
-hw_plot +
-  theme(panel.grid.major=element_line(colour="red"),
-        panel.grid.minor=element_line(colour="red", linetype="dashed", size=0.2),
-        panel.background=element_rect(fill="lightblue"),
-        panel.border=element_rect(colour="blue", fill=NA, size=2))
-
-# 凡例
-hw_plot +
-  theme(legend.background=element_rect(fill="grey85", colour="red", size=1),
-        legend.title=element_text(colour="blue", face="bold", size=14),
-        legend.text=element_text(colour="red"),
-        legend.key=element_rect(colour="blue", size=0.25)
-        )
-
-#タイトル、ラベル
-hw_plot +
-  ggtitle("Plot title here") +
-  theme(
-    axis.title.x=element_text(colour="red", size=14),
-    axis.text.x=element_text(colour="blue"),
-    axis.title.y=element_text(colour="red", size=14, angle=90),
-    axis.text.y=element_text(colour="blue"),
-    plot.title=element_text(colour="red", size=20, face="bold")
-  )
-
-# ファセット
-hw_plot +
-  facet_grid(sex~.) +
-  theme(
-    strip.background=element_rect(fill="pink"),
-    strip.text.y=element_text(size=14, angle=-90, face="bold")
-  )
-
-# 独自の書式設定を関数化
-mytheme <- theme_bw() +
-  theme(
-    text=element_text(colour="red"),
-    axis.title=element_text(size=rel(1.25))
-  )
-)
-
-hw_plot + mytheme
-
-# 目盛線の非表示
-hw_plot +
-  theme(
-    panel.grid.major=element_blank(),
-    panel.grid.minor=element_blank()
-  )
-~~~
-
-
 
 ### R Tips  
 書式の拡張  
@@ -948,7 +925,8 @@ loadfonts(device="win")
 windowsFonts()　# 出力される表記でfamilyを設定すれば良い
 ~~~
 
-
+---
+　  
 
 ## 第１０章　凡例  
 
