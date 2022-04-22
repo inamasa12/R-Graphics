@@ -866,7 +866,6 @@ ggplot(df, aes(col1, col2)) +
   facet_wrap(~col3) +
   theme(strip.text.x=element_text(family="Times", face="bold.italic", colour="red"))
 ~~~
-
 <img src="https://user-images.githubusercontent.com/51372161/164014806-d4207cd6-24fc-4cdd-8593-bfc34ec2b1ec.png">  
 
 
@@ -930,120 +929,73 @@ windowsFonts()　# 出力される表記でfamilyを設定すれば良い
 
 ## 第１０章　凡例  
 
+1. 凡例の位置、書式  
 ~~~
-# 非表示
-pg_plot +
+# 凡例の位置、書式
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_boxplot() +
+  theme(legend.position="bottom") # 既定のポジション選択
+  theme(legend.position=c(1, 1),  # 中心位置の設定
+        legend.justification=c(1, 1), # 中心位置に合わせる凡例領域の設定
+        legend.background=element_rect(fill="white", colour="black"), # 背景色
+        legend.key=element_blank()) # 項目別の境界線
+
+# 凡例を表示しない
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_boxplot() +
   guides(fill=F)
-
-pg_plot +
   scale_fill_discrete(guide=F)
-
-pg_plot +
   theme(legend.position="none")
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/164814291-e58e8454-e0b8-462d-b618-0af77db4cb26.png">  
+
+2. 凡例の表示順  
+~~~
+# 凡例の表示順（離散値のデータ範囲を望みの順序で設定する）
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_boxplot() +
+  scale_fill_grey(start=0, end=1, limits=c("trt1", "trt2", "ctrl"))
   
-# グラフ領域の右下に凡例の右下を合わせる
-pg_plot + 
-  theme(legend.position=c(1, 0), legend.justificatio=c(1, 0))
-
-# 凡例の背景を操作
-pg_plot + 
-  theme(legend.position=c(0.85, 0.2)) +
-  theme(legend.background=element_rect(fill="white", colour="black"))
-
-# 凡例の背景と項目の背景を非表示
-pg_plot + 
-  theme(legend.position=c(0.85, 0.2)) +
-  theme(legend.key=element_blank()) +
-  theme(legend.background=element_blank())
-~~~
-
-* 表示順の変更
-~~~
-# limitsで順番に指定
-pg_plot +
-  scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"))
-
-pg_plot +
-  scale_fill_grey(start=.5, end=1, limits=c("trt1", "trt2", "ctrl"))
-
-pg_plot +
-  scale_fill_brewer(palette="Pastel2", limits=c("trt1", "trt2", "ctrl"))
-
-# 逆順
-pg_plot +
+# 表示順の反転
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_boxplot() +
   guides(fill=guide_legend(reverse=T))
-
-pg_plot +
   scale_fill_discrete(guide=guide_legend(reverse=T))
 ~~~
 
-* タイトル  
+3. 凡例タイトル  
 ~~~
-# labs
-pg_plot +
+# 非表示の場合はNULLを与える
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_boxplot() +
   labs(fill="Condition")
-
-# scale
-pg_plot +
   scale_fill_discrete(name="Condition")
-
-# guide
-pg_plot +
   guides(fill=guide_legend(title="Condition"))
-
-# ２つある場合
-hw_plot +
-  labs(colour="Male/Female", size="Weight\n(pounds)")
-
-# 書式設定
-pg_plot +
-  theme(legend.title=element_text(face="italic",
-                                  family="serif",
-                                  colour="red",
-                                  size=14))
-# 非表示
-pg_plot +
-  guides(fill=guide_legend(title=NULL))
-
-pg_plot +
-  scale_fill_discrete(name=NULL)
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/164814803-ce19f187-3d56-43e1-8f2f-9c71c7b30c60.png">  
 
-* ラベル  
+4. 凡例ラベル  
 ~~~
-# 指定順に上から表示
-pg_plot +
+# ラベルの設定
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_boxplot() +
   scale_fill_discrete(labels=c("Control", "Treatment 1", "Treatment 2"))
-
-# 図に表示する順も合わせて表示する
-pg_plot +
-  scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"),
-    labels=c("Treatment 1", "Treatment 2", "Control"))
-
-# 複数の属性にマッピングされている場合は両方変更する
-ggplot(heightweight, aes(ageYear, heightIn, shape=sex, colour=sex)) +
-  geom_point() +
-  scale_shape_discrete(labels=c("Female", "Male")) +
-  scale_colour_discrete(labels=c("Female", "Male"))
-
-# 体裁、theme
-pg_plot +
+  
+# ラベルの書式設定
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_boxplot() +
   theme(legend.text=element_text(
     face="italic",
     family="Times New Roman",
-    colour="red",
-    size=14
-  ))
+    colour="blue",
+    size=14))
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/164814803-ce19f187-3d56-43e1-8f2f-9c71c7b30c60.png">  
 
-# 体裁、guides
-pg_plot +
-  guides(fill=guide_legend(label.theme=element_text(
-    face="italic",
-    family="Times New Roman",
-    colour="red",
-    size=14
-  )))
 
+
+
+~~~
 # 凡例要素の高さを変更、key
 pg_plot +
   scale_fill_discrete(labels=c("Control", "Type1\ntreatment", 
