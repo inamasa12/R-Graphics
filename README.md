@@ -816,14 +816,14 @@ scale_x_dateを使用
         theme(axis.text.x=element_text(angle=30, hjust=1))
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
-
-   |日付オプション|説明|  
-   |---|---|  
-   |%Y|年(YYYY)|  
-   |%y|年(YY)|  
-   |%m|月(MM)|  
-   |%d|日(DD)|  
-   |%a|曜日|  
+    
+    |日付オプション|説明|  
+    |---|---|  
+    |%Y|年(YYYY)|  
+    |%y|年(YY)|  
+    |%m|月(MM)|  
+    |%d|日(DD)|  
+    |%a|曜日|  
 
 ### R Tips  
 floor(x): xを越えない最大の整数  
@@ -988,77 +988,56 @@ ggplot(df, aes(col1, col2, fill=col3)) +
     face="italic",
     family="Times New Roman",
     colour="blue",
-    size=14))
+    size=14),
+    legend.key.height=unit(1, "cm")) # 各要素の表示幅
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/164814803-ce19f187-3d56-43e1-8f2f-9c71c7b30c60.png">  
+<img src="https://user-images.githubusercontent.com/51372161/164951985-c4667937-5cf0-4c2e-8a8d-8b1723ee7dbb.png">  
 
-
-
-
-~~~
-# 凡例要素の高さを変更、key
-pg_plot +
-  scale_fill_discrete(labels=c("Control", "Type1\ntreatment", 
-                      "Type2\ntreatment")) +
-  theme(legend.text=element_text(lineheight=.8),
-        legend.key.height=unit(1, "cm"))
-~~~
+---
+　  
 
 ## 第１１章　ファセット  
 
-サブプロット  
+サブプロットによる表示  
 
-* 基本  
+1. gridとwrap  
 ~~~
-# 行、列の順に指定
-mpg_plot +
-  facet_grid(drv~cyl)
-
-# 行もしくは列の数を指定
-mpg_plot +
-  facet_wrap(~class, nrow=2)
-
-# y軸の範囲を行もしくは列ごとに変える
-mpg_plot +
-  facet_grid(drv~cyl, scales="free_y")
-
-# 軸の範囲を行もしくは列ごとに変える
-mpg_plot +
-  facet_grid(drv~cyl, scales="free")
-
-# ラベルに変数名を入れる
-mpg_mod <- mpg %>%
-  mutate(drv=recode(drv, "4"="4wd", "f"="Front", "r"="Rear"))
-
-ggplot(mpg_mod, aes(displ, hwy)) +
+# gridは行~列で指定
+ggplot(df, aes(col1, col2)) +
   geom_point() +
-  facet_grid(drv~., labeller=label_both)
+  facet_grid(col3~col4,
+             labeller=label_parsed, # ラベルとして数式オブジェクトを用いる場合
+             scales="free_y") # Y軸方向のスケール行毎に変える
 
-# ラベルに数式を用いる
-mpg_mod <- mpg %>%
-  mutate(drv=recode(drv, 
-                    "4"="4^{wd}", 
-                    "f"="- Front %.% e^{pi*i}", 
-                    "r"="4^{wd}-Front"))
-
-ggplot(mpg_mod, aes(displ, hwy)) +
+# wrapは列方向にサブプロットを並べる
+ggplot(df, aes(col1, col2)) +
   geom_point() +
-  facet_grid(drv~., labeller=label_parsed)
+  facet_wrap(~col3, ncol=4, # 列の数
+             labeller=label_both) # 変数名も併せて表示する
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/164952590-c264d9e7-b803-46f4-a6ad-5ec226be21e5.png">  
 
-# ラベルの書式設定  
-ggplot(cabbage_exp, aes(Cultivar, Weight)) +
+
+2. ファセットの書式設定  
+~~~
+ggplot(df, aes(col1, col2)) +
   geom_col() +
-  facet_grid(.~Date) +
-  theme(
-    strip.text=element_text(face="bold", size=rel(1.5)),
-    strip.background=element_rect(fill="lightblue", colour="black",
-                                  size=1)
-  )
-
+  facet_grid(.~col3) +
+  theme(strip.text=element_text(face="bold", size=rel(1.5)), # ラベルの書式
+        strip.background=element_rect(fill="lightblue", colour="black", size=1)) # プロット領域の書式
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/164952642-dda57865-be95-492e-9066-eef895645fb7.png">
 
-* Tips  
-ファセットのラベル名変更はできない（変数名を変更するしかない）  
+
+### R Tips  
+ファセットのラベル名変更はデータ自体を変更しるしかない  
+
+---
+　  
+
+
+
+
 
 
 ## 第１２章　色を使う  
