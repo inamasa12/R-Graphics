@@ -817,13 +817,13 @@ scale_x_dateを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
 
-   |日付オプション|説明|  
-   |---|---|  
-   |%Y|年(YYYY)|  
-   |%y|年(YY)|  
-   |%m|月(MM)|  
-   |%d|日(DD)|  
-   |%a|曜日|  
+    |日付オプション|説明|  
+    |---|---|  
+    |%Y|年(YYYY)|  
+    |%y|年(YY)|  
+    |%m|月(MM)|  
+    |%d|日(DD)|  
+    |%a|曜日|  
 
 ### R Tips  
 floor(x): xを越えない最大の整数  
