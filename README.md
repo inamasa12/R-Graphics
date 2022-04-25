@@ -806,7 +806,7 @@ coord_polarを使用
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163695999-f1138af6-7762-4df8-8a21-78c80159e04d.png">  
 
-8. 日付軸
+8. 日付軸  
 scale_x_dateを使用  
     ~~~ 
     ggplot(econ_mod, aes(date, psavert)) +
