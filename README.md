@@ -815,7 +815,6 @@ scale_x_dateを使用
                        labels=date_format("%Y / %m")) + # 独自関数（フォーマッタ）の使用も可能
         theme(axis.text.x=element_text(angle=30, hjust=1))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
 
     |日付オプション|説明|  
     |---|---|  
@@ -824,6 +823,10 @@ scale_x_dateを使用
     |%m|月(MM)|  
     |%d|日(DD)|  
     |%a|曜日|  
+    
+<img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
+
+
 
 ### R Tips  
 floor(x): xを越えない最大の整数  
