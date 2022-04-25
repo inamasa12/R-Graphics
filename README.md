@@ -816,14 +816,14 @@ scale_x_dateを使用
         theme(axis.text.x=element_text(angle=30, hjust=1))
     ~~~
 <img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
-    
-    |日付オプション|説明|  
-    |---|---|  
-    |%Y|年(YYYY)|  
-    |%y|年(YY)|  
-    |%m|月(MM)|  
-    |%d|日(DD)|  
-    |%a|曜日|  
+
+   |日付オプション|説明|  
+   |---|---|  
+   |%Y|年(YYYY)|  
+   |%y|年(YY)|  
+   |%m|月(MM)|  
+   |%d|日(DD)|  
+   |%a|曜日|  
 
 ### R Tips  
 floor(x): xを越えない最大の整数  
@@ -833,7 +833,8 @@ time(ts): タイムシリーズオブジェクトの時間のベクトルを出�
 ?strptime: 日付フォーマットオプションの一覧  
 
 ---
-　  
+　 
+
 ## 第９章　グラフの全体的な体裁  
 
 1. 各種テキストの書式設定    
@@ -1028,17 +1029,11 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/164952642-dda57865-be95-492e-9066-eef895645fb7.png">
 
-
 ### R Tips  
 ファセットのラベル名変更はデータ自体を変更しるしかない  
 
 ---
 　  
-
-
-
-
-
 
 ## 第１２章　色を使う  
 
