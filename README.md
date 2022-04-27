@@ -872,7 +872,6 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/164014806-d4207cd6-24fc-4cdd-8593-bfc34ec2b1ec.png">  
 
-
 2. テーマ設定  
 デフォルトのtheme_greyの他に幾つか既成のテーマが存在する  
     ~~~
@@ -1021,7 +1020,6 @@ ggplot(df, aes(col1, col2)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/164952590-c264d9e7-b803-46f4-a6ad-5ec226be21e5.png">  
 
-
 2. ファセットの書式設定  
 ~~~
 ggplot(df, aes(col1, col2)) +
@@ -1039,6 +1037,36 @@ ggplot(df, aes(col1, col2)) +
 　  
 
 ## 第１２章　色を使う  
+
+1. 特殊な色使い  
+~~~
+# viridis
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_area() +
+  scale_fill_viridis_d()          # 離散変数１
+  scale_fill_viridis(discrete=T)  # 離散変数２
+  scale_fill_viridis_c()          # 連続変数１
+  scale_fill_viridis(discrete=F)  # 連続変数２
+
+# brewer
+ggplot(df, aes(col1, col2, fill=col3)) +
+  geom_area() +
+  scale_fill_brewer(palette="Oranges")
+  
+# グレースケール
+ggplot(df, aes(col1, col2, colour=col3)) +
+  geom_point() +
+  scale_colour_grey(start=0.7, end=0)
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/165509013-6e5f6e49-fa3f-45e2-8343-554a31754d62.png">  
+
+2. 輝度  
+~~~
+ggplot(heightweight, aes(ageYear, heightIn, colour=sex)) +
+  geom_point() +
+  scale_color_discrete(l=45) # 0～100で指定
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/165509402-c5d33de4-ed13-4a57-a126-262235b8940e.png">  
 
 * viridisパレット  
 ~~~
@@ -1122,7 +1150,7 @@ ggplot(climate_mod, aes(Year, Anomaly10y)) +
   geom_hline(yintercept=0)
 ~~~
 
-* Tips  
+### R Tips  
 colors(): 色名一覧  
 demo("colors"): 色デモ  
 viridis(5): viridisを5分類した時の各色をRGB値で返す  
