@@ -1068,6 +1068,24 @@ ggplot(heightweight, aes(ageYear, heightIn, colour=sex)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/165509402-c5d33de4-ed13-4a57-a126-262235b8940e.png">  
 
+3. グラデーション  
+~~~
+# 離散値
+ggplot(df, aes(col1, col2, colour=col3)) +
+  geom_point() +
+  scale_color_manual(values=c("red", "blue"))
+  scale_color_manual(values=c(m="red", f="blue")) # 変数指定
+  # #RRGGBB形式（RR: 赤色の強さ、GG: 緑色の強さ、BB: 青色の強さを二桁の16進数）で指定
+  scale_color_manual(values=c("#440a54FF", "#FDE725FF")) 
+
+# 連続値
+ggplot(df, aes(col1, col2, colour=col3)) +
+  geom_point(size=3) +
+  #scale_color_gradient(low="black", high="white")
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/165509402-c5d33de4-ed13-4a57-a126-262235b8940e.png">  
+
+
 * viridisパレット  
 ~~~
 # 離散値の場合１
@@ -1153,12 +1171,9 @@ ggplot(climate_mod, aes(Year, Anomaly10y)) +
 ### R Tips  
 ggplotの色名一覧  
 <img src="https://user-images.githubusercontent.com/51372161/165893106-b792eee0-006c-4eaa-ac5d-8dbfc951887b.png">  
+ColorBrewerパレット`RColorBrewer:display.brewer.all()`
+<img src="https://user-images.githubusercontent.com/51372161/165894132-2a1f35b3-4659-4da6-92e8-6bc58f072130.png">  
 
-
-
-colors(): 色名一覧  
-demo("colors"): 色デモ  
-viridis(5): viridisを5分類した時の各色をRGB値で返す  
 
 ## 第１３章　さまざまなグラフ  
 
