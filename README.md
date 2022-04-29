@@ -1081,92 +1081,14 @@ ggplot(df, aes(col1, col2, colour=col3)) +
 # 連続値
 ggplot(df, aes(col1, col2, colour=col3)) +
   geom_point(size=3) +
-  #scale_color_gradient(low="black", high="white")
+  #scale_color_gradient(low="black", high="white")                        # 二色
+  scale_color_gradient2(low=muted("red"), 
+                        mid="white",
+                        high=muted("blue"), # mutedで彩度を落とす
+                        midpoint=110)                                     # 三色
+  scale_color_gradientn(colors=c("darkred", "orange", "yellow", "white")) # 四色以上
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/165509402-c5d33de4-ed13-4a57-a126-262235b8940e.png">  
-
-
-* viridisパレット  
-~~~
-# 離散値の場合１
-uspopage_plot +
-  scale_fill_viridis_d()
-
-# 離散値の場合２
-uspopage_plot +
-  scale_fill_viridis(discrete=T)
-
-# magma, plasma, inferno, cividis等
-uspopage_plot +
-  scale_fill_viridis_d(option="cividis")
-~~~
-
-* その他  
-~~~
-# brewer
-uspopage_plot +
-  scale_fill_brewer()
-
-# grey
-hw_splot +
-  scale_colour_grey(start=0.7, end=0)
-
-# 輝度の操作
-hw_splot +
-  scale_colour_discrete(l=45)
-  
-# マニュアル設定
-
-# 色指定
-hw_plot +
-  scale_colour_manual(values=c("red", "blue"))
-
-# RGB値
-# R、G、Bをそれぞれ二桁の16進数（0～F）で表現
-# 二桁目はほとんど影響しないため、同じ数値にすることが多い
-hw_plot +
-  scale_colour_manual(values=c("#CC6666", "#7777DD"))
-
-# 変数指定
-hw_plot +
-  scale_colour_manual(values=c(m="blue", f="red"))
-
-
-# 連続変数
-
-# 色指定
-hw_plot +
-  scale_colour_gradient(low="black", high="white")
-
-# 三色
-hw_plot +
-  scale_colour_gradient2(
-    low=muted("red"),  # 彩度を落とす
-    mid="white",
-    high=muted("blue"),
-    midpoint=110  # 真ん中になる値
-  )
-
-# 複数色
-hw_plot +
-  scale_colourgradientn(colours=c("darkred", "orange", "yellow", "white"))
-
-# viridis
-hw_plot +
-  scale_colour_viridis_c(option="magma")
-
-# 領域
-# 離散変数を作成
-climate_mod <- climate %>%
-  filter(Source=="Berkeley") %>%
-  mutate(valence=if_else(Anomaly10y>=0, "pos", "neg"))
-
-# 離散変数に色を割り当て
-ggplot(climate_mod, aes(Year, Anomaly10y)) +
-  geom_area(aes(fill=valence)) +
-  geom_line() +
-  geom_hline(yintercept=0)
-~~~
+<img src="https://user-images.githubusercontent.com/51372161/166080408-8f70b07b-5b5c-4947-87c1-fbda51836791.png">  
 
 ### R Tips  
 ggplotの色名一覧  
@@ -1174,6 +1096,8 @@ ggplotの色名一覧
 ColorBrewerパレット`RColorBrewer:display.brewer.all()`
 <img src="https://user-images.githubusercontent.com/51372161/165894132-2a1f35b3-4659-4da6-92e8-6bc58f072130.png">  
 
+---
+　  
 
 ## 第１３章　さまざまなグラフ  
 
