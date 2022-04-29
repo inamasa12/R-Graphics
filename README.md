@@ -1151,6 +1151,11 @@ ggplot(climate_mod, aes(Year, Anomaly10y)) +
 ~~~
 
 ### R Tips  
+ggplotの色名一覧  
+<img src="https://user-images.githubusercontent.com/51372161/165893106-b792eee0-006c-4eaa-ac5d-8dbfc951887b.png">  
+
+
+
 colors(): 色名一覧  
 demo("colors"): 色デモ  
 viridis(5): viridisを5分類した時の各色をRGB値で返す  
