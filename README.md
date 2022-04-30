@@ -1101,27 +1101,28 @@ ColorBrewerパレット`RColorBrewer:display.brewer.all()`
 
 ## 第１３章　さまざまなグラフ  
 
-* 相関行列  
+1. 相関行列  
+corrplotパッケージを使用  
 ~~~
-library(corrplot)
-
-# 基本設定
-corrplot(mcor, 
-         method="shade",  # パネル表示
-         shade.col=NA,    # 正負を表す斜線は使用しない 
-         tl.col="black",  # ラベルの色
-         tl.srt=45        # ラベルの表示角度
-         )
-
-# 詳細設定
+# グラデーション設定
 col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
-corrplot(mcor, method="shade", shade.col=NA, tl.col="black", tl.srt=45,
-         addCoef.col="black", # 数字の追加
-         cl.pos="n",          # バーの非表示
-         order="AOE",         # 相関の高い要素を隣接させる
-         col=col(200)         # 色のタイプ
+
+# 相関行列の表示
+corrplot(mcor, 
+         method="shade",      # 相関行列のタイプ設定
+         shade.col=NA,        # 府の値に対する斜線の有無
+         tl.col="black",      # ラベルの色
+         tl.srt=45,           # x軸ラベルの角度
+         addCoef.col="black", # 値の表示色
+         cl.pos="n",          # 凡例の有無
+         order="AOE",         # 変数の順序
+         col=col(200)         # カラーパレット
          )
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/166126461-31b39118-8ca4-4114-8fff-b74c27101d84.png width="400px"">  
+
+
+
 
 * 関数表示  
 ~~~
