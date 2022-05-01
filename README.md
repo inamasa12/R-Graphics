@@ -1119,7 +1119,7 @@ corrplot(mcor,
          col=col(200)         # カラーパレット
          )
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/166126461-31b39118-8ca4-4114-8fff-b74c27101d84.png width="400px"">  
+<img src="https://user-images.githubusercontent.com/51372161/166126461-31b39118-8ca4-4114-8fff-b74c27101d84.png" width="400px">  
 
 
 
