@@ -1094,7 +1094,7 @@ ggplot(df, aes(col1, col2, colour=col3)) +
 ggplotの色名一覧  
 <img src="https://user-images.githubusercontent.com/51372161/165893106-b792eee0-006c-4eaa-ac5d-8dbfc951887b.png">  
 ColorBrewerパレット`RColorBrewer:display.brewer.all()`
-<img src="https://user-images.githubusercontent.com/51372161/165894132-2a1f35b3-4659-4da6-92e8-6bc58f072130.png">  
+<img src="https://user-images.githubusercontent.com/51372161/165894132-2a1f35b3-4659-4da6-92e8-6bc58f072130.png" width="500px">  
 
 ---
 　  
@@ -1119,7 +1119,7 @@ corrplot(mcor,
          col=col(200)         # カラーパレット
          )
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/166126461-31b39118-8ca4-4114-8fff-b74c27101d84.png" width="400px">  
+<img src="https://user-images.githubusercontent.com/51372161/166126461-31b39118-8ca4-4114-8fff-b74c27101d84.png" width="500px">  
 
 
 
