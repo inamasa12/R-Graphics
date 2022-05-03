@@ -1132,47 +1132,41 @@ ggplot(data.frame(x=c(-3, 3)), aes(x)) +
                 n=200)           # データポイント数
 ~~~
 
-
-* ネットワーク（標準作図関数）  
+3. ネットワークグラフ（ggplotではない）  
 ~~~
-# 第一列から第二列への有向グラフ
-g <- graph.data.frame(madmen2, directed=T)
-plot(g, layout=layout.fruchterman.reingold, vertex.size=8,
-     edge.arrow.size=0.5, vertex.label=NA)
+library(igraph)
+g <- graph.data.frame(df, directed=T) # グラフオブジェクトの作成（ペアのデータから）
+par(mar=c(0, 0, 0, 0))
 
-# 無向グラフ
-g <- graph.data.frame(madmen, directed=F)
-plot(g, layout=layout.circle, vertex.size=8, vertex.label=NA)
+# グラフ関数で設定
+plot(g, 
+     layout=layout.fruchterman.reingold, # ネットワークの種類
+     vertex.size=5,                      # ノードのサイズ
+     edge.arrow.size=0.4,                # 矢印のサイズ
+     vertex.label=V(g)$name,             # 各ノードのラベル
+     vertex.label.cex=1.0,               # ノードのサイズ
+     vertex.label.dist=0.4,              # ラベルの点からのオフセット
+     vertex.label.color="black")         # ラベルの色
 
-# ラベルの設定１
-# グラフで設定
-plot(g, layout=layout.fruchterman.reingold,
-     vertex.size=4,
-     vertex.label=V(g)$name,
-     vertex.label.cex=0.8,
-     vertex.label.dist=0.4,
-     vertex.label.color="black")
-
-# ラベルの設定２
-# 頂点の属性として設定
-V(g)$size <- 4
-V(g)$label <- V(g)$name
-V(g)$label.cex <- 0.8
-V(g)$label.dist <- 0.4
-V(g)$label.color <- "black"
-g$layout <- layout.fruchterman.reingold
+# グラフオブジェクトに設定することもできる
+V(g)$size <- 4                           # ノードのサイズ
+V(g)$label <- V(g)$name                  # 各ノードのラベル
+E(g)[c(2, 11, 19)]$label <- "M"          # 特定の辺のラベル
+E(g)$color <- "grey70"                   # 各辺の色
+E(g)[c(2, 11, 19)]$color <- "red"        # 特定の辺の色
+g$layout <- layout.fruchterman.reingold  # ネットワークの種類
 plot(g)
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/166391080-41ad36d3-3a09-4fcd-98dc-d9097ed8a531.png">  
 
-# 辺の設定
-E(g)[c(2, 11, 19)]$label <- "M"
-E(g)$color <- "grey70"
-E(g)[c(2, 11, 19)]$color <- "red"
-plot(g)
+
+
+
+
 
 
 # レイアウトの種類確認
-?igraph:: layout
-~~~
+
 
 * ヒートマップ  
 
@@ -1454,7 +1448,7 @@ clfunc <- function(fun, min, max) {
   }
 }
 ~~~
-
+ネットワークの種類: `?igraph::layout`
 
 
 
