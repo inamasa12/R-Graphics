@@ -1122,32 +1122,16 @@ corrplot(mcor,
 <img src="https://user-images.githubusercontent.com/51372161/166126461-31b39118-8ca4-4114-8fff-b74c27101d84.png" width="500px">  
 
 
-
-
-* 関数表示  
+2. 関数プロット  
+デフォルトのデータポイント数は101  
 ~~~
-# 既存関数、パラメータの有無
-p + stat_function(fun=dnorm)
-p + stat_function(fun=dt, args=list(df=2))
-
-# 自作関数
-ggplot(data.frame(x=c(0, 20)), aes(x)) +
-  stat_function(fun=myfunc, n=200)
-
-# 網掛け
-# 関数の範囲を限定する関数
-limitRange <- function(fun, min, max) {
-  function(x) {
-    y <- fun(x)
-    y[x<min|x>max] <- NA
-    return(y)
-  }
-}
-# 範囲を限定された関数を併せて表示
-p +
-  stat_function(fun=dnorm) +
-  stat_function(fun=limitRange(dnorm, 0, 2), geom="area", fill="blue", alpha=.2)
+ggplot(data.frame(x=c(-3, 3)), aes(x)) +
+  stat_function(fun=dt,          # 関数
+                geom="line",     # 幾何学オブジェクト
+                args=list(df=2), # 関数に与えるパラメータ 
+                n=200)           # データポイント数
 ~~~
+
 
 * ネットワーク（標準作図関数）  
 ~~~
@@ -1456,9 +1440,22 @@ ggplot(taiwan_shp_mod) +
   geom_sf(aes(fill=ENGTYPE_2))
 ~~~
 
-* Tips  
+### R Tips  
 scale(df): 各列を正規化  
 merge(tbl1, tbl2, by.x=BMONTH, by.y=TMONTH): 結合（join）と同じ
+クロージャー（関数を含んだ関数オブジェクト）作成関数  
+~~~
+# 関数の出力範囲に制限するクロージャーを出力
+clfunc <- function(fun, min, max) {
+  function(x) {
+    y <- fun(x)
+    y[x<min|x>max] <- NA
+    return(y)
+  }
+}
+~~~
+
+
 
 
 
