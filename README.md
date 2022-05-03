@@ -1165,7 +1165,6 @@ plot(g)
 
 
 
-# レイアウトの種類確認
 
 
 * ヒートマップ  
@@ -1436,7 +1435,7 @@ ggplot(taiwan_shp_mod) +
 
 ### R Tips  
 scale(df): 各列を正規化  
-merge(tbl1, tbl2, by.x=BMONTH, by.y=TMONTH): 結合（join）と同じ
+merge(tbl1, tbl2, by.x=BMONTH, by.y=TMONTH): 結合（join）と同じ  
 クロージャー（関数を含んだ関数オブジェクト）作成関数  
 ~~~
 # 関数の出力範囲に制限するクロージャーを出力
