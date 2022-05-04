@@ -1103,34 +1103,34 @@ ColorBrewerパレット`RColorBrewer:display.brewer.all()`
 
 1. 相関行列  
 corrplotパッケージを使用  
-~~~
-# グラデーション設定
-col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+    ~~~
+    # グラデーション設定
+    col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
 
-# 相関行列の表示
-corrplot(mcor, 
-         method="shade",      # 相関行列のタイプ設定
-         shade.col=NA,        # 府の値に対する斜線の有無
-         tl.col="black",      # ラベルの色
-         tl.srt=45,           # x軸ラベルの角度
-         addCoef.col="black", # 値の表示色
-         cl.pos="n",          # 凡例の有無
-         order="AOE",         # 変数の順序
-         col=col(200)         # カラーパレット
-         )
-~~~
+    # 相関行列の表示
+    corrplot(mcor, 
+             method="shade",      # 相関行列のタイプ設定
+             shade.col=NA,        # 府の値に対する斜線の有無
+            tl.col="black",      # ラベルの色
+            tl.srt=45,           # x軸ラベルの角度
+            addCoef.col="black", # 値の表示色
+            cl.pos="n",          # 凡例の有無
+            order="AOE",         # 変数の順序
+            col=col(200)         # カラーパレット
+            )
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/166126461-31b39118-8ca4-4114-8fff-b74c27101d84.png" width="500px">  
 
 
 2. 関数プロット  
 デフォルトのデータポイント数は101  
-~~~
-ggplot(data.frame(x=c(-3, 3)), aes(x)) +
-  stat_function(fun=dt,          # 関数
-                geom="line",     # 幾何学オブジェクト
-                args=list(df=2), # 関数に与えるパラメータ 
-                n=200)           # データポイント数
-~~~
+    ~~~
+    ggplot(data.frame(x=c(-3, 3)), aes(x)) +
+        stat_function(fun=dt,          # 関数
+                        geom="line",     # 幾何学オブジェクト
+                        args=list(df=2), # 関数に与えるパラメータ 
+                        n=200)           # データポイント数
+    ~~~
 
 3. ネットワークグラフ（ggplotではない）  
 ~~~
