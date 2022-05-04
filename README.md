@@ -1084,7 +1084,7 @@ ggplot(df, aes(col1, col2, colour=col3)) +
   #scale_color_gradient(low="black", high="white")                        # 二色
   scale_color_gradient2(low=muted("red"), 
                         mid="white",
-                        high=muted("blue"), # mutedで彩度を落とす
+                        high=muted("blue"),                               # mutedで彩度を落とす
                         midpoint=110)                                     # 三色
   scale_color_gradientn(colors=c("darkred", "orange", "yellow", "white")) # 四色以上
 ~~~
@@ -1109,8 +1109,8 @@ corrplotパッケージを使用
 
     # 相関行列の表示
     corrplot(mcor, 
-             method="shade",      # 相関行列のタイプ設定
-             shade.col=NA,        # 府の値に対する斜線の有無
+             method="shade",     # 相関行列のタイプ設定
+             shade.col=NA,       # 負の値に対する斜線の有無
             tl.col="black",      # ラベルの色
             tl.srt=45,           # x軸ラベルの角度
             addCoef.col="black", # 値の表示色
@@ -1126,7 +1126,7 @@ corrplotパッケージを使用
 デフォルトのデータポイント数は101  
     ~~~
     ggplot(data.frame(x=c(-3, 3)), aes(x)) +
-        stat_function(fun=dt,          # 関数
+        stat_function(fun=dt,            # 関数
                         geom="line",     # 幾何学オブジェクト
                         args=list(df=2), # 関数に与えるパラメータ 
                         n=200)           # データポイント数
@@ -1160,30 +1160,18 @@ plot(g)
 <img src="https://user-images.githubusercontent.com/51372161/166391080-41ad36d3-3a09-4fcd-98dc-d9097ed8a531.png">  
 
 
-
-
-
-
-
-
-
-* ヒートマップ  
-
+4. ヒートマップ  
 ~~~
 # 基本  
-ggplot(pres_rating, aes(year, quarter, fill=rating)) + 
-  geom_tile()
-
-# 描画効率が良い
-p + geom_raster()
-
-# 詳細設定
-p + 
-  geom_tile() +
-  scale_y_reverse(expand=c(0, 0)) + # 逆順にし、上下の余白を除く
-  scale_x_continuous(breaks=seq(1940, 1976, by=4), expand=c(0, 0)) + # 目盛り設定
-  scale_fill_gradient2(midpoint=50, mid="grey50", limits=c(0, 100)) # グラデーションの設定
+ggplot(df, aes(col1, col2, fill=col3)) + 
+  geom_tile() or geom_raster() +
+  scale_y_reverse(expand=c(0, 0)) + # expandでデータポイント両端からの余白をゼロにする
+  scale_x_continuous(breaks=seq(1940, 1976, by=4), expand=c(0, 0)) +
+  scale_fill_gradient2(midpoint=50, mid="grey50", limits=c(0, 100))
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/166613575-297292ba-e275-4547-b023-9043a9926881.png">  
+
+
 
 * 三次元プロット  
 ~~~
