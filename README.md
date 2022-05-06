@@ -1185,9 +1185,9 @@ mpgril_list <- df2mat(mpgrid_df)                   # 独自関数で予測面を
 
 # 各点の表示  
 plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
-       xlab="", ylab="", zlab="",
-       axes=F,
-       size=.5, type="s", lit=F) # 球状、3Dオフ
+       xlab="", ylab="", zlab="",  # 軸ラベルなし
+       axes=F,                     # 目盛なし
+       size=.5, type="s", lit=F)   # ドットサイズ、球状ドット、3D表現オフ
 
 # 予測値と実測値を結ぶ線分の表示
 segments3d(interleave(m$wt, m$wt),        # 独自関数で線分の端点（x軸）を設定
@@ -1197,155 +1197,37 @@ segments3d(interleave(m$wt, m$wt),        # 独自関数で線分の端点（x�
 
 # 予測面の表示
 surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
-          alpha=.4, front="lines", back="lines")
+          alpha=.4, 
+          front="lines", back="lines") # 面のタイプ（表、裏）
 
 # グラフ領域の色指定
 rgl.bbox(color="grey50",
          emission="grey50",
-         xlen=0, ylen=0, zlen=0)
+         xlen=0, ylen=0, zlen=0) # 目盛なし
 
 # 軸の設定
-rgl.material(color="black")
-axes3d(edge=c("x--", "y+-", "z--"),
-      ntick=6,
-      cex=.75)
-mtext3d("Weight", edge="x--", line=2)
+rgl.material(color="black")                  # デフォルト色の設定
+axes3d(edge=c("x--", "y+-", "z--"),          # 軸表示位置
+      ntick=6,                               # 目盛数
+      cex=.75)                               # 目盛ラベルのフォント
+mtext3d("Weight", edge="x--", line=2)        # 軸ラベル
 mtext3d("Displacement", edge="y+-", line=3)
 mtext3d("MPG", edge="z--", line=3)
 
 # 画像を保存
-rgl.snapshot("3dplot1.png", fmt="png")
+rgl.snapshot("3dplot1.png", fmt="png") # png形式（表示されているイメージで2D保存）
 
 # アニメーション
-play3d(spin3d(axis=c(0, 1, 0), rpm=1), duration=20)
+play3d(spin3d(axis=c(0, 1, 0), rpm=1), duration=20) # axis: 回転軸に1、rpm: 回転速度、duration: 時間
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167138084-a992d3f7-1481-49ad-a62d-caea2205444c.png">  
 
 
+6. 樹形図  
 
 
-* 三次元プロット  
-~~~
-install.packages("rgl")
-library(rgl)
-
-plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, 
-       typ="s",  # 球状
-       size=0.75, 
-       lit=FALSE) # 光沢なし
 
 
-# 背景操作
-
-# 線分（端点の組み合わせ）のベクトルを作成
-interleave <- function(v1, v2) as.vector(rbind(v1, v2))
-
-# 点のみ
-plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, 
-       xlab="", ylab="", zlab="",
-       axes=F,
-       typ="s", size=0.75, lit=FALSE)
-
-# 線分
-segments3d(interleave(mtcars$wt, mtcars$wt),
-           interleave(mtcars$disp, mtcars$disp),
-           interleave(mtcars$mpg, min(mtcars$mpg)),
-           alpha=0.4, col="blue")
-
-# 3D領域
-rgl.bbox(color="grey50")
-
-# 軸ラベルの追加
-axes3d(edges=c("x--", "y++", "z--"), # 軸の位置
-       ntick=6, # 目盛りの数
-       cex=0.75) # ラベルの大きさ
-
-# 軸タイトルの追加
-mtext3d("Weight", edge="x--", line=2) # lineは軸とラベルの距離
-mtext3d("Displacement", edge="y++", line=3) # lineは軸とラベルの距離
-mtext3d("MPG", edge="z--", line=3) # lineは軸とラベルの距離
-
-
-# 予測面の追加、調整
-
-# 実測値
-plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
-     xlab="", ylab="", zlab="",
-     axes=F,
-     size=.5, type="s", lit=F)
-
-# 予測値
-spheres3d(m$wt, m$disp, m$pred_mpg, alpha=0.4, type="s", size=0.5,
-          lit=F)
-
-# 実測値から予測値への線分
-segments3d(interleave(m$wt, m$wt),
-           interleave(m$disp, m$disp),
-           interleave(m$mpg, m$pred_mpg),
-           alpha=0.4, col="red")
-
-# 予測面
-surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
-          alpha=0.4, 
-          front="lines", # グリッド面
-          back="lines"
-)
-
-# 軸平面
-rgl.bbox(color="grey50", # 表面の色
-         emission="grey50", # 発行色
-         xlen=0, ylen=0, zlen=0
-         )
-
-# 軸ラベルの追加
-rgl.material(color="black")
-axes3d(edges=c("x--", "y++", "z--"),
-       ntick=6,
-       cex=.75)
-
-# 軸タイトル
-mtext3d("Weight", edge="x--", line=2)
-mtext3d("Displacement", edge="y++", line=3)
-mtext3d("MPG", edge="z--", line=3)
-~~~
-
-* 保存  
-~~~
-#表示されているグラフの保存
-rgl.snapshot('3dplot.png', fmt='png')
-rgl.postscript('3dplot.pdf', fmt='pdf')
-rgl.postscript('3dplot.ps', fmt='ps')
-
-
-#現在の視点を保存
-view <- par3d("userMatrix")
-
-#視点を再現
-par3d(userMatrix=view)
-
-#視点を出力
-dput(view)
-
-#視点を設定
-View <- structure(c(0.0885247588157654, 0.297822892665863, -0.950507640838623, 
-                    0, -0.970648050308228, -0.188437670469284, -0.149443686008453, 
-                    0, -0.223619237542152, 0.935837864875793, 0.272399872541428, 
-                    0, 0, 0, 0, 1), .Dim = c(4L, 4L))
-
-#視点を再現
-par3d(userMatrix=view)
-
-# アニメーション
-# 回転速度、時間を設定
-plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type="s", size=0.75, lit=F)
-play3d(spin3d(axis=c(1, 0, 0), rpm=4), duration=20)
-
-# 保存、フレーム数を設定
-library(migick)
-movie3d(spin3d(axis=c(0, 0, 1), rpm=4), duration=15, fps=50,
-        movie="C:/Users/yh_in/learning/R-Graphics/anime",
-        convert=F)
-~~~
 
 * その他  
 ~~~
@@ -1473,8 +1355,6 @@ ggplot(taiwan_shp_mod) +
 ~~~
 
 ### R Tips  
-scale(df): 各列を正規化  
-merge(tbl1, tbl2, by.x=BMONTH, by.y=TMONTH): 結合（join）と同じ  
 クロージャー（関数を含んだ関数オブジェクト）作成関数  
 ~~~
 # 関数の出力範囲に制限するクロージャーを出力
@@ -1487,7 +1367,8 @@ clfunc <- function(fun, min, max) {
 }
 ~~~
 ネットワークの種類: `?igraph::layout`
-
+`sample_n(df, n)`: 指定数の行をランダムに抽出  
+`scale(df)`: 各列を正規化（平均を引いて標準偏差で割る）    
 
 
 
