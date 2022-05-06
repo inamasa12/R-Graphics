@@ -1172,6 +1172,57 @@ ggplot(df, aes(col1, col2, fill=col3)) +
 <img src="https://user-images.githubusercontent.com/51372161/166613575-297292ba-e275-4547-b023-9043a9926881.png">  
 
 
+5. 三次元プロット  
+
+~~~
+# 準備
+library(rgl)
+m <- mtcars
+mod <- lm(mpg~wt+disp+wt:disp, data=m)             # モデル構築
+m$pred_mpg <- predict(mod)                         # 予測値の算出
+mpgrid_df <- predictgrid(mod, "wt", "disp", "mpg") # 独自関数で説明変数のグリッドに対して予測値を算出（予測面）
+mpgril_list <- df2mat(mpgrid_df)                   # 独自関数で予測面をrgl用に変換
+
+# 各点の表示  
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
+       xlab="", ylab="", zlab="",
+       axes=F,
+       size=.5, type="s", lit=F) # 球状、3Dオフ
+
+# 予測値と実測値を結ぶ線分の表示
+segments3d(interleave(m$wt, m$wt),        # 独自関数で線分の端点（x軸）を設定
+           interleave(m$disp, m$disp),    # 独自関数で線分の端点（y軸）を設定
+           interleave(m$mpg, m$pred_mpg), # 独自関数で線分の端点（z軸）を設定
+           alpha=0.4, col="red")
+
+# 予測面の表示
+surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
+          alpha=.4, front="lines", back="lines")
+
+# グラフ領域の色指定
+rgl.bbox(color="grey50",
+         emission="grey50",
+         xlen=0, ylen=0, zlen=0)
+
+# 軸の設定
+rgl.material(color="black")
+axes3d(edge=c("x--", "y+-", "z--"),
+      ntick=6,
+      cex=.75)
+mtext3d("Weight", edge="x--", line=2)
+mtext3d("Displacement", edge="y+-", line=3)
+mtext3d("MPG", edge="z--", line=3)
+
+# 画像を保存
+rgl.snapshot("3dplot1.png", fmt="png")
+
+# アニメーション
+play3d(spin3d(axis=c(0, 1, 0), rpm=1), duration=20)
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/167138084-a992d3f7-1481-49ad-a62d-caea2205444c.png">  
+
+
+
 
 * 三次元プロット  
 ~~~
