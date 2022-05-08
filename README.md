@@ -1231,7 +1231,7 @@ d <- dist(df)      # method=eculidean, maximum, manhattan, canberra, binary, min
 hc <- hclust(d)    # method=complete, ward, single, average, mcquitty, median, centroid
 plot(hc, hang=-1)
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/167276930-0639ec3a-8a16-42d2-9632-a3e0efeb4008.png">  
+<img src="https://user-images.githubusercontent.com/51372161/167276930-0639ec3a-8a16-42d2-9632-a3e0efeb4008.png" width="500px">  
 
 
 
