@@ -1231,10 +1231,19 @@ d <- dist(df)      # method=eculidean, maximum, manhattan, canberra, binary, min
 hc <- hclust(d)    # method=complete, ward, single, average, mcquitty, median, centroid
 plot(hc, hang=-1)
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/167276930-0639ec3a-8a16-42d2-9632-a3e0efeb4008.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/167276988-5376f948-d2b0-4081-b504-4abbb6950bfd.png" width="500px">  
 
-
-
+7. ベクトルフィールド  
+~~~
+isub %>%
+  mutate(hight=z) %>%
+  ggplot(aes(x, y)) +
+  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, colour=speed),
+               arrow=arrow(length=unit(0.1, "cm")), size=0.5) +
+  scale_colour_continuous(low="grey80", high="darkred") +
+  facet_wrap(~hight, labeller=label_both)
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/167277317-bbe86dc9-009e-496a-8e9b-a21b0f334faf.png" width="500px">  
 
 
 
@@ -1370,9 +1379,9 @@ clfunc <- function(fun, min, max) {
   }
 }
 ~~~
-ネットワークの種類: `?igraph::layout`
+ネットワークの種類: `?igraph::layout`  
 `sample_n(df, n)`: 指定数の行をランダムに抽出  
-`scale(df)`: 各列を正規化（平均を引いて標準偏差で割る）    
+`scale(df)`: 各列を正規化（平均を引いて標準偏差で割る）  
 
 
 
