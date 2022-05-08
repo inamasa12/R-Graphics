@@ -1172,7 +1172,7 @@ ggplot(df, aes(col1, col2, fill=col3)) +
 <img src="https://user-images.githubusercontent.com/51372161/166613575-297292ba-e275-4547-b023-9043a9926881.png">  
 
 
-5. 三次元プロット  
+5. 三次元プロット（ggplotではない）  
 
 ~~~
 # 準備
@@ -1223,7 +1223,16 @@ play3d(spin3d(axis=c(0, 1, 0), rpm=1), duration=20) # axis: 回転軸に1、rpm:
 <img src="https://user-images.githubusercontent.com/51372161/167138084-a992d3f7-1481-49ad-a62d-caea2205444c.png">  
 
 
-6. 樹形図  
+6. 樹形図（ggplotではない）  
+distで変数間の距離を算出し、hclustでクラスタリング  
+~~~
+rownames(df) <- c("a", "b", ...) # hclustでは行名の設定が必須
+d <- dist(df)      # method=eculidean, maximum, manhattan, canberra, binary, minkowski
+hc <- hclust(d)    # method=complete, ward, single, average, mcquitty, median, centroid
+plot(hc, hang=-1)
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/167276930-0639ec3a-8a16-42d2-9632-a3e0efeb4008.png">  
+
 
 
 
@@ -1231,11 +1240,6 @@ play3d(spin3d(axis=c(0, 1, 0), rpm=1), duration=20) # axis: 回転軸に1、rpm:
 
 * その他  
 ~~~
-# 樹形図
-# distで各点の距離を計測、hclustでクラスター
-hc <- hclust(dist(c3))
-plot(hc, hang=-1)
-
 
 # ベクトルフィールド
 # 基本
