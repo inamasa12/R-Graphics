@@ -1235,46 +1235,30 @@ plot(hc, hang=-1)
 
 7. ベクトルフィールド  
 ~~~
-isub %>%
-  mutate(hight=z) %>%
-  ggplot(aes(x, y)) +
-  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, colour=speed),
+ggplot(df, aes(col_x1, col_y1)) + # 起点
+  geom_segment(aes(xend=col_x1+col_x2/50, yend=col_y1+col_y2/50, colour=col), # 各起点から線分を引く（ベクトル）
                arrow=arrow(length=unit(0.1, "cm")), size=0.5) +
   scale_colour_continuous(low="grey80", high="darkred") +
-  facet_wrap(~hight, labeller=label_both)
+  facet_wrap(~col_z, labeller=label_both)
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167277317-bbe86dc9-009e-496a-8e9b-a21b0f334faf.png" width="500px">  
 
+8. QQプロット&累積分布  
+~~~
+ggplot(heightweight, aes(sample=heightIn)) +
+  geom_qq() +
+  geom_qq_line() +
+  labs(title="QQプロット")
+
+ggplot(heightweight, aes(ageYear)) +
+  stat_ecdf() +
+  labs(title="累積分布")
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/167406856-b19f920d-2e62-4f94-9640-5ea83692dc4d.png">  
 
 
 * その他  
 ~~~
-
-# ベクトルフィールド
-# 基本
-ggplot(islicesub, aes(x, y)) +
-  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, alpha=speedxy), # ベクトルの終点を設定
-               arrow=arrow(length=unit(0.1, "cm")),
-               size=0.6)
-
-# 地図に重ねる
-usa <- map_data("usa")
-ggplot(islicesub, aes(x, y)) +
-  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, colour=speedxy),
-               arrow=arrow(length=unit(0.1, "cm")),
-               size=0.6) +
-  scale_colour_continuous(low="grey80", high="darkred") +
-  geom_path(aes(x=long, y=lat, group=group), data=usa) + #地図の表示
-  coord_cartesian(xlim=range(islicesub$x), ylim=range(islicesub$y)) #ズームイン
-
-# ファセット
-ggplot(isub, aes(x, y)) +
-  geom_segment(aes(xend=x+vx/50, yend=y+vy/50, colour=speed),
-               arrow=arrow(length=unit(0.1, "cm")),
-               size=0.5) +
-  scale_colour_continuous(low="grey80", high="darkred") +
-  facet_wrap(~z)
-
 
 # Q-Qプロット、対応する正規分布と合わせて表示
 ggplot(heightweight, aes(sample=ageYear)) +
