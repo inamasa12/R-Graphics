@@ -1258,8 +1258,12 @@ ggplot(df, aes(col)) +
 
 9. モザイクプロット  
 
-
-
+~~~
+mosaic(~Dept + Gender + Admit, data=UCBAdmissions,
+       highlighting="Admit", highlighting_fill=c("lightblue", "pink"),
+       direction=c("v", "v", "h"))
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/167620345-57bc74e7-3d95-414f-b086-076bc8435354.png" width="500px">  
 
 
 * その他  
