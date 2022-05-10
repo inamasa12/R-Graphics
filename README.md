@@ -1256,14 +1256,16 @@ ggplot(df, aes(col)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167406856-b19f920d-2e62-4f94-9640-5ea83692dc4d.png">  
 
-9. モザイクプロット  
 
+9. モザイクプロット  
 ~~~
-mosaic(~Dept + Gender + Admit, data=UCBAdmissions,
-       highlighting="Admit", highlighting_fill=c("lightblue", "pink"),
-       direction=c("v", "v", "h"))
+# table関数で作成されるテーブルオブジェクト（クロス集計表）をインプットとする
+library(vcd)
+mosaic(~ col1 + col2 + col3, data=tbl,
+       highlighting="col3", highlighting_fill=c("lightblue", "pink"), # 色分けする項目と色の設定
+       direction=c("v", "v", "h")) # 並べる方向
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/167620345-57bc74e7-3d95-414f-b086-076bc8435354.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/167620345-57bc74e7-3d95-414f-b086-076bc8435354.png" width="700px">  
 
 
 * その他  
