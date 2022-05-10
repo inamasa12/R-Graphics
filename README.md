@@ -1245,16 +1245,21 @@ ggplot(df, aes(col_x1, col_y1)) + # 起点
 
 8. QQプロット&累積分布  
 ~~~
-ggplot(heightweight, aes(sample=heightIn)) +
+# QQプロット
+ggplot(df, aes(sample=col)) +
   geom_qq() +
-  geom_qq_line() +
-  labs(title="QQプロット")
+  geom_qq_line() 
 
-ggplot(heightweight, aes(ageYear)) +
+# 累積分布
+ggplot(df, aes(col)) +
   stat_ecdf() +
-  labs(title="累積分布")
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167406856-b19f920d-2e62-4f94-9640-5ea83692dc4d.png">  
+
+9. モザイクプロット  
+
+
+
 
 
 * その他  
