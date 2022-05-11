@@ -1256,51 +1256,30 @@ ggplot(df, aes(col)) +
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167406856-b19f920d-2e62-4f94-9640-5ea83692dc4d.png">  
 
-
 9. モザイクプロット  
 ~~~
 # table関数で作成されるテーブルオブジェクト（クロス集計表）をインプットとする
 library(vcd)
 mosaic(~ col1 + col2 + col3, data=tbl,
        highlighting="col3", highlighting_fill=c("lightblue", "pink"), # 色分けする項目と色の設定
-       direction=c("v", "v", "h")) # 並べる方向
+       direction=c("v", "v", "h")) # 分割する線の方向
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167620345-57bc74e7-3d95-414f-b086-076bc8435354.png" width="700px">  
 
-
-* その他  
+10. 円グラフ  
 ~~~
+# table関数で作成されるテーブルオブジェクト（クロス集計表）をインプットとする
+pie(tbl)
 
-# Q-Qプロット、対応する正規分布と合わせて表示
-ggplot(heightweight, aes(sample=ageYear)) +
-  geom_qq_line() +
-  geom_qq()
-
-
-# 累積分布 
-ggplot(heightweight, aes(heightIn)) +
-  stat_ecdf()
-
-
-# モザイクプロット  
-# 基本、インプットは多次元分割表
-library(vcd)
-mosaic(~Admit + Gender + Dept, data=UCBAdmissions)
-
-# 応用
-mosaic(~Dept + Gender + Admit, data=UCBAdmissions,
-       highlighting="Admit",
-       highlighting_fill=c("lightblue", "pink"),  # 指定のカテゴリで色分け
-       direction=c("v", "h", "v")) # v:垂直線で分割、h: 水平線で分割
-
-# 円グラフ  
-# 分割表（table）を入力
-pie(fold)
-
-# 直接指定
+# 直接値をインプット
 pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/167847733-652f5436-d01e-4698-a0ac-dfdeab494636.png">  
 
 
+
+
+~~~
 # 地図
 
 # 地図データの取得
@@ -1361,6 +1340,8 @@ taiwan_shp <- st_read("TWN_adm2.shp")
 ggplot(taiwan_shp_mod) +
   geom_sf(aes(fill=ENGTYPE_2))
 ~~~
+
+
 
 ### R Tips  
 クロージャー（関数を含んだ関数オブジェクト）作成関数  
