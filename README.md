@@ -824,7 +824,7 @@ scale_x_dateを使用
     |%d|日(DD)|  
     |%a|曜日|  
     
-<img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png">  
+<img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png" width="500px">  
 
 
 
