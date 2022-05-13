@@ -1276,7 +1276,39 @@ pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
 ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167847733-652f5436-d01e-4698-a0ac-dfdeab494636.png">  
 
+11. 地図の作成（mapsパッケージの利用）  
+mapsパッケージの地図データの構成
+|列名|説明|  
+|---|---|  
+|long|経度|  
+|lat|緯度|  
+|group|各ポリゴンのグループ化変数|  
+|region|国名|  
+|subregion|各ポリゴンの名称|  
 
+~~~
+library(map)
+
+# 地図データの取得
+east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South Korea"))
+states_map <- map_data("state")
+
+# geom_polygon
+ggplot(east_asia, aes(long, lat, group=group, fill=region)) +
+  geom_polygon(colour="black") +
+  scale_fill_brewer(palette="Set2") +
+  coord_map("polyconic")
+
+# geom_map
+ggplot(crimes, aes(map_id=state, fill=Assault)) +
+  geom_map(map=states_map, colour="black") +
+  expand_limits(x=states_map$long, y=states_map$lat) +
+  scale_fill_gradient2(low="#559999", mid="grey90", high="#BB650B", midpoint=median(crimes$Assault))
+  scale_fill_viridis_c()
+  
+
+
+~~~
 
 
 ~~~
