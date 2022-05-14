@@ -245,7 +245,7 @@ geom_pointを使用
             ) +
         scale_size_area()                  # col4の値の大きさを点の面積に反映させる（デフォルトは半径） 
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/157440331-d60154bf-81e1-4c93-b096-f64a4ff9aa07.png">  
+<img src="https://user-images.githubusercontent.com/51372161/157440331-d60154bf-81e1-4c93-b096-f64a4ff9aa07.png" width="600px">  
 
 2. オーバープロット１  
 点の重なりを回避するための技法  
@@ -266,7 +266,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
         stat_binhex() +
         scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png" width="600px">  
 
 3. オーバープロット２  
 ジッターや箱ひげ図（geom_boxplot）を使用  
@@ -280,7 +280,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     ggplot(ChickWeight, aes(Time, weight)) +
         geom_boxplot(aes(group=Time))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png" width="600px">  
 
 4. 傾向線１  
 stat_smoothを使用  
