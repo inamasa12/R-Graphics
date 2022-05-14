@@ -1277,12 +1277,13 @@ pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
 <img src="https://user-images.githubusercontent.com/51372161/167847733-652f5436-d01e-4698-a0ac-dfdeab494636.png">  
 
 11. 地図の作成（mapsパッケージの利用）  
-mapsパッケージの地図データの構成
+mapsパッケージの地図データの構成（データはgroup毎にorderに関して昇順に整列されている必要がある）  
 |列名|説明|  
 |---|---|  
 |long|経度|  
 |lat|緯度|  
 |group|各ポリゴンのグループ化変数|  
+|order|グループ内で各点を結ぶ順序|  
 |region|国名|  
 |subregion|各ポリゴンの名称|  
 
@@ -1293,85 +1294,41 @@ library(map)
 east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South Korea"))
 states_map <- map_data("state")
 
+# geom_path（ポリゴンを塗りつぶしできない）
+ggplot(states_map, aes(long, lat, group=group)) + # mapsパッケージで地図を表示する際の標準設定
+  geom_path() +
+  coord_map("mercator") # 投影方法の指定
+
 # geom_polygon
-ggplot(east_asia, aes(long, lat, group=group, fill=region)) +
+ggplot(east_asia, aes(long, lat, group=group, fill=region)) + # mapsパッケージで地図を表示する際の標準設定
   geom_polygon(colour="black") +
   scale_fill_brewer(palette="Set2") +
   coord_map("polyconic")
 
-# geom_map
-ggplot(crimes, aes(map_id=state, fill=Assault)) +
-  geom_map(map=states_map, colour="black") +
-  expand_limits(x=states_map$long, y=states_map$lat) +
+# geom_map（他のデータと合わせて地図データを用いる）
+ggplot(crimes, aes(map_id=state, fill=Assault)) + # 地図データのregionにリンクする列をmap_idで指定する
+  geom_map(map=states_map, colour="black") + # 地図データは指定するだけで良い
+  expand_limits(x=states_map$long, y=states_map$lat) + # geom_mapは範囲を自動で設定しないため、明示的に指定
   scale_fill_gradient2(low="#559999", mid="grey90", high="#BB650B", midpoint=median(crimes$Assault))
-  scale_fill_viridis_c()
-  
-
-
+  scale_fill_viridis_c() 
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/168404909-db819608-5c53-424d-a80a-51ce36b03a7f.png">  
 
-
+11. 地図の作成（シェープファイルから作成）  
+地図のシェープファイルは[GADMのサイト](https://gadm.org/download_country.html)から取得  
 ~~~
-# 地図
-
-# 地図データの取得
-states_map <- map_data("state")
-# 塗りつぶしあり
-ggplot(states_map, aes(long, lat, group=group)) +
-  geom_polygon(fill="white", colour="black")
-# 塗りつぶしなし
-ggplot(states_map, aes(long, lat, group=group)) +
-  geom_path() +
-  coord_map("mercator")
-
-# 特定の地域
-east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South Korea"))
-ggplot(east_asia, aes(long, lat, group=group, fill=region)) +
-  geom_polygon(colour="black") +
-  scale_fill_brewer(palette="Set2")
-
-
-# 地図に値を割り当てて表示１（geom_polygonを使用）
-
-# 割り当て
-crime_map <- merge(states_map, crimes, by.x="region", by.y="state")
-
-# 値をfillに設定
-crime_p <- ggplot(crime_map, aes(long, lat, group=group, fill=Assault)) +
-  geom_polygon(colour="black") +
-  expand_limits(x=states_map$long, y=states_map$lat) # 範囲の拡張（この場合変わらない）
-  coord_map("polyconic")
-
-# グラデーション１
-crime_p +
-  scale_fill_gradient2(low="#559999", mid="grey90", high="#BB650B",
-                      midpoint=median(crimes$Assault))
-
-# グラデーション２
-crime_p +
-  scale_fill_viridis_c()
-
-
-# 地図に値を割り当てて表示２（geom_mapを使用）
-# mapに与えるデータフレームはgeom_polygonで用いた、lat、long、regionの列を持つ必要がある
-# map_idにはregionに対応する変数を与える
-ggplot(crimes, aes(map_id=state, fill=Assault_q)) +
-  geom_map(map=states_map, colour="black") +
-  scale_fill_manual(values=pal) +
-  expand_limits(x=states_map$long, y=states_map$lat) + # geom_mapの時は必ず必要
-  coord_map("polyconic") +
-  labs(fill="Assault Rate\nPercentile") +
-  theme_void() # 背景を消す場合
-
-
-# シェープファイルから作図
-# https://gadm.org/index.html から旧バージョンのshファイルをダウンロード
-
 library(sf)
+
+# データの読み込み
 taiwan_shp <- st_read("TWN_adm2.shp")
+
+# NAの行は除く必要がある
+taiwan_shp_mod <- taiwan_shp[!is.na(taiwan_shp$ENGTYPE_2),]
+
 ggplot(taiwan_shp_mod) +
   geom_sf(aes(fill=ENGTYPE_2))
 ~~~
+<img src="https://user-images.githubusercontent.com/51372161/168405156-ddba66de-d66f-4669-b776-de4922a15aea.png">  
 
 
 
@@ -1386,6 +1343,13 @@ clfunc <- function(fun, min, max) {
     return(y)
   }
 }
+~~~
+連続変数から離散変数への変換  
+~~~
+qa <- quantile(df$col_c, c(0, 0.2, 0.4, 0.6, 0.8, 1.0)) # 分位点をパーセンタイルで指定
+df$col_d <- cut(df$col_c, qa,
+                        labels=c("0-20%", "20-40%", "40-60%", "60-80%", "80-100%"),
+                        include.lowest=T) # 分位点に基づき連続変数に離散変数を割り当て
 ~~~
 ネットワークの種類: `?igraph::layout`  
 `sample_n(df, n)`: 指定数の行をランダムに抽出  
