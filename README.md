@@ -134,7 +134,7 @@ geom_barを使用
         facet_grid(lg~., scales="free_y", space="free_y") # spaceを指定しない場合、各図の大きさは同じに設定される
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156549905-db73ddbc-7117-4d98-b2b5-2204bae2e752.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156549905-db73ddbc-7117-4d98-b2b5-2204bae2e752.png" width="500px">  
 
 
 ### R Tips  
@@ -175,7 +175,7 @@ geom_lineを使用
         geom_point(size=4, shape=21, fill="pink") # サイズのデフォルトは2
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156872927-e593a801-397a-4d47-9d8e-864b056dfc1f.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156872927-e593a801-397a-4d47-9d8e-864b056dfc1f.png" width="500px">  
 
 2. 面グラフ  
 geom_areaを使用  
