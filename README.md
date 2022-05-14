@@ -212,7 +212,7 @@ geom_ribbonを使用
         geom_line()
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156921881-6f5c5df0-0b98-4ccb-aee0-c244c6940308.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/156921881-6f5c5df0-0b98-4ccb-aee0-c244c6940308.png" width="400px">  
 
 ### R Tips  
 as.integer(as.character(factor)): ファクターを表示の値で数値に変換する場合は先に文字列に変換しておく必要がある  
