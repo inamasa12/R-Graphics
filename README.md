@@ -110,7 +110,7 @@ geom_barを使用
         geom_text(aes(label=..count.., stat="count"), position=position_dodge(0.7), size=3)  # 要約値を値ラベルで表示、サイズのデフォルトは5
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156161725-9a6b8d6c-b118-4263-b951-33f7332577bd.png" width="600px">  
+<img src="https://user-images.githubusercontent.com/51372161/156161725-9a6b8d6c-b118-4263-b951-33f7332577bd.png" width="500px">  
 
 3. 表示の工夫  
 値の正負でグラフを色分け ⇒ col3に正負を表す論理値等を設定  
@@ -121,7 +121,7 @@ geom_barを使用
         scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=F) # guide=Fで凡例を非表示
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156162343-98511e10-d9ae-47ab-94ea-1f131f32dfe4.png" width="600px">  
+<img src="https://user-images.githubusercontent.com/51372161/156162343-98511e10-d9ae-47ab-94ea-1f131f32dfe4.png" width="500px">  
 
 
 4. ドットプロット  
