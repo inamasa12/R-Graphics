@@ -1274,7 +1274,7 @@ pie(tbl)
 # 直接値をインプット
 pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/167847733-652f5436-d01e-4698-a0ac-dfdeab494636.png">  
+<img src="https://user-images.githubusercontent.com/51372161/167847733-652f5436-d01e-4698-a0ac-dfdeab494636.png" width="500px">  
 
 11. 地図の作成（mapsパッケージの利用）  
 mapsパッケージの地図データの構成（データはgroup毎にorderに関して昇順に整列されている必要がある）  
@@ -1316,20 +1316,17 @@ ggplot(crimes, aes(map_id=state, fill=Assault)) + # 地図データのregionに�
 
 11. 地図の作成（シェープファイルから作成）  
 地図のシェープファイルは[GADMのサイト](https://gadm.org/download_country.html)から取得  
-~~~
-library(sf)
+    ~~~
+    library(sf)
 
-# データの読み込み
-taiwan_shp <- st_read("TWN_adm2.shp")
+    # データの読み込み
+    taiwan_shp <- st_read("TWN_adm2.shp")
+    taiwan_shp_mod <- taiwan_shp[!is.na(taiwan_shp$ENGTYPE_2),] # NAの行は除く必要がある
 
-# NAの行は除く必要がある
-taiwan_shp_mod <- taiwan_shp[!is.na(taiwan_shp$ENGTYPE_2),]
-
-ggplot(taiwan_shp_mod) +
-  geom_sf(aes(fill=ENGTYPE_2))
-~~~
+    ggplot(taiwan_shp_mod) +
+        geom_sf(aes(fill=ENGTYPE_2))
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/168405156-ddba66de-d66f-4669-b776-de4922a15aea.png">  
-
 
 
 ### R Tips  
@@ -1355,7 +1352,8 @@ df$col_d <- cut(df$col_c, qa,
 `sample_n(df, n)`: 指定数の行をランダムに抽出  
 `scale(df)`: 各列を正規化（平均を引いて標準偏差で割る）  
 
-
+---
+　  
 
 ## 第１４章　文書用に図を出力する  
 
