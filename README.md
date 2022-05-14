@@ -1225,12 +1225,12 @@ play3d(spin3d(axis=c(0, 1, 0), rpm=1), duration=20) # axis: 回転軸に1、rpm:
 
 6. 樹形図（ggplotではない）  
 distで変数間の距離を算出し、hclustでクラスタリング  
-~~~
-rownames(df) <- c("a", "b", ...) # hclustでは行名の設定が必須
-d <- dist(df)      # method=eculidean, maximum, manhattan, canberra, binary, minkowski
-hc <- hclust(d)    # method=complete, ward, single, average, mcquitty, median, centroid
-plot(hc, hang=-1)
-~~~
+    ~~~
+    rownames(df) <- c("a", "b", ...) # hclustでは行名の設定が必須
+    d <- dist(df)      # method=eculidean, maximum, manhattan, canberra, binary, minkowski
+    hc <- hclust(d)    # method=complete, ward, single, average, mcquitty, median, centroid
+    plot(hc, hang=-1)
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/167276988-5376f948-d2b0-4081-b504-4abbb6950bfd.png" width="500px">  
 
 7. ベクトルフィールド  
@@ -1279,40 +1279,40 @@ pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
 11. 地図の作成（mapsパッケージの利用）  
 mapsパッケージの地図データの構成（データはgroup毎にorderに関して昇順に整列されている必要がある）  
 
-|列名|説明|  
-|---|---|  
-|long|経度|  
-|lat|緯度|  
-|group|各ポリゴンのグループ化変数|  
-|order|グループ内で各点を結ぶ順序|  
-|region|国名|  
-|subregion|各ポリゴンの名称|  
+    |列名|説明|  
+    |---|---|  
+    |long|経度|  
+    |lat|緯度|  
+    |group|各ポリゴンのグループ化変数|  
+    |order|グループ内で各点を結ぶ順序|  
+    |region|国名|  
+    |subregion|各ポリゴンの名称|  
 
-~~~
-library(map)
+    ~~~
+    library(map)
+    
+    # 地図データの取得
+    east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South Korea"))
+    states_map <- map_data("state")
+    
+    # geom_path（ポリゴンを塗りつぶしできない）
+    ggplot(states_map, aes(long, lat, group=group)) + # mapsパッケージで地図を表示する際の標準設定
+        geom_path() +
+        coord_map("mercator") # 投影方法の指定
 
-# 地図データの取得
-east_asia <- map_data("world", region=c("Japan", "China", "North Korea", "South Korea"))
-states_map <- map_data("state")
+    # geom_polygon
+    ggplot(east_asia, aes(long, lat, group=group, fill=region)) + # mapsパッケージで地図を表示する際の標準設定
+        geom_polygon(colour="black") +
+        scale_fill_brewer(palette="Set2") +
+        coord_map("polyconic")
 
-# geom_path（ポリゴンを塗りつぶしできない）
-ggplot(states_map, aes(long, lat, group=group)) + # mapsパッケージで地図を表示する際の標準設定
-  geom_path() +
-  coord_map("mercator") # 投影方法の指定
-
-# geom_polygon
-ggplot(east_asia, aes(long, lat, group=group, fill=region)) + # mapsパッケージで地図を表示する際の標準設定
-  geom_polygon(colour="black") +
-  scale_fill_brewer(palette="Set2") +
-  coord_map("polyconic")
-
-# geom_map（他のデータと合わせて地図データを用いる）
-ggplot(crimes, aes(map_id=state, fill=Assault)) + # 地図データのregionにリンクする列をmap_idで指定する
-  geom_map(map=states_map, colour="black") + # 地図データは指定するだけで良い
-  expand_limits(x=states_map$long, y=states_map$lat) + # geom_mapは範囲を自動で設定しないため、明示的に指定
-  scale_fill_gradient2(low="#559999", mid="grey90", high="#BB650B", midpoint=median(crimes$Assault))
-  scale_fill_viridis_c() 
-~~~
+    # geom_map（他のデータと合わせて地図データを用いる）
+    ggplot(crimes, aes(map_id=state, fill=Assault)) + # 地図データのregionにリンクする列をmap_idで指定する
+        geom_map(map=states_map, colour="black") + # 地図データは指定するだけで良い
+        expand_limits(x=states_map$long, y=states_map$lat) + # geom_mapは範囲を自動で設定しないため、明示的に指定
+        scale_fill_gradient2(low="#559999", mid="grey90", high="#BB650B", midpoint=median(crimes$Assault))
+        scale_fill_viridis_c() 
+    ~~~
 <img src="https://user-images.githubusercontent.com/51372161/168404909-db819608-5c53-424d-a80a-51ce36b03a7f.png">  
 
 11. 地図の作成（シェープファイルから作成）  
