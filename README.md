@@ -134,7 +134,7 @@ geom_barを使用
         facet_grid(lg~., scales="free_y", space="free_y") # spaceを指定しない場合、各図の大きさは同じに設定される
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156549905-db73ddbc-7117-4d98-b2b5-2204bae2e752.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/156549905-db73ddbc-7117-4d98-b2b5-2204bae2e752.png" width="400px">  
 
 
 ### R Tips  
@@ -212,7 +212,7 @@ geom_ribbonを使用
         geom_line()
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156921881-6f5c5df0-0b98-4ccb-aee0-c244c6940308.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156921881-6f5c5df0-0b98-4ccb-aee0-c244c6940308.png" width="500px">  
 
 ### R Tips  
 as.integer(as.character(factor)): ファクターを表示の値で数値に変換する場合は先に文字列に変換しておく必要がある  
