@@ -200,7 +200,7 @@ geom_areaを使用
         scale_y_continuous(labels=scales::percent)          # y軸をパーセント表示
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/156921425-062ac4ce-1a0a-41d4-bb7e-102228786351.png">  
+<img src="https://user-images.githubusercontent.com/51372161/156921425-062ac4ce-1a0a-41d4-bb7e-102228786351.png" width="700px">  
 
 3. 信頼区間の表示  
 geom_ribbonを使用  
