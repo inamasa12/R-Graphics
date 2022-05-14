@@ -266,7 +266,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
         stat_binhex() +
         scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png">  
+<img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png" width="500px">  
 
 3. オーバープロット２  
 ジッターや箱ひげ図（geom_boxplot）を使用  
@@ -280,7 +280,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
     ggplot(ChickWeight, aes(Time, weight)) +
         geom_boxplot(aes(group=Time))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png">  
+<img src="https://user-images.githubusercontent.com/51372161/157862654-dfe9eb2e-e2b8-47a7-a863-8672176edb0e.png" width="500px">  
 
 4. 傾向線１  
 stat_smoothを使用  
