@@ -561,7 +561,7 @@ hjust=0（1）でテキストの左端（右端）が、vjust=0（1）でテキ�
         annotate("text", x=-Inf, y=Inf, label="Upper left", hjust=0, vjust=1) +
         annotate("text", x=Inf, y=-Inf, label="Lower Right", hjust=1, vjust=0)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png" width="400px">  
 
 2. 補助線  
 geom_hline、geom_vline、geom_ablineを使用  
@@ -647,7 +647,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_text(data=labels, x=3, y=35, hjust=0, aes(label=r2), parse=T) +
   facet_grid(.~drv)
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/162444661-5035e04e-4e86-4c93-8f90-84a5f18d4819.png" width="700px">  
+<img src="https://user-images.githubusercontent.com/51372161/162444661-5035e04e-4e86-4c93-8f90-84a5f18d4819.png" width="600px">  
 
 ---
 　  
