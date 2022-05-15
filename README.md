@@ -561,7 +561,7 @@ hjust=0（1）でテキストの左端（右端）が、vjust=0（1）でテキ�
         annotate("text", x=-Inf, y=Inf, label="Upper left", hjust=0, vjust=1) +
         annotate("text", x=Inf, y=-Inf, label="Lower Right", hjust=1, vjust=0)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png">  
+<img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png" width="700px">  
 
 2. 補助線  
 geom_hline、geom_vline、geom_ablineを使用  
@@ -576,7 +576,7 @@ geom_hline、geom_vline、geom_ablineを使用
         geom_point() +
         geom_abline(intercept=37.4, slope=1.75)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/161755642-38d440a8-402b-439a-aafb-7a0a11b67ea3.png">  
+<img src="https://user-images.githubusercontent.com/51372161/161755642-38d440a8-402b-439a-aafb-7a0a11b67ea3.png" width="700px">  
 
 3. 線分、網掛け  
 annotateを使用  
@@ -592,7 +592,7 @@ annotateを使用
         # 網掛け
         annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1, alpha=.1, fill="blue")
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/161975566-89ae3ae3-1da3-4371-b24c-57b5748b36fa.png">  
+<img src="https://user-images.githubusercontent.com/51372161/161975566-89ae3ae3-1da3-4371-b24c-57b5748b36fa.png" width="700px">  
 
 4. エラーバー  
 geom_errorbarを使用  
@@ -614,7 +614,7 @@ geom_errorbarを使用
         geom_line(position=position_dodge(0.3)) +
         geom_point(position=position_dodge(0.3), size=2.5)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/162194498-5d85a686-6587-4a4c-849d-e2f22a2a27db.png">  
+<img src="https://user-images.githubusercontent.com/51372161/162194498-5d85a686-6587-4a4c-849d-e2f22a2a27db.png" width="700px">  
 
 5. ファセットに注釈を表示  
 ~~~
@@ -647,7 +647,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_text(data=labels, x=3, y=35, hjust=0, aes(label=r2), parse=T) +
   facet_grid(.~drv)
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/162444661-5035e04e-4e86-4c93-8f90-84a5f18d4819.png">  
+<img src="https://user-images.githubusercontent.com/51372161/162444661-5035e04e-4e86-4c93-8f90-84a5f18d4819.png" width="700px">  
 
 ---
 　  
