@@ -463,7 +463,7 @@ geom_density、geom_line、geom_freqpolyを使用
         geom_desity(alpha=.3) +
         facet_g rid(col2~.)
         lot      (df, aes(bwt, ..density..)) +
-<img s      rc="https://user-images.githubusercontent.com/51372161/160827097-3c6bc74f-4582-4780-8e9c-9c88abb616f2.pn        g">  
+<img s      rc="https://user-images.githubusercontent.com/51372161/160827097-3c6bc74f-4582-4780-8e9c-9c88abb616f2.png" width="700px">  
         
 4. 箱ひげ図  
 geom_boxplotを使用  
@@ -478,7 +478,7 @@ geom_boxplotを使用
         geom_boxplot() +
         stat_summary(fun="mean", geom="point", shape=23, fill="white") # 平均値
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/160829503-e0a43845-eb60-40f2-b97b-3d496a0cce1b.png">  
+<img src="https://user-images.githubusercontent.com/51372161/160829503-e0a43845-eb60-40f2-b97b-3d496a0cce1b.png" width="700px">  
 
 5. バイオリンプロット  
 デフォルトは各バイオリンの面積が等しくなるようにプロットされる  
@@ -495,7 +495,7 @@ geom_boxplotを使用
         stat_summary(fun=median, geom="point", fill="white", shape=21, size=2.5)
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/160831764-f0e83829-d015-473f-bf60-062b48ef4069.png">  
+<img src="https://user-images.githubusercontent.com/51372161/160831764-f0e83829-d015-473f-bf60-062b48ef4069.png" width="700px">  
 
 6. ドットプロット  
 geom_dotplotを使用  
@@ -516,7 +516,7 @@ geom_dotplotを使用
         scale_x_continuous(breaks=1:nlevels(df$col1),
             labels=levels(df$col1))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/161200788-ff46e3b5-c86b-4c3a-b706-4fda569069e3.png">  
+<img src="https://user-images.githubusercontent.com/51372161/161200788-ff46e3b5-c86b-4c3a-b706-4fda569069e3.png" width="700px">  
 
 
 7. 二次元密度プロット  
