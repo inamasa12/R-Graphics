@@ -388,7 +388,7 @@ ggrepelを使用
         geom_point() +
         geom_rug(position="jitter", size=0.2) # ラグの設定
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png" width="700px">  
+<img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png" width="500px">  
 
 10. その他３  
 散布図行列  
@@ -397,7 +397,7 @@ ggrepelを使用
     # 散布図行列
     pairs(df[, c(col1, col2, ...))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/159484089-3c454bb5-0e57-4e48-9be7-6cdf747c5fcf.png">  
+<img src="https://user-images.githubusercontent.com/51372161/159484089-3c454bb5-0e57-4e48-9be7-6cdf747c5fcf.png" width="600px">  
 
 ### R Tips  
 グラフ内で数式を用いる場合には特有の[数式オブジェクト](http://cse.naro.affrc.go.jp/takezawa/r-tips/r/56.html)を用いる  
