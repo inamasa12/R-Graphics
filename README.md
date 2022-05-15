@@ -388,7 +388,7 @@ ggrepelを使用
         geom_point() +
         geom_rug(position="jitter", size=0.2) # ラグの設定
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png" width="500px">  
+<img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png" width="400px">  
 
 10. その他３  
 散布図行列  
@@ -449,7 +449,7 @@ geom_density、geom_line、geom_freqpolyを使用
         geom_freqpoly(binwidth=1, colour="blue")
     ~~~
 
-<img src="https://user-images.githubusercontent.com/51372161/160624498-a6ff6bd0-18c0-4c2e-9f00-b59dfca59eda.png">  
+<img src="https://user-images.githubusercontent.com/51372161/160624498-a6ff6bd0-18c0-4c2e-9f00-b59dfca59eda.png" width="700px">  
 
 3. 密度曲線２（複数）  
     ~~~
