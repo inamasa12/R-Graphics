@@ -561,7 +561,7 @@ hjust=0（1）でテキストの左端（右端）が、vjust=0（1）でテキ�
         annotate("text", x=-Inf, y=Inf, label="Upper left", hjust=0, vjust=1) +
         annotate("text", x=Inf, y=-Inf, label="Lower Right", hjust=1, vjust=0)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png" width="700px">  
+<img src="https://user-images.githubusercontent.com/51372161/161542218-a4fb6fca-61df-487e-9658-e3b5bb94d442.png" width="500px">  
 
 2. 補助線  
 geom_hline、geom_vline、geom_ablineを使用  
@@ -592,7 +592,7 @@ annotateを使用
         # 網掛け
         annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1, alpha=.1, fill="blue")
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/161975566-89ae3ae3-1da3-4371-b24c-57b5748b36fa.png" width="700px">  
+<img src="https://user-images.githubusercontent.com/51372161/161975566-89ae3ae3-1da3-4371-b24c-57b5748b36fa.png" width="500px">  
 
 4. エラーバー  
 geom_errorbarを使用  
