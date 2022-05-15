@@ -298,7 +298,7 @@ stat_smoothを使用
         geom_point(position=position_jitter(width=0.3, height=0.06)) +
         stat_smooth(method=glm, method.args=list(family=binomial)) # ロジスティック回帰
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png" width="700px">  
+<img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png" width="800px">  
 
 5. 傾向線２  
 別に作成したモデルの予測値をプロット  
