@@ -266,7 +266,7 @@ stat_bin2d、stat_binhex等の多次元ヒストグラムを使用
         stat_binhex() +
         scale_fill_gradient(low="lightblue", high="red", limits=c(0, 6000))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png" width="700px">  
+<img src="https://user-images.githubusercontent.com/51372161/157861938-bd541bc8-fc83-4909-9aba-761600a72e20.png" width="800px">  
 
 3. オーバープロット２  
 ジッターや箱ひげ図（geom_boxplot）を使用  
