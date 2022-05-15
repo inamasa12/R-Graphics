@@ -298,7 +298,7 @@ stat_smoothを使用
         geom_point(position=position_jitter(width=0.3, height=0.06)) +
         stat_smooth(method=glm, method.args=list(family=binomial)) # ロジスティック回帰
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png">  
+<img src="https://user-images.githubusercontent.com/51372161/158952530-b53b80d8-f4dc-4b00-a09d-de4162034591.png" width="700px">  
 
 5. 傾向線２  
 別に作成したモデルの予測値をプロット  
@@ -323,7 +323,7 @@ stat_smoothを使用
         geom_line(data=preds) +　# 予測値（線）のプロット
         facet_grid(.~sex)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png">  
+<img src="https://user-images.githubusercontent.com/51372161/158953994-939c4c01-51ff-4ef2-85b7-f05ae0182aa3.png" width="700px">  
 
 6. ラベリング１  
 geom_textを使用  
@@ -342,7 +342,7 @@ geom_textを使用
             hjust=0, # ラベルの左端を座標に合わせる
             position=position_nudge(x=80, y=-0.1)) # 一律にシフト
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png">  
+<img src="https://user-images.githubusercontent.com/51372161/159487864-9fd2eff7-401a-45dd-b91e-333f90d5ae80.png" width="700px">  
 
 7. ラベリング２  
 ggrepelを使用  
@@ -356,7 +356,7 @@ ggrepelを使用
         geom_point() +
         geom_label_repel(aes(label=col2), size=3)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/159678346-21232347-9d07-45e4-bc7c-033ebda6defe.png">  
+<img src="https://user-images.githubusercontent.com/51372161/159678346-21232347-9d07-45e4-bc7c-033ebda6defe.png" width="700px">  
 
 8. その他１  
 バルーンプロットによる情報付加  
@@ -377,7 +377,7 @@ ggrepelを使用
             colour="grey60",
             size=4) # ラベルを円の下端に表示
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/159483255-a09c9e76-63e4-4559-80e8-43635e68f74d.png">  
+<img src="https://user-images.githubusercontent.com/51372161/159483255-a09c9e76-63e4-4559-80e8-43635e68f74d.png" width="700px">  
 
 9. その他２  
 ラグによる情報付加（geom_rugの使用）  
@@ -388,7 +388,7 @@ ggrepelを使用
         geom_point() +
         geom_rug(position="jitter", size=0.2) # ラグの設定
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png">  
+<img src="https://user-images.githubusercontent.com/51372161/159483851-ef8ef5c2-6c8a-4378-b359-d1ef804eb2d3.png" width="700px">  
 
 10. その他３  
 散布図行列  
