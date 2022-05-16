@@ -1028,7 +1028,7 @@ ggplot(df, aes(col1, col2)) +
   theme(strip.text=element_text(face="bold", size=rel(1.5)), # ラベルの書式
         strip.background=element_rect(fill="lightblue", colour="black", size=1)) # プロット領域の書式
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/164952642-dda57865-be95-492e-9066-eef895645fb7.png" width="600px">
+<img src="https://user-images.githubusercontent.com/51372161/164952642-dda57865-be95-492e-9066-eef895645fb7.png" width="500px">
 
 ### R Tips  
 ファセットのラベル名変更はデータ自体を変更しるしかない  
