@@ -792,7 +792,7 @@ ggplot(df, aes(col1, col2, label=col3)) +
                      breaks=trans_breaks("log2", function(x) 2^x),
                      labels=trans_format("log2", math_format(2^.x)))
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/163659322-babdf2d8-d470-41ca-bf86-655fbc49bec0.png">  
+<img src="https://user-images.githubusercontent.com/51372161/163659322-babdf2d8-d470-41ca-bf86-655fbc49bec0.png" width="500px">  
 
 7. 極座標  
 coord_polarを使用  
@@ -804,7 +804,7 @@ coord_polarを使用
                      breaks=seq(0, 360, by=45),
                      minor_breaks = seq(0, 360, by=15))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/163695999-f1138af6-7762-4df8-8a21-78c80159e04d.png">  
+<img src="https://user-images.githubusercontent.com/51372161/163695999-f1138af6-7762-4df8-8a21-78c80159e04d.png" width="600px">  
 
 8. 日付軸  
 scale_x_dateを使用  
