@@ -950,7 +950,7 @@ ggplot(df, aes(col1, col2, fill=col3)) +
   scale_fill_discrete(guide=F)
   theme(legend.position="none")
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/164814291-e58e8454-e0b8-462d-b618-0af77db4cb26.png" width="600px">  
+<img src="https://user-images.githubusercontent.com/51372161/164814291-e58e8454-e0b8-462d-b618-0af77db4cb26.png" width="500px">  
 
 2. 凡例の表示順  
 ~~~
@@ -975,7 +975,7 @@ ggplot(df, aes(col1, col2, fill=col3)) +
   scale_fill_discrete(name="Condition")
   guides(fill=guide_legend(title="Condition"))
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/164814803-ce19f187-3d56-43e1-8f2f-9c71c7b30c60.png" width="600px">  
+<img src="https://user-images.githubusercontent.com/51372161/164814803-ce19f187-3d56-43e1-8f2f-9c71c7b30c60.png" width="500px">  
 
 4. 凡例ラベル  
 ~~~
@@ -994,7 +994,7 @@ ggplot(df, aes(col1, col2, fill=col3)) +
     size=14),
     legend.key.height=unit(1, "cm")) # 各要素の表示幅
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/164951985-c4667937-5cf0-4c2e-8a8d-8b1723ee7dbb.png" width="600px">  
+<img src="https://user-images.githubusercontent.com/51372161/164951985-c4667937-5cf0-4c2e-8a8d-8b1723ee7dbb.png" width="500px">  
 
 ---
 　  
