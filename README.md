@@ -1157,7 +1157,7 @@ E(g)[c(2, 11, 19)]$color <- "red"        # 特定の辺の色
 g$layout <- layout.fruchterman.reingold  # ネットワークの種類
 plot(g)
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/166391080-41ad36d3-3a09-4fcd-98dc-d9097ed8a531.png">  
+<img src="https://user-images.githubusercontent.com/51372161/166391080-41ad36d3-3a09-4fcd-98dc-d9097ed8a531.png" width="600px">  
 
 
 4. ヒートマップ  
@@ -1169,7 +1169,7 @@ ggplot(df, aes(col1, col2, fill=col3)) +
   scale_x_continuous(breaks=seq(1940, 1976, by=4), expand=c(0, 0)) +
   scale_fill_gradient2(midpoint=50, mid="grey50", limits=c(0, 100))
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/166613575-297292ba-e275-4547-b023-9043a9926881.png">  
+<img src="https://user-images.githubusercontent.com/51372161/166613575-297292ba-e275-4547-b023-9043a9926881.png" width="600px">  
 
 
 5. 三次元プロット（ggplotではない）  
@@ -1220,7 +1220,7 @@ rgl.snapshot("3dplot1.png", fmt="png") # png形式（表示されているイメ
 # アニメーション
 play3d(spin3d(axis=c(0, 1, 0), rpm=1), duration=20) # axis: 回転軸に1、rpm: 回転速度、duration: 時間
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/167138084-a992d3f7-1481-49ad-a62d-caea2205444c.png">  
+<img src="https://user-images.githubusercontent.com/51372161/167138084-a992d3f7-1481-49ad-a62d-caea2205444c.png" width="600px">  
 
 
 6. 樹形図（ggplotではない）  
