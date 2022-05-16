@@ -671,7 +671,7 @@ ggplot(df, aes(col1, col2)) +
   scale_y_continuous(breaks=seq(0, 420, 30)) +
   scale_x_continuous(breaks=seq(0, 420, 15)) +
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/163175296-b33e8d25-eba0-4a2d-b400-a3b47e72e53d.png">  
+<img src="https://user-images.githubusercontent.com/51372161/163175296-b33e8d25-eba0-4a2d-b400-a3b47e72e53d.png" width="600px">  
 
 2. 軸の範囲（limits）  
 ~~~
@@ -687,7 +687,7 @@ ggplot(df, aes(col1, col2)) +
   geom_boxplot() +
   coord_cartesian(ylim=c(5, 6.5))
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/162552176-0bc93c82-c175-493e-8674-7bf29f13dc13.png">  
+<img src="https://user-images.githubusercontent.com/51372161/162552176-0bc93c82-c175-493e-8674-7bf29f13dc13.png" width="600px">  
 
 
 3. 目盛の表示設定（breaks: 目盛線、labels: 目盛ラベル）  
@@ -721,7 +721,7 @@ scalesパッケージで提供されているフォーマッタ
         geom_point() +
         scale_y_continuous(labels=footinch_formatter)
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png">  
+<img src="https://user-images.githubusercontent.com/51372161/162736856-ad60899f-0ca5-4bab-b58f-329efe500913.png" width="600px">  
 
 
 4. 目盛ラベルの体裁、目盛記号の設定  
@@ -742,7 +742,7 @@ scalesパッケージで提供されているフォーマッタ
         # hjust(vjust)=1は右（上）揃え、relでデフォルトからの倍率で文字サイズを指定する
         theme(axis.text.x=element_text(angle=30, hjust=1, vjust=1, size=rel(0.8)))
     ~~~
-<img src="https://user-images.githubusercontent.com/51372161/162975056-cc1d80e2-e00e-4887-833c-e5e1daafa23e.png">  
+<img src="https://user-images.githubusercontent.com/51372161/162975056-cc1d80e2-e00e-4887-833c-e5e1daafa23e.png" width="600px">  
 
 5. 軸タイトル、軸線、枠線の設定  
 ~~~
