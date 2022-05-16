@@ -1088,7 +1088,7 @@ ggplot(df, aes(col1, col2, colour=col3)) +
                         midpoint=110)                                     # 三色
   scale_color_gradientn(colors=c("darkred", "orange", "yellow", "white")) # 四色以上
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/166080408-8f70b07b-5b5c-4947-87c1-fbda51836791.png" width="700px">  
+<img src="https://user-images.githubusercontent.com/51372161/166080408-8f70b07b-5b5c-4947-87c1-fbda51836791.png" width="900px">  
 
 ### R Tips  
 ggplotの色名一覧  
