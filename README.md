@@ -1254,7 +1254,7 @@ ggplot(df, aes(sample=col)) +
 ggplot(df, aes(col)) +
   stat_ecdf() +
 ~~~
-<img src="https://user-images.githubusercontent.com/51372161/167406856-b19f920d-2e62-4f94-9640-5ea83692dc4d.png">  
+<img src="https://user-images.githubusercontent.com/51372161/167406856-b19f920d-2e62-4f94-9640-5ea83692dc4d.png" width="600px">  
 
 9. モザイクプロット  
 ~~~
