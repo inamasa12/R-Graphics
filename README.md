@@ -1358,80 +1358,82 @@ df$col_d <- cut(df$col_c, qa,
 
 ## 第１４章　文書用に図を出力する  
 
-* 出力  
+1. PDFファイルへの出力  
 ~~~
-# PDFファイルへの出力
-
-# 標準
-pdf("myplot.pdf", width=4, height=4)
-plot(mtcars$wt, mtcars$mpg)
-ggplot(mtcars, aes(wt, mpg)) + geom_point()
+# 方法１（複数グラフが可能）
+pdf("myplot.pdf", width=4, height=4) # インチ指定
+plot(df$col1, df$col2)
+print(ggplot(df, aes(col1, col2)) + geom_point())
 dev.off()
 
-# ggplot
-plot1 <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-ggsave("myplot.pdf", plot1, width=8, height=8, units="cm")
+# 方法２
+plt <- ggplot(df, aes(col1, col2)) + geom_point()
+ggsave("myplot.pdf", plt, width=8, height=8, units="cm")
+~~~
 
-
-# svgファイルへの出力
-
-# 標準
-install.packages("svglite")
+2. SVGファイルへの出力  
+~~~
+# 方法１
 library(svglite)
-svglite("myplot.svg", width=4, height=4)
-plot(mtcars$wt, mtcars$mpg)
+svglite("myplot.svg", width=4, height=4) # インチ指定
+plot(df$col1, df$col2)
 dev.off()
 
-# ggplot
-ggplot(mtcars, aes(wt, mpg)) + geom_point()
-ggsave("myplot.svg", width=8, height=8, units="cm")
-
-
-# wmfファイルへの出力
-
-# 標準
-win.metafile("myplot.wmf", width=4, height=4)
-plot(mtcars$wt, mtcars$mpg)
-dev.off()
-
-# ggplot
-ggplot(mtcars, aes(wt, mpg)) + geom_point()
-ggsave("myplot.wmf", width=8, height=8, units="cm")
-
-
-# PNGファイル（ビットマップファイル）への出力
-
-# 標準（複数ファイル）
-# 幅と高さは画素数（ピクセル）、解像度はインチあたりピクセルで指定
-# ⇒ 解像度に合わせて幅と高さを増減させないとグラフが縮小、拡大される
-png("myplot-%d.png", width=400, height=400, dpi=100)
-plot(mtcars$wt, mtcars$mpg)
-ggplot(mtcars, aes(wt, mpg)) + geom_point()
-dev.off()
-
-# ggplot
-ggplot(mtcars, aes(wt, mpg)) + geom_point()
-ggsave("myplot_gg2.png", width=8, height=8, unit="cm", dpi=300)
-
-
-# フォント指定
-
-library(extrafont)
-loadfonts("win")
-
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  ggtitle("Title text goes here") +
-  theme(text=element_text(size=16, family="Georgia", face="italic"))
-
-ggsave("myplot.png", width=4, height=4, dpi=300)
-
-
-# 図の結合
-library(patchwork)
-plot1 + plot2 + plot_layout(ncol=1, heights=c(1, 4))
+# 方法２
+plt <- ggplot(df, aes(col1, col2)) + geom_point()
+ggsave("myplot.svg", plt, width=8, height=8, units="cm")
 ~~~
 
+3. WMFファイルへの出力  
+~~~
+# 方法１
+win.metafile("myplot.wmf", width=4, height=4) # インチ指定
+plot(df$col1, df$col2)
+dev.off()
+
+# 方法２
+plt <- ggplot(df, aes(col1, col2)) + geom_point()
+ggsave("myplot.wmf", plt, width=8, height=8, units="cm")
+~~~
+
+4. PNGファイル（ビットマップ）への出力
+~~~
+# 方法１
+png("myplot.png", width=400, height=400, res=100) # ピクセル数指定（resは1インチあたりのピクセル数）
+plot(df$col1, df$col2)
+dev.off()
+
+# 方法２
+plt <- ggplot(df, aes(col1, col2)) + geom_point()
+ggsave("myplot.png", pl1, width=8, height=8, units="cm", dpi=300) # dpiは1インチあたりのピクセル数
+
+# フォント指定（拡張フォントを前提）
+library(extrafont)
+loadfonts(device="win")
+ggplot(df, aes(col1, col2)) +
+    geom_point() +
+    ggtitle("Title text goes here") +
+    theme(text=element_text(size=16, family="Impact"))
+ggsave("myplot.png", width=4, height=4, dpi=300)
+~~~
+
+5. 複数プロット  
+~~~
+plot1 <- ggplot(df, aes(col)) +
+  geom_histogram(bins=12)
+
+plot2 <- ggplot(df, aes(col1, col2, group=col1)) +
+  geom_boxplot()
+
+plot3 <- ggplot(df, aes(col1, fill=col2)) +
+  geom_density(alpha=0.25)
+
+plot1 + plot2 + plot3 + plot_layout(nrow=1, height(1, 1, 1))
+~~~
+<img src="https://user-images.githubusercontent.com/51372161/169048905-5e3c7c8b-e2a1-40ec-aa84-1fc71514b840.png">  
+
+---
+　  
 
 ## 第１６章　データの前処理  
 
