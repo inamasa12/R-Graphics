@@ -826,8 +826,6 @@ scale_x_dateを使用
     
 <img src="https://user-images.githubusercontent.com/51372161/163806214-2fe970f5-b174-4330-b6bd-6394f04cc50e.png" width="500px">  
 
-
-
 ### R Tips  
 floor(x): xを越えない最大の整数  
 round(x): 独自の基準で少数以下を丸める  
@@ -1417,8 +1415,10 @@ ggplot(df, aes(col1, col2)) +
 ggsave("myplot.png", width=4, height=4, dpi=300)
 ~~~
 
-5. 複数プロット  
+5. 複数プロット（patchworkの利用）  
 ~~~
+library(patchwork)
+
 plot1 <- ggplot(df, aes(col)) +
   geom_histogram(bins=12)
 
@@ -1436,36 +1436,33 @@ plot1 + plot2 + plot3 + plot_layout(nrow=1, height(1, 1, 1))
 　  
 
 ## 第１６章　データの前処理  
-
-* tidyverse  
+データ整形において役立つ処理  
+1. tydyverse  
 ~~~
+# tibbleの作成
+data_frame(vec1, vec2)
+as_data_frame(lst)
+
 # 列の削除
-ToothGrowth %>%
-  select(-len)
+tbl %>% select(-col1)
 
 # 列名の変更
-ToothGrowth %>%
-  rename(length=len)
+tbl %>% rename(col_new=col_old)
 
 # 列の順序を変える
-# everything()は残りの列全てを表す
-ToothGrowth %>%
-  select(dose, everything())
+tbl %>% select(col3, everything()) # everything()は残りの列全てを表す
 
 # 行の選択（インデックス指定）
-ToothGrowth %>%
-  slice(1:5)
+tbl %>% slice(1:5) # 1～5行目を取得
 
 # カテゴリ変数の順序変更
-# stats/reorder
-iss %>%
-  ggplot(aes(x=reorder(spray, count, FUN=mean), count)) +
-  geom_boxplot()
+tbl %>% mutate(col=fct_relevel(col, "fct3", "fct1", "fct2")) # ファクター名で指定 
+tbl %>% mutate(col1=fct_reorder(col1, col2, .fun=median))) # col1をcol2の中央値昇順で順序変更
 
-# forcats/fct_reorder
-iss %>%
-  ggplot(aes(x=fct_reorder(spray, count, .fun=median), count)) +
-  geom_boxplot()
+
+
+
+
 
 # カテゴリ変数のレベル名の操作
 # base
