@@ -1459,69 +1459,15 @@ tbl %>% slice(1:5) # 1～5行目を取得
 tbl %>% mutate(col=fct_relevel(col, "fct3", "fct1", "fct2")) # ファクター名で指定 
 tbl %>% mutate(col1=fct_reorder(col1, col2, .fun=median))) # col1をcol2の中央値昇順で順序変更
 
-
-
-
-
-
-# カテゴリ変数のレベル名の操作
-# base
-levels(sizes) <- list(S="small", M="medium", L="large")
-# forcats
-fct_recode(sizes, S="small", M="medium", L="large")
+# カテゴリ変数のレベル名の変更
+tbl %>% fct_recode(col, fct1_new="fct1_old", fct2_new="fct2_old", fct3_new="fct3_old")　
+⇒ 文字列も全く同様に変更することが可能だが、カテゴリ変数に変換される点に注意
 
 # カテゴリ変数で使用していないレベルを削除する
-# base
-droplevels(sizes)
-# forcats
-fct_drop(sizes)
-
-# 文字列ベクトルの置き換え、baseとtidyverseで設定の右辺と左辺が逆になる点に注意
-# dplyr
-# recodeはインプットと同じ型を返す
-recode(sizes, small="S", medium="M", large="L")
-# forcats
-# fct_recodeは常にファクタを返す
-fct_recode(sizes, S="small", M="medium", L="large")
-
-# カテゴリ変数の変換も文字列ベクトルの置き換え同様
-# 文字列をそのまま返す
-recode(pg$group, ctrl="No", trt1="Yes", trt2="Yes")
-# ファクターに変換して返す
-fct_recode(pg$group, No="ctrl", Yes="trt1", Yes="trt2")
+tbl %>% fct_drop(col)
 ~~~
 
-* tidyverseを用いた関数（標準誤差の算出）
-~~~
-summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=F,
-                      conf.interval=.95, .drop=T){
-  
-  #有効データ数
-  length2 <- function(x, na.rm=F) {
-    if(na.rm) sum(!is.na(x))
-    else length(x)
-  }
-  
-  #関数に与えた値、ベクトルを、
-  #tidyverseの中でそれぞれ単独列変数、グループ列変数として扱えるようにする
-  groupvars <- rlang::syms(groupvars)
-  measurevar <- rlang::sym(measurevar)
-  
-  datac <- data %>%
-    dplyr::group_by(!!!groupvars) %>%
-    dplyr::summarize(
-      N=length2(!!measurevar, na.rm=na.rm),
-      sd=sd(!!measurevar, na.rm=na.rm),
-      !!measurevar:=mean(!!measurevar, na.rm=na.rm),
-      se=sd/sqrt(N),
-      ci=se*qt(conf.interval/2+.5, N-1)
-    ) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(seq_len(ncol(.)-4), ncol(.)-2, sd, se, ci)
-  
-  datac
-}
-~~~
+
 
 * 時系列オブジェクトの変換
 ~~~
@@ -1540,11 +1486,5 @@ pres_rating <- data.frame(
 ~~~
 
 * Tips  
-fct_relevel(fct, "A", "B, "C"): ファクター列のカテゴリ順序を変更する
-interaction(col1, col2): 列の値を結合して新しい列の値を作る
-cut(col, breaks=閾値ベクトル, labels=ラベルベクトル): 連続変数をカテゴリ変数に変換する
-complete(col1, col2): 不足する組み合わせ行を追加する
-gather(tbl, factor_colname, val_colname, gathered_col1, gathered_col1): 横持ちから縦持ちへの変換
-spread(tbl, factor_colname, val_colname): 縦持ちから横持への変換
 unite(new_colname, col1, col2): 列同士を結合した列を加えたtblを返す
 
