@@ -1436,8 +1436,7 @@ plot1 + plot2 + plot3 + plot_layout(nrow=1, height(1, 1, 1))
 　  
 
 ## 第１６章　データの前処理  
-データ整形において役立つ処理  
-1. tydyverse  
+データ整形において役立つ処理（tidyverse）  
 ~~~
 # tibbleの作成
 data_frame(vec1, vec2)
@@ -1467,24 +1466,4 @@ tbl %>% fct_recode(col, fct1_new="fct1_old", fct2_new="fct2_old", fct3_new="fct3
 tbl %>% fct_drop(col)
 ~~~
 
-
-
-* 時系列オブジェクトの変換
-~~~
-# 年次データ
-pres_rating <- data.frame(
-  year=as.numeric(time(presidents)),
-  rating=as.numeric(presidents)
-)
-
-# 四半期データ
-pres_rating <- data.frame(
-  year=as.numeric(floor(time(presidents))),
-  quarter=as.numeric(cycle(presidents)),
-  rating=as.numeric(presidents)
-)
-~~~
-
-* Tips  
-unite(new_colname, col1, col2): 列同士を結合した列を加えたtblを返す
 
